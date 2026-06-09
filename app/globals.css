@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-amber: #C0512C;
+  --color-ink: #151412;
+  --color-paper: #F2EDE8;
+  --color-muted: #A2B0BC;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-ibm-plex);
+  --font-display: var(--font-bebas);
+  --font-mono: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-image: url('/concrete.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #151412;
+  font-family: var(--font-ibm-plex), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.section-card {
+  background: rgba(242, 237, 232, 0.97);
+  border-radius: 20px;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.10);
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.section-dark {
+  background: #151412;
+  border-radius: 20px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+@media (min-width: 768px) {
+  .section-card,
+  .section-dark {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-card,
+  .section-dark {
+    margin-left: 36px;
+    margin-right: 36px;
+  }
 }
