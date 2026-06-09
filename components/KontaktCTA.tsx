@@ -16,7 +16,7 @@ export default function KontaktCTA() {
 
           <div className="pt-4">
             <a
-              href="mailto:kontakt@safe-untermain.de"
+              href="/kontakt"
               className="inline-block px-8 py-4 bg-ink text-paper font-medium text-sm hover:bg-amber transition-colors duration-200 tracking-wide"
             >
               Kostenloses Erstgespräch anfragen

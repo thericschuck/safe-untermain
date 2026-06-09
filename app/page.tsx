@@ -5,6 +5,7 @@ import Leistungen from "@/components/Leistungen";
 import UeberSven from "@/components/UeberSven";
 import Philosophie from "@/components/Philosophie";
 import KontaktCTA from "@/components/KontaktCTA";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -18,9 +19,9 @@ export default function Home() {
         {/* Gap — concrete shows between hero and sections */}
         <div className="h-16 lg:h-20" aria-hidden="true" />
 
-        {/* Sections wrapper — side margins let concrete show, connected internally */}
-        <div className="mx-3 md:mx-5 lg:mx-9 pb-16">
-          <div className="overflow-hidden rounded-[20px] shadow-[0_4px_40px_rgba(0,0,0,0.10)]">
+        {/* Sections — side margins, no rounded corners, clean horizontal lines between */}
+        <div className="mx-3 md:mx-5 lg:mx-9">
+          <div className="overflow-hidden">
             <Leistungen />
             <UeberSven />
             <Philosophie />
@@ -28,6 +29,8 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      <Footer />
     </>
   );
 }

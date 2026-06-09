@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface FlipCardProps {
+  id?: string;
   title: string;
   category: string;
   src: string;
@@ -16,6 +17,7 @@ interface FlipCardProps {
 }
 
 export function FlipCard({
+  id,
   title,
   category,
   src,
@@ -41,6 +43,30 @@ export function FlipCard({
       document.removeEventListener("touchstart", onOutside);
     };
   }, []);
+
+  React.useEffect(() => {
+    if (!id) return;
+    const handler = (e: Event) => {
+      if ((e as CustomEvent<{ id: string }>).detail.id === id) setActive(true);
+    };
+    window.addEventListener("open-leistung", handler);
+    return () => window.removeEventListener("open-leistung", handler);
+  }, [id]);
+
+  // Open via URL hash — e.g. /#leistung-anti-aggressionstraining (from subpage nav)
+  React.useEffect(() => {
+    if (!id) return;
+    const hashId = `#leistung-${id}`;
+    const checkHash = () => {
+      if (window.location.hash === hashId) {
+        setActive(true);
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+    };
+    checkHash();
+    window.addEventListener("hashchange", checkHash);
+    return () => window.removeEventListener("hashchange", checkHash);
+  }, [id]);
 
   React.useEffect(() => {
     document.body.style.overflow = active ? "hidden" : "";
@@ -102,8 +128,21 @@ export function FlipCard({
                     </h3>
                     <div className="mt-4 mb-6 h-px w-12 bg-amber" />
                   </div>
-                  <div className="px-7 sm:px-9 pb-10 text-[15px] font-sans text-ink/65 leading-relaxed flex flex-col gap-4">
+                  <div className="px-7 sm:px-9 pb-8 text-[15px] font-sans text-ink/65 leading-relaxed flex flex-col gap-4">
                     {children}
+                  </div>
+                  {/* Contact CTA */}
+                  <div className="px-7 sm:px-9 pb-9 pt-5 border-t border-ink/8">
+                    <a
+                      href="/kontakt"
+                      onClick={() => setActive(false)}
+                      className="inline-flex items-center gap-3 px-6 py-3.5 bg-ink text-paper text-[13px] font-sans tracking-wide hover:bg-amber transition-colors duration-200"
+                    >
+                      Kostenloses Erstgespräch anfragen
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>
                   </div>
                 </div>
               </motion.div>

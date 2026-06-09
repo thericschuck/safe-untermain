@@ -151,7 +151,7 @@ export default function Hero() {
               className="flex flex-wrap gap-3 pt-1"
             >
               <a
-                href="#kontakt"
+                href="/kontakt"
                 className="px-6 py-3 bg-ink text-paper font-medium text-sm hover:bg-amber transition-colors duration-200"
               >
                 Kostenloses Erstgespräch
