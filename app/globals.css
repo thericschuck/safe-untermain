@@ -34,33 +34,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Individual section backgrounds — layout handled by wrapper in page.tsx */
 .section-card {
   background: rgba(242, 237, 232, 0.97);
-  border-radius: 20px;
-  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.10);
-  margin-left: 12px;
-  margin-right: 12px;
 }
 
 .section-dark {
   background: #151412;
-  border-radius: 20px;
-  margin-left: 12px;
-  margin-right: 12px;
-}
-
-@media (min-width: 768px) {
-  .section-card,
-  .section-dark {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-card,
-  .section-dark {
-    margin-left: 36px;
-    margin-right: 36px;
-  }
 }

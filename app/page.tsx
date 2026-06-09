@@ -13,18 +13,19 @@ export default function Home() {
       <Nav />
 
       <main>
-        {/* Hero — full width, concrete texture visible */}
         <Hero />
 
-        {/* Gap between hero and first card — concrete shows here */}
+        {/* Gap — concrete shows between hero and sections */}
         <div className="h-16 lg:h-20" aria-hidden="true" />
 
-        {/* Section cards stack with 8px gap between — concrete peeks through */}
-        <div className="flex flex-col gap-2 pb-16">
-          <Leistungen />
-          <UeberSven />
-          <Philosophie />
-          <KontaktCTA />
+        {/* Sections wrapper — side margins let concrete show, connected internally */}
+        <div className="mx-3 md:mx-5 lg:mx-9 pb-16">
+          <div className="overflow-hidden rounded-[20px] shadow-[0_4px_40px_rgba(0,0,0,0.10)]">
+            <Leistungen />
+            <UeberSven />
+            <Philosophie />
+            <KontaktCTA />
+          </div>
         </div>
       </main>
     </>

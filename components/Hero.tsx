@@ -18,7 +18,7 @@ const LINE_1: WordDef[] = [
 ];
 const LINE_2: WordDef[] = [
   { text: "IM",    delay: 2.45, duration: 1.05, italic: true, ease: [0.16, 1, 0.30, 1] },
-  { text: "KOPF.", delay: 3.2,  duration: 0.9,  italic: true, ease: [0.22, 1, 0.36, 1] },
+  { text: "KOPF.", delay: 3.10,  duration: 0.9,  italic: true, ease: [0.22, 1, 0.36, 1] },
 ];
 
 const EYE_TRANSITION = { duration: 5.0, delay: 0.3, ease: "easeOut" } as const;
@@ -46,6 +46,12 @@ function WordReveal({ word, loaded }: { word: WordDef; loaded: boolean }) {
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
 
+  // Lock scroll immediately — unlock once eye finishes fading in (~5.3s after loaded)
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+
   useEffect(() => {
     const trigger = () => setTimeout(() => setLoaded(true), 60);
     if (document.readyState === "complete") {
@@ -54,6 +60,12 @@ export default function Hero() {
       window.addEventListener("load", trigger, { once: true });
     }
   }, []);
+
+  useEffect(() => {
+    if (!loaded) return;
+    const t = setTimeout(() => { document.body.style.overflow = ""; }, 5500);
+    return () => clearTimeout(t);
+  }, [loaded]);
 
   // Parallax — text moves up faster than scroll, feels like foreground layer
   const { scrollY } = useScroll();
