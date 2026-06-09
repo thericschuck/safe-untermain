@@ -1,11 +1,64 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+
+const leistungenItems = [
+  { label: "Anti-Aggressionstraining", href: "#leistungen" },
+  { label: "Deeskalationstraining", href: "#leistungen" },
+  { label: "Gewaltprävention", href: "#leistungen" },
+  { label: "Selbstbehauptung & Selbstverteidigung", href: "#leistungen" },
+];
+
+const mainLinks = [
+  { label: "Home", href: "/" },
+  { label: "Unser Konzept", href: "#konzept" },
+  { label: "Über mich", href: "#ueber" },
+  { label: "Kontakt", href: "#kontakt" },
+  { label: "Partner", href: "#partner" },
+  { label: "Impressum", href: "#impressum" },
+];
+
+// Diamond crosshatch — dark grey, subtle metallic texture
+const CROSSHATCH = `
+  repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px,
+    transparent 1px, transparent 9px
+  ),
+  repeating-linear-gradient(
+    -45deg,
+    rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px,
+    transparent 1px, transparent 9px
+  )
+`.replace(/\s+/g, " ").trim();
+
+function HoverLink({
+  href,
+  children,
+  onClick,
+}: {
+  href: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+}) {
+  return (
+    <Link href={href} onClick={onClick} className="relative inline-block group">
+      <span className="relative z-10 block font-display text-[17px] tracking-[0.14em] uppercase text-paper group-hover:text-paper transition-colors duration-300 py-2 px-4">
+        {children}
+      </span>
+      <span className="absolute inset-0 border-t border-b border-amber scale-y-[2.5] opacity-0 transition-all duration-300 origin-center group-hover:scale-y-100 group-hover:opacity-100 pointer-events-none" />
+      <span className="absolute top-px left-0 w-full h-[calc(100%-2px)] bg-amber scale-0 opacity-0 transition-all duration-300 origin-top group-hover:scale-100 group-hover:opacity-100 pointer-events-none" />
+    </Link>
+  );
+}
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [leistungenOpen, setLeistungenOpen] = useState(false);
+  const [mobileLeistungenOpen, setMobileLeistungenOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 60);
@@ -13,89 +66,168 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
+  // Timeout-based open/close — prevents dropdown vanishing when mouse
+  // crosses the small gap between trigger and menu
+  const openDropdown = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setLeistungenOpen(true);
+  };
+  const scheduleClose = () => {
+    closeTimer.current = setTimeout(() => setLeistungenOpen(false), 120);
+  };
+
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
         scrolled
-          ? "bg-paper/90 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.06)]"
-          : ""
+          ? "bg-ink/95 backdrop-blur-md shadow-[0_1px_0_rgba(255,255,255,0.05)]"
+          : "bg-linear-to-b from-ink/60 to-transparent"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link
-          href="/"
-          className="font-display text-lg font-medium text-ink tracking-tight"
-        >
-          Sven <span className="italic text-amber">Zöller</span>
+      {/* ── Metallic crosshatch — fades in on scroll ── */}
+      <div
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
+          scrolled ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ backgroundImage: CROSSHATCH }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between gap-4">
+
+        {/* ── Logo ── */}
+        <Link href="/" className="shrink-0 leading-none">
+          <span className="font-display text-2xl lg:text-3xl tracking-[0.32em] text-paper uppercase">
+            SAFE
+          </span>
         </Link>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8">
-          <div className="flex items-center gap-6 text-sm font-medium text-ink/70">
-            <Link
-              href="#leistungen"
-              className="hover:text-amber transition-colors duration-200"
+        {/* ── Desktop nav ── */}
+        <div className="hidden lg:flex items-center gap-0.5 xl:gap-1">
+
+          {mainLinks.slice(0, 3).map((l) => (
+            <HoverLink key={l.label} href={l.href}>
+              {l.label}
+            </HoverLink>
+          ))}
+
+          {/* Leistungen dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={openDropdown}
+            onMouseLeave={scheduleClose}
+          >
+            <button
+              onClick={() => setLeistungenOpen((v) => !v)}
+              className="relative inline-block group"
             >
-              Leistungen
-            </Link>
-            <Link
-              href="#ueber"
-              className="hover:text-amber transition-colors duration-200"
-            >
-              Über mich
-            </Link>
-            <Link
-              href="#kontakt"
-              className="hover:text-amber transition-colors duration-200"
-            >
-              Kontakt
+              <span className="relative z-10 flex items-center gap-1.5 font-display text-[17px] tracking-[0.14em] uppercase text-paper group-hover:text-paper transition-colors duration-300 py-2 px-4">
+                Leistungen
+                <svg
+                  className={`w-2.5 h-2.5 transition-transform duration-300 ${leistungenOpen ? "rotate-180" : ""}`}
+                  fill="none" viewBox="0 0 10 6"
+                >
+                  <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </span>
+              <span className="absolute inset-0 border-t border-b border-amber scale-y-[2.5] opacity-0 transition-all duration-300 origin-center group-hover:scale-y-100 group-hover:opacity-100 pointer-events-none" />
+              <span className="absolute top-px left-0 w-full h-[calc(100%-2px)] bg-amber scale-0 opacity-0 transition-all duration-300 origin-top group-hover:scale-100 group-hover:opacity-100 pointer-events-none" />
+            </button>
+
+            {leistungenOpen && (
+              <div
+                className="absolute top-full left-1/2 -translate-x-1/2 w-68 bg-ink/96 backdrop-blur-md border border-paper/10 shadow-[0_16px_48px_rgba(0,0,0,0.5)] overflow-hidden"
+                onMouseEnter={openDropdown}
+                onMouseLeave={scheduleClose}
+              >
+                {/* Amber accent line at top */}
+                <div className="h-px bg-amber/70 w-full" />
+                {leistungenItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setLeistungenOpen(false)}
+                    className="flex items-center gap-3.5 px-5 py-3.5 text-[13px] font-sans tracking-wide text-paper/60 hover:text-paper hover:bg-paper/5 transition-all duration-150 border-b border-paper/6 last:border-0 group/item"
+                  >
+                    <span className="w-1.25 h-1.25 shrink-0 rotate-45 bg-amber/35 group-hover/item:bg-amber transition-colors duration-150" />
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {mainLinks.slice(3).map((l) => (
+            <HoverLink key={l.label} href={l.href}>
+              {l.label}
+            </HoverLink>
+          ))}
+
+          {/* CTA */}
+          <div className="relative inline-block group ml-4">
+            <Link href="#kontakt">
+              <span className="relative z-10 block font-display text-[17px] tracking-[0.14em] uppercase text-paper group-hover:text-ink transition-colors duration-300 py-2 px-5">
+                Erstgespräch
+              </span>
+              <span className="absolute inset-0 border border-paper/40 group-hover:border-paper transition-colors duration-300 pointer-events-none" />
+              <span className="absolute inset-0 bg-paper scale-x-0 opacity-0 transition-all duration-300 origin-left group-hover:scale-x-100 group-hover:opacity-100 pointer-events-none" />
             </Link>
           </div>
-          <Link
-            href="#kontakt"
-            className="px-4 py-2 bg-ink text-paper text-sm font-medium hover:bg-amber transition-colors duration-200"
-          >
-            Erstgespräch
-          </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* ── Mobile hamburger ── */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="lg:hidden flex flex-col justify-center gap-1.5 p-2 ml-auto"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Menü öffnen"
+          aria-label="Menü"
         >
-          <span
-            className={`block h-px w-6 bg-ink transition-all duration-200 ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
-          />
-          <span
-            className={`block h-px w-6 bg-ink transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`block h-px w-6 bg-ink transition-all duration-200 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
-          />
+          <span className={`block h-[1.5px] w-6 bg-paper transition-all duration-200 ${menuOpen ? "rotate-45 translate-y-1.75" : ""}`} />
+          <span className={`block h-[1.5px] w-6 bg-paper transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`} />
+          <span className={`block h-[1.5px] w-6 bg-paper transition-all duration-200 ${menuOpen ? "-rotate-45 -translate-y-1.75" : ""}`} />
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ── Mobile menu ── */}
       {menuOpen && (
-        <div className="md:hidden bg-paper/95 backdrop-blur-md border-t border-ink/10 px-6 py-6 flex flex-col gap-4 text-sm font-medium text-ink/80">
-          <Link href="#leistungen" onClick={() => setMenuOpen(false)} className="hover:text-amber transition-colors">
-            Leistungen
-          </Link>
-          <Link href="#ueber" onClick={() => setMenuOpen(false)} className="hover:text-amber transition-colors">
-            Über mich
-          </Link>
-          <Link href="#kontakt" onClick={() => setMenuOpen(false)} className="hover:text-amber transition-colors">
-            Kontakt
-          </Link>
-          <Link
-            href="#kontakt"
-            onClick={() => setMenuOpen(false)}
-            className="mt-2 px-4 py-3 bg-ink text-paper text-sm font-medium text-center hover:bg-amber transition-colors"
-          >
-            Erstgespräch
-          </Link>
+        <div className="lg:hidden bg-ink/98 backdrop-blur-md border-t border-paper/8">
+          <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col">
+            {mainLinks.slice(0, 3).map((l) => (
+              <Link key={l.label} href={l.href} onClick={() => setMenuOpen(false)}
+                className="font-display text-base tracking-[0.16em] uppercase text-paper hover:text-amber py-4 border-b border-paper/8 transition-colors">
+                {l.label}
+              </Link>
+            ))}
+            <div className="border-b border-paper/8">
+              <button onClick={() => setMobileLeistungenOpen((v) => !v)}
+                className="font-display text-base tracking-[0.16em] uppercase text-paper hover:text-amber py-4 w-full text-left flex items-center justify-between transition-colors">
+                Leistungen
+                <svg className={`w-2.5 h-2.5 text-paper/60 transition-transform duration-200 ${mobileLeistungenOpen ? "rotate-180" : ""}`}
+                  fill="none" viewBox="0 0 10 6">
+                  <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </button>
+              {mobileLeistungenOpen && (
+                <div className="pb-3 pl-4 flex flex-col">
+                  {leistungenItems.map((item) => (
+                    <Link key={item.label} href={item.href}
+                      onClick={() => { setMenuOpen(false); setMobileLeistungenOpen(false); }}
+                      className="text-[13px] font-sans text-paper/70 hover:text-amber py-2 transition-colors">
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            {mainLinks.slice(3).map((l) => (
+              <Link key={l.label} href={l.href} onClick={() => setMenuOpen(false)}
+                className="font-display text-base tracking-[0.16em] uppercase text-paper hover:text-amber py-4 border-b border-paper/8 transition-colors">
+                {l.label}
+              </Link>
+            ))}
+            <Link href="#kontakt" onClick={() => setMenuOpen(false)}
+              className="font-display text-base tracking-[0.16em] uppercase mt-5 py-4 border border-paper/25 text-paper hover:border-amber hover:text-amber text-center transition-colors">
+              Erstgespräch
+            </Link>
+          </div>
         </div>
       )}
     </nav>
