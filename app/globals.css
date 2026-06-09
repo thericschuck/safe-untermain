@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-amber: #C0512C;
+  --color-rot: #C0512C;
   --color-ink: #151412;
   --color-paper: #F2EDE8;
   --color-muted: #A2B0BC;
@@ -21,6 +21,7 @@
 
 html {
   color-scheme: light;
+  overflow-x: hidden;
 }
 
 body {

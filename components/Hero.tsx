@@ -32,7 +32,7 @@ function WordReveal({ word, loaded }: { word: WordDef; loaded: boolean }) {
   return (
     <span className="inline-block overflow-hidden pb-[0.06em] pr-[0.1em] align-bottom mr-[0.14em]">
       <motion.span
-        className={`inline-block${word.italic ? " italic text-amber" : ""}`}
+        className={`inline-block${word.italic ? " italic text-rot" : ""}`}
         initial={{ y: "110%", opacity: 0.05 }}
         animate={loaded ? { y: "0%", opacity: 1 } : {}}
         transition={{ duration: word.duration, delay: word.delay, ease: word.ease }}
@@ -152,13 +152,13 @@ export default function Hero() {
             >
               <a
                 href="/kontakt"
-                className="px-6 py-3 bg-ink text-paper font-medium text-sm hover:bg-amber transition-colors duration-200"
+                className="px-6 py-3 bg-ink text-paper font-medium text-sm hover:bg-rot transition-colors duration-200"
               >
                 Kostenloses Erstgespräch
               </a>
               <a
                 href="#leistungen"
-                className="px-6 py-3 border border-ink/25 text-ink font-medium text-sm hover:border-amber hover:text-amber transition-colors duration-200"
+                className="px-6 py-3 border border-ink/25 text-ink font-medium text-sm hover:border-rot hover:text-rot transition-colors duration-200"
               >
                 Leistungen ansehen →
               </a>

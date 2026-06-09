@@ -86,7 +86,7 @@ export function ExpandableCard({
                   layoutId={`button-${title}-${id}`}
                   aria-label="Schließen"
                   onClick={() => setActive(false)}
-                  className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-ink/80 backdrop-blur-sm text-paper hover:bg-amber transition-colors duration-200"
+                  className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-ink/80 backdrop-blur-sm text-paper hover:bg-rot transition-colors duration-200"
                 >
                   <motion.div animate={{ rotate: active ? 45 : 0 }} transition={{ duration: 0.3 }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -101,7 +101,7 @@ export function ExpandableCard({
                 <div className="px-8 pt-6 pb-2">
                   <motion.p
                     layoutId={`description-${description}-${id}`}
-                    className="font-mono text-[11px] tracking-[0.2em] uppercase text-amber mb-2"
+                    className="font-mono text-[11px] tracking-[0.2em] uppercase text-rot mb-2"
                   >
                     {description}
                   </motion.p>
@@ -112,7 +112,7 @@ export function ExpandableCard({
                     {title}
                   </motion.h3>
                   {/* Amber separator */}
-                  <div className="mt-4 mb-6 h-px w-12 bg-amber" />
+                  <div className="mt-4 mb-6 h-px w-12 bg-rot" />
                 </div>
                 <motion.div
                   layout
@@ -153,7 +153,7 @@ export function ExpandableCard({
           <div>
             <motion.p
               layoutId={`description-${description}-${id}`}
-              className="font-mono text-[10px] tracking-[0.2em] uppercase text-amber/80 mb-1"
+              className="font-mono text-[10px] tracking-[0.2em] uppercase text-rot/80 mb-1"
             >
               {description}
             </motion.p>
@@ -167,7 +167,7 @@ export function ExpandableCard({
           <motion.button
             layoutId={`button-${title}-${id}`}
             aria-label="Mehr erfahren"
-            className="shrink-0 w-9 h-9 flex items-center justify-center border border-paper/20 text-paper/50 group-hover:border-amber group-hover:text-amber transition-colors duration-300"
+            className="shrink-0 w-9 h-9 flex items-center justify-center border border-paper/20 text-paper/50 group-hover:border-rot group-hover:text-rot transition-colors duration-300"
           >
             <motion.div animate={{ rotate: active ? 45 : 0 }} transition={{ duration: 0.3 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -178,7 +178,7 @@ export function ExpandableCard({
         </div>
 
         {/* Amber bottom line on hover */}
-        <div className="absolute bottom-0 left-0 w-full h-0.5 bg-amber scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+        <div className="absolute bottom-0 left-0 w-full h-0.5 bg-rot scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
       </motion.div>
     </>
   );

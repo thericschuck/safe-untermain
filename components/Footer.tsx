@@ -49,7 +49,7 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-amber mb-5">
+            <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot mb-5">
               Navigation
             </p>
             <ul className="space-y-2.5">
@@ -73,7 +73,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-amber mb-5">
+            <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot mb-5">
               Kontakt
             </p>
             <ul className="space-y-2.5 text-[13px] font-sans">
@@ -96,7 +96,7 @@ export default function Footer() {
               <li className="pt-2">
                 <a
                   href="/kontakt"
-                  className="inline-block px-5 py-2.5 bg-amber text-paper font-medium text-[12px] hover:bg-paper hover:text-ink transition-colors duration-200 tracking-wide"
+                  className="inline-block px-5 py-2.5 bg-rot text-paper font-medium text-[12px] hover:bg-paper hover:text-ink transition-colors duration-200 tracking-wide"
                 >
                   Erstgespräch anfragen
                 </a>

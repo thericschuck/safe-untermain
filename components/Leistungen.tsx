@@ -6,7 +6,7 @@ import { FlipCard } from "@/components/ui/flip-card";
 function Bullet({ children }: { children: ReactNode }) {
   return (
     <li className="flex items-start gap-2.5">
-      <span className="mt-[0.45em] w-1 h-1 rotate-45 bg-amber shrink-0 inline-block" />
+      <span className="mt-[0.45em] w-1 h-1 rotate-45 bg-rot shrink-0 inline-block" />
       <span>{children}</span>
     </li>
   );
@@ -26,7 +26,7 @@ export default function Leistungen() {
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
 
         <div className="mb-12">
-          <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-3">
+          <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-3">
             Was ich anbiete
           </p>
           <h2 className="font-display text-5xl lg:text-6xl tracking-wide text-ink uppercase leading-none">

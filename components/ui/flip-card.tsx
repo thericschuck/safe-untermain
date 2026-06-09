@@ -69,8 +69,8 @@ export function FlipCard({
   }, [id]);
 
   React.useEffect(() => {
-    document.body.style.overflow = active ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    document.documentElement.style.overflowY = active ? "hidden" : "";
+    return () => { document.documentElement.style.overflowY = ""; };
   }, [active]);
 
   return (
@@ -109,7 +109,7 @@ export function FlipCard({
                   <button
                     aria-label="Schließen"
                     onClick={() => setActive(false)}
-                    className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-ink/80 backdrop-blur-sm text-paper hover:bg-amber transition-colors duration-200"
+                    className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-ink/80 backdrop-blur-sm text-paper hover:bg-rot transition-colors duration-200"
                   >
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
                       <path d="M1 1l12 12M13 1L1 13" />
@@ -120,13 +120,13 @@ export function FlipCard({
                 {/* Modal content */}
                 <div className="overflow-y-auto scrollbar-none">
                   <div className="px-7 sm:px-9 pt-7 pb-2">
-                    <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-amber mb-2">
+                    <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-rot mb-2">
                       {category}
                     </p>
                     <h3 className="font-display text-4xl sm:text-5xl tracking-wide text-ink uppercase leading-none">
                       {title}
                     </h3>
-                    <div className="mt-4 mb-6 h-px w-12 bg-amber" />
+                    <div className="mt-4 mb-6 h-px w-12 bg-rot" />
                   </div>
                   <div className="px-7 sm:px-9 pb-8 text-[15px] font-sans text-ink/65 leading-relaxed flex flex-col gap-4">
                     {children}
@@ -136,7 +136,7 @@ export function FlipCard({
                     <a
                       href="/kontakt"
                       onClick={() => setActive(false)}
-                      className="inline-flex items-center gap-3 px-6 py-3.5 bg-ink text-paper text-[13px] font-sans tracking-wide hover:bg-amber transition-colors duration-200"
+                      className="inline-flex items-center gap-3 px-6 py-3.5 bg-ink text-paper text-[13px] font-sans tracking-wide hover:bg-rot transition-colors duration-200"
                     >
                       Kostenloses Erstgespräch anfragen
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -172,20 +172,20 @@ export function FlipCard({
             />
             <div className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-5">
-              <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-amber mb-1">
+              <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot mb-1">
                 {category}
               </p>
               <h3 className="font-display text-xl lg:text-2xl tracking-wide text-paper uppercase leading-tight">
                 {title}
               </h3>
             </div>
-            <div className="absolute bottom-0 left-0 w-full h-0.5 bg-amber scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+            <div className="absolute bottom-0 left-0 w-full h-0.5 bg-rot scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
           </div>
 
           {/* ── Back ── */}
           <div className="absolute inset-0 backface-hidden transform-[rotateY(180deg)] bg-ink overflow-hidden flex flex-col p-5 lg:p-6">
-            <div className="w-8 h-0.5 bg-amber mb-4" />
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-amber/70 mb-1.5 shrink-0">
+            <div className="w-8 h-0.5 bg-rot mb-4" />
+            <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot/70 mb-1.5 shrink-0">
               {category}
             </p>
             <h3 className="font-display text-2xl lg:text-[1.65rem] tracking-wide text-paper uppercase leading-tight mb-3 shrink-0">
@@ -194,7 +194,7 @@ export function FlipCard({
             <p className="text-[12.5px] font-sans text-paper/60 leading-relaxed min-h-0 flex-1 line-clamp-6">
               {excerpt}
             </p>
-            <span className="mt-4 shrink-0 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase text-amber">
+            <span className="mt-4 shrink-0 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase text-rot">
               Mehr erfahren
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

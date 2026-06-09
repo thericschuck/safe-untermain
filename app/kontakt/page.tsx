@@ -32,7 +32,7 @@ export default function KontaktPage() {
         {/* ── Hero ── */}
         <div className="relative z-10 flex items-end min-h-[40vh] pb-10">
           <div className="max-w-6xl mx-auto px-6 lg:px-8 w-full pt-32">
-            <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-3">
+            <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-3">
               safe-untermain.de
             </p>
             <h1 className="font-display text-[5.5rem] lg:text-[9rem] xl:text-[11rem] tracking-wide text-paper uppercase leading-none">

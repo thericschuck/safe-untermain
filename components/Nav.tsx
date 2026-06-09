@@ -11,11 +11,11 @@ const leistungenItems = [
 ];
 
 const mainLinks = [
-  { label: "Home",         href: "/" },
-  { label: "Unser Konzept", href: "#konzept" },
-  { label: "Über mich",    href: "#ueber" },
-  { label: "Kontakt",      href: "/kontakt" },
-  { label: "Partner",      href: "#partner" },
+  { label: "Home",          href: "/" },
+  { label: "Unser Konzept", href: "/konzept" },
+  { label: "Über mich",     href: "/ueber" },
+  { label: "Partner",       href: "/partner" },
+  { label: "Kontakt",       href: "/kontakt" },
 ];
 
 // Diamond crosshatch — dark grey, subtle metallic texture
@@ -46,8 +46,8 @@ function HoverLink({
       <span className="relative z-10 block font-display text-[19px] tracking-[0.14em] uppercase text-paper group-hover:text-paper transition-colors duration-300 py-2 px-4">
         {children}
       </span>
-      <span className="absolute inset-0 border-t border-b border-amber scale-y-[2.5] opacity-0 transition-all duration-300 origin-center group-hover:scale-y-100 group-hover:opacity-100 pointer-events-none" />
-      <span className="absolute top-px left-0 w-full h-[calc(100%-2px)] bg-amber scale-0 opacity-0 transition-all duration-300 origin-top group-hover:scale-100 group-hover:opacity-100 pointer-events-none" />
+      <span className="absolute inset-0 border-t border-b border-rot scale-y-[2.5] opacity-0 transition-all duration-300 origin-center group-hover:scale-y-100 group-hover:opacity-100 pointer-events-none" />
+      <span className="absolute top-px left-0 w-full h-[calc(100%-2px)] bg-rot scale-0 opacity-0 transition-all duration-300 origin-top group-hover:scale-100 group-hover:opacity-100 pointer-events-none" />
     </Link>
   );
 }
@@ -124,8 +124,8 @@ export default function Nav() {
                   <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </span>
-              <span className="absolute inset-0 border-t border-b border-amber scale-y-[2.5] opacity-0 transition-all duration-300 origin-center group-hover:scale-y-100 group-hover:opacity-100 pointer-events-none" />
-              <span className="absolute top-px left-0 w-full h-[calc(100%-2px)] bg-amber scale-0 opacity-0 transition-all duration-300 origin-top group-hover:scale-100 group-hover:opacity-100 pointer-events-none" />
+              <span className="absolute inset-0 border-t border-b border-rot scale-y-[2.5] opacity-0 transition-all duration-300 origin-center group-hover:scale-y-100 group-hover:opacity-100 pointer-events-none" />
+              <span className="absolute top-px left-0 w-full h-[calc(100%-2px)] bg-rot scale-0 opacity-0 transition-all duration-300 origin-top group-hover:scale-100 group-hover:opacity-100 pointer-events-none" />
             </Link>
 
             {leistungenOpen && (
@@ -134,7 +134,7 @@ export default function Nav() {
                 onMouseEnter={openDropdown}
                 onMouseLeave={scheduleClose}
               >
-                <div className="h-px bg-amber/70 w-full" />
+                <div className="h-px bg-rot/70 w-full" />
                 {leistungenItems.map((item) => (
                   <Link
                     key={item.label}
@@ -145,7 +145,7 @@ export default function Nav() {
                     }}
                     className="flex items-center gap-3.5 px-5 py-3.5 text-[13px] font-sans tracking-wide text-paper/60 hover:text-paper hover:bg-paper/5 transition-all duration-150 border-b border-paper/6 last:border-0 group/item"
                   >
-                    <span className="w-1.25 h-1.25 shrink-0 rotate-45 bg-amber/35 group-hover/item:bg-amber transition-colors duration-150" />
+                    <span className="w-1.25 h-1.25 shrink-0 rotate-45 bg-rot/35 group-hover/item:bg-rot transition-colors duration-150" />
                     {item.label}
                   </Link>
                 ))}
@@ -189,7 +189,7 @@ export default function Nav() {
           <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col">
             {mainLinks.slice(0, 3).map((l) => (
               <Link key={l.label} href={l.href} onClick={() => setMenuOpen(false)}
-                className="font-display text-base tracking-[0.16em] uppercase text-paper hover:text-amber py-4 border-b border-paper/8 transition-colors">
+                className="font-display text-base tracking-[0.16em] uppercase text-paper hover:text-rot py-4 border-b border-paper/8 transition-colors">
                 {l.label}
               </Link>
             ))}
@@ -200,13 +200,13 @@ export default function Nav() {
                 <Link
                   href="/#leistungen"
                   onClick={() => setMenuOpen(false)}
-                  className="font-display text-base tracking-[0.16em] uppercase text-paper hover:text-amber py-4 flex-1 transition-colors"
+                  className="font-display text-base tracking-[0.16em] uppercase text-paper hover:text-rot py-4 flex-1 transition-colors"
                 >
                   Leistungen
                 </Link>
                 <button
                   onClick={() => setMobileLeistungenOpen((v) => !v)}
-                  className="p-3 text-paper/50 hover:text-amber transition-colors"
+                  className="p-3 text-paper/50 hover:text-rot transition-colors"
                   aria-label="Untermenü öffnen"
                 >
                   <svg className={`w-2.5 h-2.5 transition-transform duration-200 ${mobileLeistungenOpen ? "rotate-180" : ""}`}
@@ -224,7 +224,7 @@ export default function Nav() {
                         setMobileLeistungenOpen(false);
                         window.dispatchEvent(new CustomEvent("open-leistung", { detail: { id: item.id } }));
                       }}
-                      className="text-[13px] font-sans text-paper/70 hover:text-amber py-2 transition-colors">
+                      className="text-[13px] font-sans text-paper/70 hover:text-rot py-2 transition-colors">
                       {item.label}
                     </Link>
                   ))}
@@ -234,12 +234,12 @@ export default function Nav() {
 
             {mainLinks.slice(3).map((l) => (
               <Link key={l.label} href={l.href} onClick={() => setMenuOpen(false)}
-                className="font-display text-base tracking-[0.16em] uppercase text-paper hover:text-amber py-4 border-b border-paper/8 transition-colors">
+                className="font-display text-base tracking-[0.16em] uppercase text-paper hover:text-rot py-4 border-b border-paper/8 transition-colors">
                 {l.label}
               </Link>
             ))}
             <Link href="/kontakt" onClick={() => setMenuOpen(false)}
-              className="font-display text-base tracking-[0.16em] uppercase mt-5 py-4 border border-paper/25 text-paper hover:border-amber hover:text-amber text-center transition-colors">
+              className="font-display text-base tracking-[0.16em] uppercase mt-5 py-4 border border-paper/25 text-paper hover:border-rot hover:text-rot text-center transition-colors">
               Erstgespräch
             </Link>
           </div>

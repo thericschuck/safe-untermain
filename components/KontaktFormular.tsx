@@ -25,7 +25,7 @@ function Field({
     <div className="flex flex-col gap-2">
       <label className="font-mono text-[10px] tracking-[0.22em] uppercase text-ink/45">
         {label}
-        {required && <span className="text-amber ml-1">*</span>}
+        {required && <span className="text-rot ml-1">*</span>}
       </label>
       {children}
     </div>
@@ -33,7 +33,7 @@ function Field({
 }
 
 const inputCls =
-  "w-full bg-transparent border border-ink/15 px-4 py-3 text-[14px] font-sans text-ink placeholder:text-ink/25 focus:outline-none focus:border-amber transition-colors duration-150";
+  "w-full bg-transparent border border-ink/15 px-4 py-3 text-[14px] font-sans text-ink placeholder:text-ink/25 focus:outline-none focus:border-rot transition-colors duration-150";
 
 export default function KontaktFormular() {
   const [status, setStatus] = useState<"idle" | "erfolg" | "fehler">("idle");
@@ -59,12 +59,12 @@ export default function KontaktFormular() {
       <div className="section-card">
         <div className="max-w-6xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
           <div className="max-w-lg mx-auto text-center">
-            <div className="w-12 h-12 mx-auto mb-8 flex items-center justify-center border border-amber">
+            <div className="w-12 h-12 mx-auto mb-8 flex items-center justify-center border border-rot">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M4 10l5 5 7-9" stroke="#C0512C" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-4">
+            <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-4">
               Anfrage gesendet
             </p>
             <h2 className="font-display text-4xl lg:text-5xl tracking-wide text-ink uppercase leading-none mb-6">
@@ -86,7 +86,7 @@ export default function KontaktFormular() {
 
           {/* ── Left: info ── */}
           <div>
-            <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-amber mb-4">
+            <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-4">
               Kostenloses Erstgespräch
             </p>
             <h2 className="font-display text-5xl lg:text-6xl tracking-wide text-ink uppercase leading-none mb-8">
@@ -105,7 +105,7 @@ export default function KontaktFormular() {
                 ["Individuell",   "Maßgeschneiderter Trainingsplan"],
               ].map(([title, desc]) => (
                 <li key={title} className="flex items-start gap-4">
-                  <span className="mt-1 w-1.5 h-1.5 rotate-45 bg-amber shrink-0" />
+                  <span className="mt-1 w-1.5 h-1.5 rotate-45 bg-rot shrink-0" />
                   <div>
                     <p className="font-medium text-ink text-[14px]">{title}</p>
                     <p className="text-ink/45 text-[13px]">{desc}</p>
@@ -117,7 +117,7 @@ export default function KontaktFormular() {
             <div className="space-y-3 border-t border-ink/8 pt-8">
               <a
                 href="mailto:kontakt@safe-untermain.de"
-                className="flex items-center gap-3 font-mono text-[12px] tracking-wider text-ink/50 hover:text-amber transition-colors duration-150"
+                className="flex items-center gap-3 font-mono text-[12px] tracking-wider text-ink/50 hover:text-rot transition-colors duration-150"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <rect x="1" y="3" width="12" height="8.5" rx="0.5" stroke="currentColor" strokeWidth="1.3" />
@@ -127,7 +127,7 @@ export default function KontaktFormular() {
               </a>
               <a
                 href="tel:+49000000000"
-                className="flex items-center gap-3 font-mono text-[12px] tracking-wider text-ink/50 hover:text-amber transition-colors duration-150"
+                className="flex items-center gap-3 font-mono text-[12px] tracking-wider text-ink/50 hover:text-rot transition-colors duration-150"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M2 2.5C2 2.5 3.5 2 4.5 4.5c.5 1.5-.5 2-.5 2s1.5 3 4.5 4.5c0 0 .5-1 2-.5C13 11.5 12.5 13 12.5 13S6.5 13 2 6.5C2 6.5 1.5 3 2 2.5z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
@@ -215,16 +215,16 @@ export default function KontaktFormular() {
                   type="checkbox"
                   name="datenschutz"
                   required
-                  className="mt-0.5 shrink-0 accent-amber w-4 h-4"
+                  className="mt-0.5 shrink-0 accent-rot w-4 h-4"
                 />
                 <span className="text-[12px] font-sans text-ink/40 leading-relaxed group-hover:text-ink/60 transition-colors">
                   Ich habe die{" "}
-                  <a href="/datenschutz" className="underline underline-offset-2 hover:text-amber transition-colors">
+                  <a href="/datenschutz" className="underline underline-offset-2 hover:text-rot transition-colors">
                     Datenschutzerklärung
                   </a>{" "}
                   gelesen und bin mit der Verarbeitung meiner Daten zur
                   Bearbeitung meiner Anfrage einverstanden.{" "}
-                  <span className="text-amber">*</span>
+                  <span className="text-rot">*</span>
                 </span>
               </label>
 
@@ -235,7 +235,7 @@ export default function KontaktFormular() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="inline-flex items-center gap-3 px-7 py-4 bg-ink text-paper text-[13px] font-sans tracking-wide hover:bg-amber transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed self-start"
+                className="inline-flex items-center gap-3 px-7 py-4 bg-ink text-paper text-[13px] font-sans tracking-wide hover:bg-rot transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed self-start"
               >
                 {isPending ? "Wird gesendet…" : "Anfrage absenden"}
                 {!isPending && (

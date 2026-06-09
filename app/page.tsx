@@ -19,14 +19,12 @@ export default function Home() {
         {/* Gap — concrete shows between hero and sections */}
         <div className="h-16 lg:h-20" aria-hidden="true" />
 
-        {/* Sections — side margins, no rounded corners, clean horizontal lines between */}
+        {/* Sections — side margins, no overflow-hidden so slide-in animations aren't clipped */}
         <div className="mx-3 md:mx-5 lg:mx-9">
-          <div className="overflow-hidden">
-            <Leistungen />
-            <UeberSven />
-            <Philosophie />
-            <KontaktCTA />
-          </div>
+          <Leistungen />
+          <UeberSven />
+          <Philosophie />
+          <KontaktCTA />
         </div>
       </main>
 

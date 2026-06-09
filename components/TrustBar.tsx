@@ -16,7 +16,7 @@ export default function TrustBar() {
               className="flex items-center gap-3 text-sm font-medium text-ink/60"
             >
               {i > 0 && (
-                <span className="hidden sm:inline w-px h-3 bg-amber/30" />
+                <span className="hidden sm:inline w-px h-3 bg-rot/30" />
               )}
               {item}
             </span>
