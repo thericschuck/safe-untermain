@@ -31,7 +31,7 @@ export default function RootLayout({
       lang="de"
       className={`${bebasNeue.variable} ${ibmPlexSans.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body className="overflow-x-hidden">{children}</body>
     </html>
   );
 }

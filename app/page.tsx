@@ -19,8 +19,8 @@ export default function Home() {
         {/* Gap — concrete shows between hero and sections */}
         <div className="h-16 lg:h-20" aria-hidden="true" />
 
-        {/* Sections — side margins, no overflow-hidden so slide-in animations aren't clipped */}
-        <div className="mx-3 md:mx-5 lg:mx-9">
+        {/* Sections — overflow-x-hidden clips horizontal animation overshoot without affecting vertical scroll */}
+        <div className="mx-3 md:mx-5 lg:mx-9 overflow-x-hidden">
           <Leistungen />
           <UeberSven />
           <Philosophie />

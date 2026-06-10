@@ -69,8 +69,17 @@ export function FlipCard({
   }, [id]);
 
   React.useEffect(() => {
-    document.documentElement.style.overflowY = active ? "hidden" : "";
-    return () => { document.documentElement.style.overflowY = ""; };
+    if (active) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflowY = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflowY = "";
+    };
   }, [active]);
 
   return (
@@ -118,7 +127,7 @@ export function FlipCard({
                 </div>
 
                 {/* Modal content */}
-                <div className="overflow-y-auto scrollbar-none">
+                <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain scrollbar-none">
                   <div className="px-7 sm:px-9 pt-7 pb-2">
                     <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-rot mb-2">
                       {category}

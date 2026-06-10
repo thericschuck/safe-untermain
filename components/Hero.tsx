@@ -109,7 +109,7 @@ export default function Hero() {
         }}
       />
 
-      {/* ── Left gradient ── */}
+      {/* ── Left gradient (desktop) ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -117,6 +117,18 @@ export default function Hero() {
           background:
             "linear-gradient(to right, rgba(242,237,232,0.78) 0%, rgba(242,237,232,0.38) 36%, transparent 58%)",
           maskImage: "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
+        }}
+      />
+
+      {/* ── Mobile: stronger left overlay — ensures text readability over eye image ── */}
+      <div
+        className="md:hidden absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 10,
+          background:
+            "linear-gradient(to right, rgba(242,237,232,0.97) 0%, rgba(242,237,232,0.88) 38%, rgba(242,237,232,0.45) 62%, transparent 82%)",
+          maskImage:
+            "linear-gradient(to bottom, black 0%, black 65%, transparent 100%)",
         }}
       />
 
