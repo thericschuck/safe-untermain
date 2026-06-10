@@ -27,6 +27,7 @@ export function FlipCard({
   objectPosition = "center",
 }: FlipCardProps) {
   const [active, setActive] = React.useState(false);
+  const [isTouch, setIsTouch] = React.useState(false);
   const modalRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -67,6 +68,11 @@ export function FlipCard({
     window.addEventListener("hashchange", checkHash);
     return () => window.removeEventListener("hashchange", checkHash);
   }, [id]);
+
+  // Detect touch-only devices (no hover capability) — used to skip 3D flip on mobile
+  React.useEffect(() => {
+    setIsTouch(window.matchMedia("(hover: none)").matches);
+  }, []);
 
   React.useEffect(() => {
     if (active) {
@@ -160,50 +166,35 @@ export function FlipCard({
         )}
       </AnimatePresence>
 
-      {/* ── Flip card ── */}
-      <div
-        className={cn("group h-96 lg:h-105 perspective-distant cursor-pointer", className)}
-        onClick={() => setActive(true)}
-      >
+      {/* ── Card: flat on touch devices, 3D flip on pointer devices ── */}
+      {isTouch ? (
+        /* Touch: no perspective/rotateY/backface — flat card, content visible, tap opens modal */
         <div
-          className="relative w-full h-full transform-3d transition-[transform] duration-700 group-hover:transform-[rotateY(180deg)]"
-          style={{ transitionTimingFunction: "cubic-bezier(0.4, 0.2, 0.2, 1)" }}
+          className={cn("h-96 lg:h-105 relative overflow-hidden cursor-pointer", className)}
+          onClick={() => setActive(true)}
         >
-          {/* ── Front ── */}
-          <div className="absolute inset-0 backface-hidden overflow-hidden">
-            <Image
-              src={src}
-              alt={title}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              style={{ objectPosition }}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-5">
-              <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot mb-1">
-                {category}
-              </p>
-              <h3 className="font-display text-xl lg:text-2xl tracking-wide text-paper uppercase leading-tight">
-                {title}
-              </h3>
-            </div>
-            <div className="absolute bottom-0 left-0 w-full h-0.5 bg-rot scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
-          </div>
-
-          {/* ── Back ── */}
-          <div className="absolute inset-0 backface-hidden transform-[rotateY(180deg)] bg-ink overflow-hidden flex flex-col p-5 lg:p-6">
-            <div className="w-8 h-0.5 bg-rot mb-4" />
-            <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot/70 mb-1.5 shrink-0">
+          <Image
+            src={src}
+            alt={title}
+            fill
+            className="object-cover"
+            style={{ objectPosition }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            quality={60}
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-ink/90 via-ink/45 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-end p-5">
+            <div className="w-8 h-0.5 bg-rot mb-3" />
+            <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot/70 mb-1.5">
               {category}
             </p>
-            <h3 className="font-display text-2xl lg:text-[1.65rem] tracking-wide text-paper uppercase leading-tight mb-3 shrink-0">
+            <h3 className="font-display text-2xl tracking-wide text-paper uppercase leading-tight mb-2">
               {title}
             </h3>
-            <p className="text-[12.5px] font-sans text-paper/60 leading-relaxed min-h-0 flex-1 line-clamp-6">
+            <p className="text-[12px] font-sans text-paper/60 leading-relaxed line-clamp-3">
               {excerpt}
             </p>
-            <span className="mt-4 shrink-0 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase text-rot">
+            <span className="mt-3 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase text-rot">
               Mehr erfahren
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -211,7 +202,61 @@ export function FlipCard({
             </span>
           </div>
         </div>
-      </div>
+      ) : (
+        /* Desktop: 3D flip on hover */
+        <div
+          className={cn("group h-96 lg:h-105 perspective-distant cursor-pointer", className)}
+          onClick={() => setActive(true)}
+        >
+          <div
+            className="relative w-full h-full transform-3d transition-[transform] duration-700 group-hover:transform-[rotateY(180deg)]"
+            style={{ transitionTimingFunction: "cubic-bezier(0.4, 0.2, 0.2, 1)" }}
+          >
+            {/* ── Front ── */}
+            <div className="absolute inset-0 backface-hidden overflow-hidden">
+              <Image
+                src={src}
+                alt={title}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                style={{ objectPosition }}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                quality={60}
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-5">
+                <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot mb-1">
+                  {category}
+                </p>
+                <h3 className="font-display text-xl lg:text-2xl tracking-wide text-paper uppercase leading-tight">
+                  {title}
+                </h3>
+              </div>
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-rot scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+            </div>
+
+            {/* ── Back ── */}
+            <div className="absolute inset-0 backface-hidden transform-[rotateY(180deg)] bg-ink overflow-hidden flex flex-col p-5 lg:p-6">
+              <div className="w-8 h-0.5 bg-rot mb-4" />
+              <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot/70 mb-1.5 shrink-0">
+                {category}
+              </p>
+              <h3 className="font-display text-2xl lg:text-[1.65rem] tracking-wide text-paper uppercase leading-tight mb-3 shrink-0">
+                {title}
+              </h3>
+              <p className="text-[12.5px] font-sans text-paper/60 leading-relaxed min-h-0 flex-1 line-clamp-6">
+                {excerpt}
+              </p>
+              <span className="mt-4 shrink-0 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.18em] uppercase text-rot">
+                Mehr erfahren
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -46,24 +46,36 @@ function WordReveal({ word, loaded }: { word: WordDef; loaded: boolean }) {
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
 
-  // Lock scroll immediately — unlock once eye finishes fading in (~5.3s after loaded)
+  // Lock scroll on both body and html (actual scroll container) immediately on mount
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
+    document.documentElement.style.overflowY = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflowY = "";
+    };
   }, []);
 
+  // Trigger on DOMContentLoaded — NOT window.load — so animation starts as soon as
+  // the HTML is parsed. eye.jpg is preloaded via <link rel="preload"> (priority prop),
+  // so it's available well before the 0.3s animation delay reveals it. This is the
+  // primary fix for LCP: previously the animation waited for ALL resources to load
+  // (up to 4-5s), now it starts at ~200-300ms after navigation.
   useEffect(() => {
     const trigger = () => setTimeout(() => setLoaded(true), 60);
-    if (document.readyState === "complete") {
+    if (document.readyState !== "loading") {
       trigger();
     } else {
-      window.addEventListener("load", trigger, { once: true });
+      document.addEventListener("DOMContentLoaded", trigger, { once: true });
     }
   }, []);
 
   useEffect(() => {
     if (!loaded) return;
-    const t = setTimeout(() => { document.body.style.overflow = ""; }, 5500);
+    const t = setTimeout(() => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflowY = "";
+    }, 5500);
     return () => clearTimeout(t);
   }, [loaded]);
 
@@ -94,6 +106,8 @@ export default function Hero() {
             fill
             className="object-cover object-[44%_48%]"
             priority
+            quality={75}
+            sizes="(min-width: 1024px) 46vw, 60vw"
           />
         </div>
       </motion.div>
@@ -120,17 +134,8 @@ export default function Hero() {
         }}
       />
 
-      {/* ── Mobile: stronger left overlay — ensures text readability over eye image ── */}
-      <div
-        className="md:hidden absolute inset-0 pointer-events-none"
-        style={{
-          zIndex: 10,
-          background:
-            "linear-gradient(to right, rgba(242,237,232,0.97) 0%, rgba(242,237,232,0.88) 38%, rgba(242,237,232,0.45) 62%, transparent 82%)",
-          maskImage:
-            "linear-gradient(to bottom, black 0%, black 65%, transparent 100%)",
-        }}
-      />
+      {/* ── Mobile: stronger paper overlay for text readability (gradient defined in globals.css) ── */}
+      <div className="hero-mobile-overlay md:hidden absolute inset-0 pointer-events-none" style={{ zIndex: 10 }} />
 
       {/* ── Text content — parallax: moves up faster than scroll ── */}
       <motion.div className="relative flex-1 flex items-center pt-20" style={{ zIndex: 20, y: textY }}>
