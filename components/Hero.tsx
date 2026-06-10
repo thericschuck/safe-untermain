@@ -18,7 +18,7 @@ const LINE_1: WordDef[] = [
 ];
 const LINE_2: WordDef[] = [
   { text: "IM",    delay: 2.45, duration: 1.05, italic: true, ease: [0.16, 1, 0.30, 1] },
-  { text: "KOPF.", delay: 3.10,  duration: 0.9,  italic: true, ease: [0.22, 1, 0.36, 1] },
+  { text: "KOPF.", delay: 3.00,  duration: 0.9,  italic: true, ease: [0.22, 1, 0.36, 1] },
 ];
 
 const EYE_TRANSITION = { duration: 5.0, delay: 0.3, ease: "easeOut" } as const;

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
@@ -6,15 +7,24 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Über mich — Sven Zöller | safe-untermain.de",
   description:
-    "Sven Zöller — Sicherheitstrainer, THW-Erfahrung, Krav Maga RSC, Peer und SbE. Über zwei Jahrzehnte aktive Erfahrung in Stresssituationen.",
+    "Sven Zöller — Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
 };
 
+const KOMPETENZEN = [
+  "Konfliktmanagement",
+  "Stressbewältigung",
+  "Selbstbewusstseinsaufbau",
+  "Gewaltprävention",
+  "Kommunikation",
+];
+
 const CREDENTIALS = [
-  { label: "THW",  desc: "Über 20 Jahre aktiver Dienst beim Technischen Hilfswerk" },
+  { label: "THW",           desc: "Über 20 Jahre aktiver Dienst beim Technischen Hilfswerk" },
   { label: "Krav Maga RSC", desc: "Zertifizierter Trainer — Real Selfdefence Concept" },
-  { label: "AAT",  desc: "Anti-Aggressionstraining, gelistet beim AJSD Niedersachsen" },
-  { label: "Peer", desc: "Ausgebildeter Peer für psychosoziale Unterstützung" },
-  { label: "SbE",  desc: "Stressbearbeitung nach belastenden Ereignissen" },
+  { label: "AAT",           desc: "Anti-Aggressionstraining, gelistet beim AJSD Niedersachsen" },
+  { label: "Peer",          desc: "Ausgebildeter Peer für psychosoziale Unterstützung" },
+  { label: "SbE",           desc: "Stressbearbeitung nach belastenden Ereignissen" },
+  { label: "Mediator",      desc: "Kommunikationscoach und zertifizierter Mediator" },
 ];
 
 export default function UeberMichPage() {
@@ -54,13 +64,18 @@ export default function UeberMichPage() {
             {/* Bio */}
             <section className="section-card">
               <div className="max-w-6xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
                   {/* Foto */}
-                  <div className="aspect-[4/5] bg-ink/8 flex items-center justify-center border border-ink/10">
-                    <span className="font-mono text-xs text-muted/60 tracking-wider">
-                      Foto Sven Zöller
-                    </span>
+                  <div className="aspect-[4/5] relative overflow-hidden">
+                    <Image
+                      src="/sven.png"
+                      alt="Sven Zöller"
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      priority
+                    />
                   </div>
 
                   {/* Text */}
@@ -73,27 +88,45 @@ export default function UeberMichPage() {
                     </h2>
                     <div className="space-y-4 text-ink/65 text-base leading-relaxed">
                       <p>
-                        Sven Zöller bringt über zwei Jahrzehnte aktive Erfahrung beim
-                        Technischen Hilfswerk (THW) mit — Einsätze, Führungsverantwortung
-                        und die Realität von Stresssituationen, die kein Seminar simulieren kann.
+                        Herzlich willkommen — mein Name ist Sven Zöller. Ich bin zertifizierter
+                        Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer,
+                        Kommunikationscoach und Mediator.
                       </p>
                       <p>
-                        Als zertifizierter Krav Maga-Trainer verbindet er militärisch erprobte
-                        Schutztechniken mit psychologisch fundierter Deeskalation.
-                        Effektiv, direkt, für den echten Alltag.
+                        Unser Team beschäftigt sich seit über zwanzig Jahren mit den Themen
+                        Aggressionen und Gewalt am Arbeitsplatz, in Schulen und anderen Bereichen.
                       </p>
                       <p>
-                        Als ausgebildeter Peer und Stressbearbeitung nach belastenden Ereignissen (SbE)
-                        weiß er, was Menschen in Extremsituationen brauchen — und was ihnen danach hilft.
+                        Durch vielfältige berufliche Erfahrungen, ständigen Austausch im Netzwerk
+                        und kontinuierliche Weiterbildungen habe ich mein Wissen stetig erweitert.
+                        Durch die Zusammenarbeit mit Opfern und Tätern konnten wir unsere
+                        Lösungskonzepte in realistischen Situationen testen, anpassen und optimieren.
+                      </p>
+                      <p>
+                        Mit Hilfe des SAFE Aggressionsmanagements habe ich es mir zur Aufgabe gemacht,
+                        diese Erfahrungen weiterzugeben, ein Bewusstsein für Wahrnehmung, Kommunikation
+                        und Gewaltprävention zu schaffen und Lösungsansätze sowie Perspektiven aufzuzeigen.
+                      </p>
+                      <p className="text-ink/50 italic">
+                        Ich freue mich auf unsere Zusammenarbeit.
                       </p>
                     </div>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {["THW", "Krav Maga", "Peer", "SbE", "AAT"].map((tag) => (
-                        <span key={tag} className="px-3 py-1 border border-rot/50 text-rot font-mono text-xs tracking-wider">
-                          {tag}
-                        </span>
+
+                    {/* Kompetenzen */}
+                    <ul className="space-y-2 pt-2">
+                      {KOMPETENZEN.map((k) => (
+                        <li key={k} className="flex items-center gap-3">
+                          <span className="w-1.5 h-1.5 rotate-45 bg-rot shrink-0" />
+                          <span className="font-mono text-[12px] tracking-wide text-ink/70 uppercase">
+                            {k}
+                          </span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
+
+                    <p className="font-mono text-[13px] tracking-[0.18em] uppercase text-ink pt-2">
+                      — Sven Zöller, Personalcoach
+                    </p>
                   </div>
                 </div>
               </div>
@@ -120,21 +153,13 @@ export default function UeberMichPage() {
                     </div>
                   ))}
                 </div>
-              </div>
-            </section>
 
-            {/* CTA */}
-            <section className="section-card">
-              <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-                  <p className="font-display text-3xl lg:text-4xl tracking-wide text-ink uppercase leading-none">
-                    Lernen Sie mich kennen.
-                  </p>
+                <div className="mt-16 flex justify-center">
                   <a
                     href="/kontakt"
-                    className="shrink-0 px-8 py-4 bg-ink text-paper font-medium text-sm hover:bg-rot transition-colors duration-200 tracking-wide"
+                    className="px-12 py-5 bg-rot text-paper font-sans text-base tracking-wide hover:bg-paper hover:text-ink transition-colors duration-200"
                   >
-                    Kostenloses Erstgespräch
+                    Kostenloses Erstgespräch anfragen
                   </a>
                 </div>
               </div>

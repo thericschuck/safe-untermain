@@ -25,17 +25,17 @@ export default function KontaktCTA() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 pt-4">
             <a
-              href="tel:+49000000000"
+              href="tel:+4915119608040"
               className="font-mono text-sm text-muted hover:text-rot transition-colors duration-200 tracking-wider"
             >
-              +49 000 000 0000
+              0151 196 080 40
             </a>
             <span className="hidden sm:inline w-px h-4 bg-ink/15" />
             <a
-              href="mailto:kontakt@safe-untermain.de"
+              href="mailto:safe@sven-zoeller.de"
               className="font-mono text-sm text-muted hover:text-rot transition-colors duration-200"
             >
-              kontakt@safe-untermain.de
+              safe@sven-zoeller.de
             </a>
           </div>
         </div>

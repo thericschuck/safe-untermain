@@ -9,26 +9,22 @@ export const metadata: Metadata = {
     "Das SAFE Aggressionsmanagement — ein ganzheitliches Konzept aus Prävention, Deeskalation und mentaler Stärke.",
 };
 
-const PRINZIPIEN = [
+const VORTEILE = [
   {
-    nr: "01",
-    title: "Prävention zuerst",
-    text: "Sicherheit beginnt, bevor eine Situation gefährlich wird. Wir trainieren Wahrnehmung, Risikobewusstsein und frühzeitige Reaktion — damit es erst gar nicht zur Eskalation kommt.",
+    title: "Sicherheit und Souveränität",
+    text: "Erlernen Sie bewährte Methoden für den professionellen Umgang mit aggressiven und gewaltbereiten Kunden, Patienten oder Klienten.",
   },
   {
-    nr: "02",
-    title: "Deeskalation vor Technik",
-    text: "Körperliche Verteidigung ist das letzte Mittel. Verbal, nonverbal, situativ — wir geben Ihnen Werkzeuge, die in 90 % aller Konflikte wirksamer sind als jede Kampftechnik.",
+    title: "Individuell abgestimmt",
+    text: "Unsere Workshops und Trainings sind maßgeschneidert – für Unternehmen, Behörden, soziale Einrichtungen, Schulen oder Einzelpersonen.",
   },
   {
-    nr: "03",
-    title: "Mentale Stärke als Basis",
-    text: "Wer sich selbst kennt, bleibt in Hochdrucksituationen handlungsfähig. Das SAFE-Konzept integriert psychologische Grundlagen direkt ins Training.",
+    title: "Prävention & Deeskalation",
+    text: "Wir vermitteln effektive Techniken zur Konflikt-Kommunikation, Gewaltprävention und professionellen Intervention.",
   },
   {
-    nr: "04",
-    title: "Individuell & praxisnah",
-    text: "Kein Einheitsprogramm. Jedes Training wird auf die Teilnehmer, ihre Umgebung und ihre spezifischen Risikosituationen zugeschnitten.",
+    title: "Praxisnah & nachhaltig",
+    text: "In direktem Coaching erarbeiten wir gemeinsam Strategien, die Sie sofort in Ihrem Alltag anwenden können.",
   },
 ];
 
@@ -66,83 +62,71 @@ export default function KonzeptPage() {
         <div className="relative z-10 mx-3 md:mx-5 lg:mx-9">
           <div className="overflow-hidden">
 
-            {/* Intro */}
+            {/* Hauptinhalt */}
             <section className="section-card">
               <div className="max-w-6xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
-                <div className="max-w-3xl">
+
+                <div className="max-w-3xl mb-16">
                   <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-4">
                     SAFE Aggressionsmanagement
                   </p>
-                  <h2 className="font-display text-5xl lg:text-6xl tracking-wide text-ink uppercase leading-none mb-10">
-                    Was steckt<br />hinter SAFE?
+                  <h2 className="font-display text-5xl lg:text-6xl tracking-wide text-ink uppercase leading-none mb-8">
+                    Warum SAFE?
                   </h2>
-                  <div className="space-y-5 text-ink/65 text-base leading-relaxed">
+                  <div className="space-y-4 text-ink/65 text-base leading-relaxed">
                     <p>
-                      SAFE steht für ein ganzheitliches Konzept aus Prävention, Deeskalation,
-                      mentaler Stärke und — wo notwendig — physischer Selbstverteidigung.
-                      Die vier Ebenen greifen ineinander und bilden ein System, das in
-                      realen Situationen funktioniert.
+                      Konflikte gehören zum Alltag – sei es im beruflichen oder privaten Umfeld.
+                      Entscheidend ist, wie man mit ihnen umgeht. Mit SAFE Aggressionsmanagement
+                      bieten wir Ihnen praxisnahe und nachhaltige Lösungsstrategien, um
+                      Konfliktsituationen souverän, klar und produktiv zu bewältigen.
                     </p>
                     <p>
-                      Das Konzept basiert auf jahrzehntelanger Praxiserfahrung: beim THW,
-                      im Krav Maga RSC und in der direkten Arbeit mit Menschen, die täglich
-                      mit Konfliktsituationen konfrontiert sind — von sozialen Berufen über
-                      den öffentlichen Dienst bis hin zu Privatpersonen.
-                    </p>
-                    <p>
-                      Kein Seminar-Wissen. Kein Lehrbuch. Nur das, was nachweislich funktioniert.
+                      Unser Ziel: Bewusstsein schaffen und neue Perspektiven eröffnen.
                     </p>
                   </div>
                 </div>
-              </div>
-            </section>
 
-            {/* Prinzipien */}
-            <section className="section-dark">
-              <div className="max-w-6xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
-                <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-4">
-                  Die vier Ebenen
-                </p>
-                <h2 className="font-display text-5xl lg:text-6xl tracking-wide text-paper uppercase leading-none mb-14">
-                  Grundprinzipien
-                </h2>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-paper/8">
-                  {PRINZIPIEN.map((p) => (
-                    <div key={p.nr} className="bg-ink p-8 lg:p-10">
-                      <p className="font-display text-5xl tracking-wide text-rot/25 leading-none mb-5">
-                        {p.nr}
-                      </p>
-                      <h3 className="font-display text-2xl tracking-[0.1em] text-paper uppercase mb-3">
-                        {p.title}
-                      </h3>
-                      <p className="text-[14px] text-paper/50 font-sans leading-relaxed">
-                        {p.text}
-                      </p>
+                {/* Vorteile */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-ink/8">
+                  {VORTEILE.map((v) => (
+                    <div key={v.title} className="bg-paper p-8 lg:p-10">
+                      <div className="flex items-start gap-4">
+                        <span className="mt-1.5 w-1.5 h-1.5 rotate-45 bg-rot shrink-0" />
+                        <div>
+                          <h3 className="font-display text-xl tracking-[0.08em] text-ink uppercase mb-2">
+                            {v.title}
+                          </h3>
+                          <p className="text-[14px] text-ink/55 font-sans leading-relaxed">
+                            {v.text}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
+
+                <p className="mt-10 text-ink/50 text-[15px] font-sans leading-relaxed max-w-2xl">
+                  SAFE Aggressionsmanagement steht für fundierte Expertise, praxisorientierte
+                  Trainings und maßgeschneiderte Lösungen – für eine sichere und erfolgreiche
+                  Konfliktbewältigung in jeder Situation.
+                </p>
+
               </div>
             </section>
 
-            {/* Quote */}
-            <section className="section-card">
-              <div className="max-w-6xl mx-auto px-6 lg:px-8 py-24 lg:py-32">
-                <div className="max-w-3xl mx-auto text-center">
-                  <blockquote className="font-display text-3xl lg:text-5xl tracking-wide italic text-ink/85 leading-snug">
-                    &ldquo;Sicherheit ist kein Zufall.<br />
-                    Sie ist das Ergebnis von Vorbereitung.&rdquo;
-                  </blockquote>
-                  <p className="mt-8 font-mono text-sm text-ink/30 tracking-wider">
-                    — Sven Zöller
+            {/* CTA */}
+            <section className="section-dark">
+              <div className="max-w-6xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <p className="font-display text-3xl lg:text-4xl tracking-wide text-paper uppercase leading-none">
+                    Nehmen Sie Kontakt auf.
                   </p>
-                  <div className="mt-12">
-                    <a
-                      href="/kontakt"
-                      className="inline-block px-8 py-4 bg-ink text-paper font-medium text-sm hover:bg-rot transition-colors duration-200 tracking-wide"
-                    >
-                      Kostenloses Erstgespräch anfragen
-                    </a>
-                  </div>
+                  <a
+                    href="/kontakt"
+                    className="shrink-0 px-8 py-4 bg-rot text-paper font-medium text-sm hover:bg-paper hover:text-ink transition-colors duration-200 tracking-wide"
+                  >
+                    Kostenloses Erstgespräch
+                  </a>
                 </div>
               </div>
             </section>

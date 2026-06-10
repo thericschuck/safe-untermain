@@ -116,23 +116,23 @@ export default function KontaktFormular() {
 
             <div className="space-y-3 border-t border-ink/8 pt-8">
               <a
-                href="mailto:kontakt@safe-untermain.de"
+                href="mailto:safe@sven-zoeller.de"
                 className="flex items-center gap-3 font-mono text-[12px] tracking-wider text-ink/50 hover:text-rot transition-colors duration-150"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <rect x="1" y="3" width="12" height="8.5" rx="0.5" stroke="currentColor" strokeWidth="1.3" />
                   <path d="M1 3.5l6 4.5 6-4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
                 </svg>
-                kontakt@safe-untermain.de
+                safe@sven-zoeller.de
               </a>
               <a
-                href="tel:+49000000000"
+                href="tel:+4915119608040"
                 className="flex items-center gap-3 font-mono text-[12px] tracking-wider text-ink/50 hover:text-rot transition-colors duration-150"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M2 2.5C2 2.5 3.5 2 4.5 4.5c.5 1.5-.5 2-.5 2s1.5 3 4.5 4.5c0 0 .5-1 2-.5C13 11.5 12.5 13 12.5 13S6.5 13 2 6.5C2 6.5 1.5 3 2 2.5z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
                 </svg>
-                +49 000 000 0000
+                0151 196 080 40
               </a>
             </div>
           </div>
@@ -169,7 +169,7 @@ export default function KontaktFormular() {
                   type="tel"
                   name="telefon"
                   autoComplete="tel"
-                  placeholder="+49 000 000 0000"
+                  placeholder="+49 151 000 000 00"
                   className={inputCls}
                 />
               </Field>

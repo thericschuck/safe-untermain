@@ -79,18 +79,18 @@ export default function Footer() {
             <ul className="space-y-2.5 text-[13px] font-sans">
               <li>
                 <a
-                  href="mailto:kontakt@safe-untermain.de"
+                  href="mailto:safe@sven-zoeller.de"
                   className="text-paper/45 hover:text-paper transition-colors duration-150"
                 >
-                  kontakt@safe-untermain.de
+                  safe@sven-zoeller.de
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:+49000000000"
+                  href="tel:+4915119608040"
                   className="text-paper/45 hover:text-paper transition-colors duration-150 font-mono text-[12px] tracking-wider"
                 >
-                  +49 000 000 0000
+                  0151 196 080 40
                 </a>
               </li>
               <li className="pt-2">
@@ -113,19 +113,29 @@ export default function Footer() {
           </p>
           <div className="flex gap-6">
             <Link
-              href="#impressum"
+              href="/impressum"
               className="font-mono text-[11px] text-paper/20 hover:text-paper/50 transition-colors duration-150 tracking-wide"
             >
               Impressum
             </Link>
             <Link
-              href="#datenschutz"
+              href="/datenschutz"
               className="font-mono text-[11px] text-paper/20 hover:text-paper/50 transition-colors duration-150 tracking-wide"
             >
               Datenschutz
             </Link>
           </div>
         </div>
+
+        {/* ── Agency credit ── */}
+        <a
+          href="https://schuck-webdesign.de"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block mt-6 text-center font-mono text-[10px] tracking-[0.2em] text-paper/12 hover:text-paper/30 transition-colors duration-150"
+        >
+          Website by Schuck Webdesign
+        </a>
 
       </div>
     </footer>

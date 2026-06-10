@@ -35,7 +35,7 @@ export default function Philosophie() {
               </cite>
               <span aria-hidden className="size-1 rounded-full bg-paper/20" />
               <span className="font-mono text-[11px] tracking-wider text-rot/70 uppercase">
-                SAFE Aggressionsmanagement
+                SAFE
               </span>
             </footer>
           </blockquote>
