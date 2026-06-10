@@ -51,7 +51,7 @@ export default function UeberMichPage() {
             <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-3">
               safe-untermain.de
             </p>
-            <h1 className="font-display text-[5.5rem] lg:text-[9rem] xl:text-[11rem] tracking-wide text-paper uppercase leading-none">
+            <h1 className="font-display text-[clamp(2.2rem,10vw,5.5rem)] lg:text-[9rem] xl:text-[11rem] tracking-wide text-paper uppercase leading-none">
               Über mich
             </h1>
           </div>
@@ -67,7 +67,7 @@ export default function UeberMichPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
                   {/* Foto */}
-                  <div className="aspect-[4/5] relative overflow-hidden">
+                  <div className="aspect-4/5 relative overflow-hidden">
                     <Image
                       src="/sven.png"
                       alt="Sven Zöller"

@@ -35,6 +35,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* iOS/mobile: fixed background causes repaints — use scroll instead */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
 /* Individual section backgrounds — layout handled by wrapper in page.tsx */
 .section-card {
   background: rgba(242, 237, 232, 0.97);

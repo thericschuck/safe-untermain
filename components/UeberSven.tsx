@@ -14,8 +14,8 @@ export default function UeberSven() {
 
           {/* Foto — slides in from the left */}
           <motion.div
-            className="aspect-[4/5] relative overflow-hidden"
-            initial={{ x: -120, opacity: 0 }}
+            className="aspect-4/5 relative overflow-hidden"
+            initial={{ x: -60, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}

@@ -108,7 +108,7 @@ function PartnerKarte({
         <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot mb-3">
           {partner.kategorie}
         </p>
-        <h3 className="font-display text-3xl lg:text-4xl tracking-[0.08em] text-paper uppercase leading-none mb-1">
+        <h3 className="font-display text-xl md:text-2xl lg:text-3xl xl:text-4xl tracking-[0.08em] text-paper uppercase leading-none mb-1 wrap-break-word">
           {partner.name}
         </h3>
         <p className="font-mono text-[11px] tracking-wider text-paper/35 mb-6">
@@ -159,7 +159,7 @@ export default function PartnerPage() {
             <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-3">
               safe-untermain.de
             </p>
-            <h1 className="font-display text-[5.5rem] lg:text-[9rem] xl:text-[11rem] tracking-wide text-paper uppercase leading-none">
+            <h1 className="font-display text-[clamp(2.2rem,10vw,5.5rem)] lg:text-[9rem] xl:text-[11rem] tracking-wide text-paper uppercase leading-none">
               Partner
             </h1>
           </div>

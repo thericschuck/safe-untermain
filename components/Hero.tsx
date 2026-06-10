@@ -125,7 +125,7 @@ export default function Hero() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8 w-full py-16 lg:py-24">
           <div className="max-w-lg space-y-6">
 
-            <h1 className="font-display text-[4.5rem] lg:text-[6rem] xl:text-[7rem] leading-[0.95] tracking-wide text-ink uppercase">
+            <h1 className="font-display text-[clamp(2.5rem,11vw,4.5rem)] lg:text-[6rem] xl:text-[7rem] leading-[0.95] tracking-wide text-ink uppercase">
               <span className="block">
                 {LINE_1.map((w) => <WordReveal key={w.text} word={w} loaded={loaded} />)}
               </span>

@@ -52,7 +52,7 @@ export default function KonzeptPage() {
             <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-3">
               safe-untermain.de
             </p>
-            <h1 className="font-display text-[5.5rem] lg:text-[9rem] xl:text-[11rem] tracking-wide text-paper uppercase leading-none">
+            <h1 className="font-display text-[clamp(2.2rem,10vw,5.5rem)] lg:text-[9rem] xl:text-[11rem] tracking-wide text-paper uppercase leading-none">
               Konzept
             </h1>
           </div>

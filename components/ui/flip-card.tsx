@@ -123,7 +123,7 @@ export function FlipCard({
                     <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-rot mb-2">
                       {category}
                     </p>
-                    <h3 className="font-display text-4xl sm:text-5xl tracking-wide text-ink uppercase leading-none">
+                    <h3 className="font-display text-2xl sm:text-4xl tracking-wide text-ink uppercase leading-none wrap-break-word">
                       {title}
                     </h3>
                     <div className="mt-4 mb-6 h-px w-12 bg-rot" />

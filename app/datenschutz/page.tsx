@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="border-t border-ink/8 pt-10 mt-10 first:border-0 first:pt-0 first:mt-0">
-      <h2 className="font-display text-2xl tracking-[0.1em] text-ink uppercase mb-4">{title}</h2>
+      <h2 className="font-display text-2xl tracking-widest text-ink uppercase mb-4">{title}</h2>
       <div className="text-ink/65 text-[15px] font-sans leading-relaxed space-y-3">{children}</div>
     </div>
   );
@@ -41,7 +41,7 @@ export default function DatenschutzPage() {
             <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-3">
               safe-untermain.de
             </p>
-            <h1 className="font-display text-[5.5rem] lg:text-[9rem] xl:text-[11rem] tracking-wide text-paper uppercase leading-none">
+            <h1 className="font-display text-[clamp(2.2rem,10vw,5.5rem)] lg:text-[9rem] xl:text-[11rem] tracking-wide text-paper uppercase leading-none">
               Datenschutz
             </h1>
           </div>

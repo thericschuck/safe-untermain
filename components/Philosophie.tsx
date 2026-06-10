@@ -10,13 +10,13 @@ export default function Philosophie() {
 
         {/* Dark card — slides in from the right */}
         <motion.div
-          className="max-w-2xl mx-auto bg-ink shadow-[0_32px_80px_rgba(0,0,0,0.22)] p-10 lg:p-14"
-          initial={{ x: 120, opacity: 0 }}
+          className="max-w-2xl mx-auto bg-ink shadow-[0_32px_80px_rgba(0,0,0,0.22)] p-7 sm:p-10 lg:p-14"
+          initial={{ x: 60, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
         >
-          <blockquote className="relative pl-7 before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:rounded-full before:bg-rot">
+          <blockquote className="relative pl-7 before:absolute before:inset-y-0 before:left-0 before:w-0.75 before:rounded-full before:bg-rot">
             <p className="font-display text-2xl lg:text-[1.85rem] xl:text-[2rem] italic text-paper/90 leading-snug tracking-wide">
               &bdquo;Sicherheit ist kein Zufall.
               <br />
@@ -24,8 +24,8 @@ export default function Philosophie() {
             </p>
 
             <footer className="mt-8 flex items-center gap-3">
-              <Avatar className="size-8 border border-paper/15 shrink-0">
-                <AvatarImage src="" alt="Sven Zöller" />
+              <Avatar className="size-10 border border-paper/15 shrink-0">
+                <AvatarImage src="/sven-klein.jpg" alt="Sven Zöller" />
                 <AvatarFallback className="bg-paper/10 text-paper font-display text-[11px] tracking-wider">
                   SZ
                 </AvatarFallback>
