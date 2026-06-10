@@ -4,49 +4,12 @@ import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 
-type WordDef = {
-  text: string;
-  delay: number;
-  duration: number;
-  italic?: boolean;
-  ease: [number, number, number, number];
-};
-
-const LINE_1: WordDef[] = [
-  { text: "SICHERHEIT", delay: 0.1,  duration: 1.5,  ease: [0.06, 1, 0.16, 1] },
-  { text: "BEGINNT",    delay: 1.4,  duration: 0.95, ease: [0.16, 1, 0.30, 1] },
-];
-const LINE_2: WordDef[] = [
-  { text: "IM",    delay: 2.45, duration: 1.05, italic: true, ease: [0.16, 1, 0.30, 1] },
-  { text: "KOPF.", delay: 3.00,  duration: 0.9,  italic: true, ease: [0.22, 1, 0.36, 1] },
-];
-
 const EYE_TRANSITION = { duration: 5.0, delay: 0.3, ease: "easeOut" } as const;
-const AFTER_TEXT = (extra: number) => ({
-  duration: 0.65,
-  delay: 3.4 + extra,
-  ease: "easeOut" as const,
-});
-
-function WordReveal({ word, loaded }: { word: WordDef; loaded: boolean }) {
-  return (
-    <span className="inline-block overflow-hidden pb-[0.06em] pr-[0.1em] align-bottom mr-[0.14em]">
-      <motion.span
-        className={`inline-block${word.italic ? " italic text-rot" : ""}`}
-        initial={{ y: "110%", opacity: 0.05 }}
-        animate={loaded ? { y: "0%", opacity: 1 } : {}}
-        transition={{ duration: word.duration, delay: word.delay, ease: word.ease }}
-      >
-        {word.text}
-      </motion.span>
-    </span>
-  );
-}
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
 
-  // Lock scroll on both body and html (actual scroll container) immediately on mount
+  // Lock scroll immediately on mount so the eye reveal plays uninterrupted
   useEffect(() => {
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflowY = "hidden";
@@ -56,11 +19,9 @@ export default function Hero() {
     };
   }, []);
 
-  // Trigger on DOMContentLoaded — NOT window.load — so animation starts as soon as
-  // the HTML is parsed. eye.jpg is preloaded via <link rel="preload"> (priority prop),
-  // so it's available well before the 0.3s animation delay reveals it. This is the
-  // primary fix for LCP: previously the animation waited for ALL resources to load
-  // (up to 4-5s), now it starts at ~200-300ms after navigation.
+  // DOMContentLoaded fires when HTML is parsed (~200-300ms), NOT window.load.
+  // eye.jpg is preloaded via <link rel="preload"> (priority prop) so it's
+  // available well before the 0.3s animation delay begins.
   useEffect(() => {
     const trigger = () => setTimeout(() => setLoaded(true), 60);
     if (document.readyState !== "loading") {
@@ -143,30 +104,16 @@ export default function Hero() {
           <div className="max-w-lg space-y-6">
 
             <h1 className="font-display text-[clamp(2.5rem,11vw,4.5rem)] lg:text-[6rem] xl:text-[7rem] leading-[0.95] tracking-wide text-ink uppercase">
-              <span className="block">
-                {LINE_1.map((w) => <WordReveal key={w.text} word={w} loaded={loaded} />)}
-              </span>
-              <span className="block">
-                {LINE_2.map((w) => <WordReveal key={w.text} word={w} loaded={loaded} />)}
-              </span>
+              <span className="block">Sicherheit Beginnt</span>
+              <span className="block italic text-rot">Im Kopf.</span>
             </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={loaded ? { opacity: 1, y: 0 } : {}}
-              transition={AFTER_TEXT(0.2)}
-              className="text-base lg:text-lg text-ink/65 leading-relaxed"
-            >
+            <p className="text-base lg:text-lg text-ink/65 leading-relaxed">
               Anti-Aggression, Deeskalation und Gewaltprävention —{" "}
               praxisnah, direkt, wirksam.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={loaded ? { opacity: 1, y: 0 } : {}}
-              transition={AFTER_TEXT(0.4)}
-              className="flex flex-wrap gap-3 pt-1"
-            >
+            <div className="flex flex-wrap gap-3 pt-1">
               <a
                 href="/kontakt"
                 className="px-6 py-3 bg-ink text-paper font-medium text-sm hover:bg-rot transition-colors duration-200"
@@ -179,16 +126,11 @@ export default function Hero() {
               >
                 Leistungen ansehen →
               </a>
-            </motion.div>
+            </div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={loaded ? { opacity: 1 } : {}}
-              transition={AFTER_TEXT(0.8)}
-              className="font-mono text-xs text-muted/60 pt-2 tracking-wider"
-            >
+            <p className="font-mono text-xs text-muted/60 pt-2 tracking-wider">
               49° 46′ N / 9° 8′ O
-            </motion.p>
+            </p>
 
           </div>
         </div>

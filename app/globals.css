@@ -32,6 +32,10 @@ body {
 
 body {
   background-image: url('/concrete.jpg');
+  background-image: image-set(
+    url('/concrete.webp') type('image/webp'),
+    url('/concrete.jpg') type('image/jpeg')
+  );
   background-attachment: fixed;
   background-size: cover;
   background-position: center;

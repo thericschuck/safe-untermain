@@ -14,7 +14,7 @@ export default function Footer() {
             color: "transparent",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
-            backgroundImage: "url('/concrete.jpg')",
+            backgroundImage: "image-set(url('/concrete.webp') type('image/webp'), url('/concrete.jpg') type('image/jpeg'))",
             backgroundAttachment: "fixed",
             backgroundSize: "cover",
             backgroundPosition: "center",
