@@ -111,7 +111,7 @@ export default function Leistungen() {
             title="Deeskalationstraining"
             category="Konflikte entschärfen"
             src="/Deeskalation.jpg"
-            objectPosition="top"
+            objectPosition="50% 30%"
             excerpt="Deeskalation beginnt Sekunden vor dem Konflikt: durch Körpersprache, Stimme und Distanz. Verbale und nonverbale Techniken für Hochdrucksituationen."
           >
             <p>

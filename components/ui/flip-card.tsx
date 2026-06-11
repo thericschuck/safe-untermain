@@ -208,8 +208,8 @@ export function FlipCard({
           onClick={() => setActive(true)}
         >
           <div
-            className="relative w-full h-full transform-3d transition-[transform] duration-700 group-hover:transform-[rotateY(180deg)]"
-            style={{ transitionTimingFunction: "cubic-bezier(0.4, 0.2, 0.2, 1)" }}
+            className="relative w-full h-full transform-3d will-change-transform transition-[transform] duration-500 group-hover:transform-[rotateY(180deg)]"
+            style={{ transitionTimingFunction: "cubic-bezier(0.2, 0.6, 0.3, 1)" }}
           >
             {/* ── Front ── */}
             <div className="absolute inset-0 backface-hidden overflow-hidden">
