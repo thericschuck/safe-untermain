@@ -5,9 +5,16 @@ import KontaktFormular from "@/components/KontaktFormular";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Kontakt — Sven Zöller | safe-untermain.de",
+  title: "Kontakt",
   description:
-    "Vereinbaren Sie ein kostenloses Erstgespräch. Anti-Aggressionstraining, Deeskalation, Gewaltprävention und Selbstbehauptung.",
+    "Vereinbaren Sie ein kostenloses Erstgespräch mit Sven Zöller. Anti-Aggressionstraining, Deeskalation, Gewaltprävention und Selbstbehauptung in Obernburg und Umgebung.",
+  alternates: { canonical: "/kontakt" },
+  openGraph: {
+    url: "https://safe-untermain.de/kontakt",
+    title: "Kontakt — Sven Zöller | safe-untermain.de",
+    description:
+      "Vereinbaren Sie ein kostenloses Erstgespräch. Anti-Aggressionstraining, Deeskalation, Gewaltprävention und Selbstbehauptung.",
+  },
 };
 
 export default function KontaktPage() {

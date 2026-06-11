@@ -4,8 +4,10 @@ import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Datenschutz — Sven Zöller | safe-untermain.de",
+  title: "Datenschutz",
   description: "Datenschutzerklärung gemäß DSGVO.",
+  alternates: { canonical: "/datenschutz" },
+  robots: { index: false, follow: false },
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {

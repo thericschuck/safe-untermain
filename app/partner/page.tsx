@@ -5,9 +5,16 @@ import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Partner — Sven Zöller | safe-untermain.de",
+  title: "Partner",
   description:
-    "Kooperationen und Partner von SAFE Aggressionsmanagement.",
+    "Kooperationen und Partner von SAFE Aggressionsmanagement — CyberSecBW, Gewaltprävention Hannover, Passion MMA und weitere Sicherheitsexperten.",
+  alternates: { canonical: "/partner" },
+  openGraph: {
+    url: "https://safe-untermain.de/partner",
+    title: "Partner — Sven Zöller | safe-untermain.de",
+    description:
+      "Kooperationen und Partner von SAFE Aggressionsmanagement.",
+  },
 };
 
 const PARTNER = [

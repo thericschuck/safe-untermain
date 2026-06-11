@@ -5,9 +5,17 @@ import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Über mich — Sven Zöller | safe-untermain.de",
+  title: "Über mich",
   description:
     "Sven Zöller — Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
+  alternates: { canonical: "/ueber" },
+  openGraph: {
+    url: "https://safe-untermain.de/ueber",
+    title: "Über mich — Sven Zöller | safe-untermain.de",
+    description:
+      "Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
+    images: [{ url: "/sven.png", alt: "Sven Zöller — Sicherheitstrainer" }],
+  },
 };
 
 const KOMPETENZEN = [
@@ -27,9 +35,65 @@ const CREDENTIALS = [
   { label: "Mediator",      desc: "Kommunikationscoach und zertifizierter Mediator" },
 ];
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Sven Zöller",
+  url: "https://safe-untermain.de",
+  image: "https://safe-untermain.de/sven.png",
+  jobTitle: "Sicherheitstrainer & Personalcoach",
+  description:
+    "Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
+  email: "mailto:safe@sven-zoeller.de",
+  telephone: "+4915119608040",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Buchenweg 9",
+    addressLocality: "Obernburg",
+    postalCode: "63785",
+    addressCountry: "DE",
+  },
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Krav Maga RSC Trainer",
+      description: "Zertifizierter Trainer — Real Selfdefence Concept",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Anti-Aggressionstraining (AAT)",
+      description: "Gelistet beim AJSD Niedersachsen",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Peer — Psychosoziale Unterstützung",
+      description: "Ausgebildeter Peer für psychosoziale Unterstützung",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "SbE — Stressbearbeitung nach belastenden Ereignissen",
+      description: "Zertifizierte Weiterbildung SbE",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Mediator",
+      description: "Zertifizierter Mediator und Kommunikationscoach",
+    },
+  ],
+  memberOf: {
+    "@type": "Organization",
+    name: "Technisches Hilfswerk (THW)",
+    description: "Über 20 Jahre aktiver Dienst",
+  },
+};
+
 export default function UeberMichPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <ScrollProgress />
       <Nav />
 

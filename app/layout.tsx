@@ -16,9 +16,27 @@ const ibmPlexSans = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Sven Zöller — Personalcoach | safe-untermain.de",
+  metadataBase: new URL("https://safe-untermain.de"),
+  title: {
+    default: "Sven Zöller — Sicherheitstrainer | safe-untermain.de",
+    template: "%s — Sven Zöller | safe-untermain.de",
+  },
   description:
-    "Anti-Aggression, Deeskalation und Gewaltprävention — praxisnah, direkt, wirksam. Personalcoach mit 20+ Jahren THW-Erfahrung und Krav Maga Zertifizierung.",
+    "Anti-Aggression, Deeskalation und Gewaltprävention — praxisnah, direkt, wirksam. Zertifizierter Sicherheitstrainer mit 20+ Jahren THW-Erfahrung und Krav Maga Zertifizierung.",
+  openGraph: {
+    type: "website",
+    locale: "de_DE",
+    siteName: "SAFE Aggressionsmanagement — Sven Zöller",
+    images: [{ url: "/sven.png", alt: "Sven Zöller — Sicherheitstrainer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/sven.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

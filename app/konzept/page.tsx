@@ -4,9 +4,16 @@ import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Unser Konzept — Sven Zöller | safe-untermain.de",
+  title: "Konzept",
   description:
-    "Das SAFE Aggressionsmanagement — ein ganzheitliches Konzept aus Prävention, Deeskalation und mentaler Stärke.",
+    "Das SAFE Aggressionsmanagement — ein ganzheitliches Konzept aus Prävention, Deeskalation und mentaler Stärke. Maßgeschneidert für Unternehmen, Schulen und Einzelpersonen.",
+  alternates: { canonical: "/konzept" },
+  openGraph: {
+    url: "https://safe-untermain.de/konzept",
+    title: "Konzept — Sven Zöller | safe-untermain.de",
+    description:
+      "Das SAFE Aggressionsmanagement — ein ganzheitliches Konzept aus Prävention, Deeskalation und mentaler Stärke.",
+  },
 };
 
 const VORTEILE = [

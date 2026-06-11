@@ -4,8 +4,10 @@ import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Impressum — Sven Zöller | safe-untermain.de",
+  title: "Impressum",
   description: "Impressum und Anbieterkennzeichnung gemäß § 5 TMG.",
+  alternates: { canonical: "/impressum" },
+  robots: { index: false, follow: false },
 };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
