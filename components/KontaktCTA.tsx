@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function KontaktCTA() {
   return (
     <section id="kontakt" className="section-card">
@@ -15,12 +17,12 @@ export default function KontaktCTA() {
           </p>
 
           <div className="pt-4">
-            <a
+            <Link
               href="/kontakt"
               className="inline-block px-8 py-4 bg-ink text-paper font-medium text-sm hover:bg-rot transition-colors duration-200 tracking-wide"
             >
               Kostenloses Erstgespräch anfragen
-            </a>
+            </Link>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 pt-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Philosophie() {
@@ -9,7 +9,7 @@ export default function Philosophie() {
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-24 lg:py-32">
 
         {/* Dark card — slides in from the right */}
-        <motion.div
+        <m.div
           className="max-w-2xl mx-auto bg-ink shadow-[0_32px_80px_rgba(0,0,0,0.22)] p-7 sm:p-10 lg:p-14"
           initial={{ x: 60, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -39,7 +39,7 @@ export default function Philosophie() {
               </span>
             </footer>
           </blockquote>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

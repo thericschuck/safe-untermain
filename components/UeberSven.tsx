@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const KOMPETENZEN = ["Konfliktmanagement", "Deeskalation", "Gewaltprävention", "Kommunikation"];
 
@@ -13,7 +13,7 @@ export default function UeberSven() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* Foto — slides in from the left */}
-          <motion.div
+          <m.div
             className="aspect-4/5 relative overflow-hidden"
             initial={{ x: -60, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
@@ -27,7 +27,7 @@ export default function UeberSven() {
               className="object-cover object-top"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
-          </motion.div>
+          </m.div>
 
           {/* Text */}
           <div className="space-y-6">

@@ -1,5 +1,6 @@
 "use server";
 
+
 export interface KontaktDaten {
   name: string;
   email: string;
@@ -32,8 +33,6 @@ export async function sendeKontaktanfrage(
   //   subject: `Kontaktanfrage: ${daten.interesse}`,
   //   text: `Name: ${daten.name}\nE-Mail: ${daten.email}\nTelefon: ${daten.telefon ?? "–"}\nNachricht:\n${daten.nachricht}`,
   // });
-
-  console.log("[Kontaktanfrage]", daten);
 
   return { erfolg: true };
 }

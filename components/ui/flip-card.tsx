@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
+import { AnimatePresence, m } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface FlipCardProps {
@@ -30,8 +31,12 @@ export function FlipCard({
   isTouch = false,
   priority = false,
 }: FlipCardProps) {
-  const [active, setActive] = React.useState(false);
+  const [active, setActive] = React.useState(() =>
+    typeof window !== "undefined" && !!id && window.location.hash === `#leistung-${id}`
+  );
   const modalRef = React.useRef<HTMLDivElement>(null);
+  const idRef = React.useRef(id);
+  idRef.current = id;
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setActive(false); };
@@ -40,7 +45,7 @@ export function FlipCard({
     };
     window.addEventListener("keydown", onKey);
     document.addEventListener("mousedown", onOutside);
-    document.addEventListener("touchstart", onOutside);
+    document.addEventListener("touchstart", onOutside, { passive: true });
     return () => {
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("mousedown", onOutside);
@@ -57,20 +62,23 @@ export function FlipCard({
     return () => window.removeEventListener("open-leistung", handler);
   }, [id]);
 
-  // Open via URL hash — e.g. /#leistung-anti-aggressionstraining (from subpage nav)
+  // Open via URL hash change (initial value already set by the lazy useState initializer above).
+  // On mount: just clear the hash from the URL if the card opened that way.
   React.useEffect(() => {
-    if (!id) return;
-    const hashId = `#leistung-${id}`;
-    const checkHash = () => {
+    if (idRef.current && window.location.hash === `#leistung-${idRef.current}`) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    const onHashChange = () => {
+      if (!idRef.current) return;
+      const hashId = `#leistung-${idRef.current}`;
       if (window.location.hash === hashId) {
         setActive(true);
         history.replaceState(null, "", window.location.pathname + window.location.search);
       }
     };
-    checkHash();
-    window.addEventListener("hashchange", checkHash);
-    return () => window.removeEventListener("hashchange", checkHash);
-  }, [id]);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
 
   React.useEffect(() => {
     if (active) {
@@ -92,7 +100,7 @@ export function FlipCard({
       <AnimatePresence>
         {active && (
           <>
-            <motion.div
+            <m.div
               key="backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -100,7 +108,7 @@ export function FlipCard({
               className="fixed inset-0 bg-ink/75 backdrop-blur-sm z-50"
             />
             <div className="fixed inset-0 z-50 grid place-items-center p-4 sm:p-8">
-              <motion.div
+              <m.div
                 ref={modalRef}
                 initial={{ opacity: 0, scale: 0.96, y: 16 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -120,6 +128,7 @@ export function FlipCard({
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-paper/50 to-transparent" />
                   <button
+                    type="button"
                     aria-label="Schließen"
                     onClick={() => setActive(false)}
                     className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-ink/80 backdrop-blur-sm text-paper hover:bg-rot transition-colors duration-200"
@@ -146,7 +155,7 @@ export function FlipCard({
                   </div>
                   {/* Contact CTA */}
                   <div className="px-7 sm:px-9 pb-9 pt-5 border-t border-ink/8">
-                    <a
+                    <Link
                       href="/kontakt"
                       onClick={() => setActive(false)}
                       className="inline-flex items-center gap-3 px-6 py-3.5 bg-ink text-paper text-[13px] font-sans tracking-wide hover:bg-rot transition-colors duration-200"
@@ -155,10 +164,10 @@ export function FlipCard({
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                         <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                    </a>
+                    </Link>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </>
         )}
@@ -167,8 +176,10 @@ export function FlipCard({
       {/* ── Card: flat on touch devices, 3D flip on pointer devices ── */}
       {isTouch ? (
         /* Touch: no perspective/rotateY/backface — flat card, content visible, tap opens modal */
-        <div
-          className={cn("h-96 lg:h-105 relative overflow-hidden cursor-pointer", className)}
+        <button
+          type="button"
+          aria-label={title}
+          className={cn("block w-full h-96 lg:h-105 relative overflow-hidden appearance-none p-0 border-0", className)}
           onClick={() => setActive(true)}
         >
           <Image
@@ -200,11 +211,13 @@ export function FlipCard({
               </svg>
             </span>
           </div>
-        </div>
+        </button>
       ) : (
         /* Desktop: 3D flip on hover */
-        <div
-          className={cn("group h-96 lg:h-105 perspective-distant cursor-pointer", className)}
+        <button
+          type="button"
+          aria-label={title}
+          className={cn("group block w-full h-96 lg:h-105 perspective-distant appearance-none p-0 border-0", className)}
           onClick={() => setActive(true)}
         >
           <div
@@ -255,7 +268,7 @@ export function FlipCard({
               </span>
             </div>
           </div>
-        </div>
+        </button>
       )}
     </>
   );

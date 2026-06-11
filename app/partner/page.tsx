@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
@@ -192,7 +193,7 @@ export default function PartnerPage() {
 
                 <div className="mt-20 lg:mt-28 space-y-10">
                   {PARTNER.map((p, i) => (
-                    <PartnerKarte key={i} partner={p} reversed={i % 2 !== 0} />
+                    <PartnerKarte key={p.name} partner={p} reversed={i % 2 !== 0} />
                   ))}
                 </div>
               </div>
@@ -210,12 +211,12 @@ export default function PartnerPage() {
                       Sie möchten mit SAFE Aggressionsmanagement zusammenarbeiten?
                     </p>
                   </div>
-                  <a
+                  <Link
                     href="/kontakt"
                     className="shrink-0 px-8 py-4 bg-rot text-paper font-medium text-sm hover:bg-paper hover:text-ink transition-colors duration-200 tracking-wide"
                   >
                     Kontakt aufnehmen
-                  </a>
+                  </Link>
                 </div>
               </div>
             </section>

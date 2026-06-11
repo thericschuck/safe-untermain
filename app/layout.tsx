@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, IBM_Plex_Sans } from "next/font/google";
+import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -49,7 +50,9 @@ export default function RootLayout({
       lang="de"
       className={`${bebasNeue.variable} ${ibmPlexSans.variable} antialiased`}
     >
-      <body className="overflow-x-hidden">{children}</body>
+      <body className="overflow-x-hidden">
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }

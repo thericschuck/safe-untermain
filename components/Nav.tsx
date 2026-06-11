@@ -173,6 +173,7 @@ export default function Nav() {
 
         {/* ── Mobile hamburger ── */}
         <button
+          type="button"
           className="lg:hidden flex flex-col justify-center gap-1.5 p-2 ml-auto"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Menü"
@@ -205,6 +206,7 @@ export default function Nav() {
                   Leistungen
                 </Link>
                 <button
+                  type="button"
                   onClick={() => setMobileLeistungenOpen((v) => !v)}
                   className="p-3 text-paper/50 hover:text-rot transition-colors"
                   aria-label="Untermenü öffnen"

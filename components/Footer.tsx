@@ -7,20 +7,8 @@ export default function Footer() {
       {/* ── Knockout SAFE ── */}
       <div className="overflow-hidden select-none pointer-events-none">
         <span
-          className="font-display block text-center uppercase leading-none"
-          style={{
-            fontSize: "clamp(5.5rem, 22vw, 22rem)",
-            letterSpacing: "0.06em",
-            color: "transparent",
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-            backgroundImage: "image-set(url('/concrete.webp') type('image/webp'), url('/concrete.jpg') type('image/jpeg'))",
-            backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            paddingTop: "clamp(1.5rem, 4vw, 4rem)",
-            paddingBottom: "clamp(0.5rem, 2vw, 2rem)",
-          }}
+          className="font-display block text-center uppercase leading-none text-transparent bg-clip-text bg-fixed bg-cover bg-center text-[clamp(5.5rem,22vw,22rem)] tracking-[0.06em] pt-[clamp(1.5rem,4vw,4rem)] pb-[clamp(0.5rem,2vw,2rem)]"
+          style={{ backgroundImage: "image-set(url('/concrete.webp') type('image/webp'), url('/concrete.jpg') type('image/jpeg'))" }}
         >
           SAFE
         </span>
@@ -94,12 +82,12 @@ export default function Footer() {
                 </a>
               </li>
               <li className="pt-2">
-                <a
+                <Link
                   href="/kontakt"
                   className="inline-block px-5 py-2.5 bg-rot text-paper font-medium text-[12px] hover:bg-paper hover:text-ink transition-colors duration-200 tracking-wide"
                 >
                   Erstgespräch anfragen
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

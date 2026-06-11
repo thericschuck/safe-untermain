@@ -1,44 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useEffect } from "react";
+import { m, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const EYE_TRANSITION = { duration: 5.0, delay: 0.3, ease: "easeOut" } as const;
 
 export default function Hero() {
-  const [loaded, setLoaded] = useState(false);
-
-  // Lock scroll immediately on mount so the eye reveal plays uninterrupted
+  // Lock scroll on mount; release after eye animation completes (~5.3s = delay 0.3 + duration 5.0)
   useEffect(() => {
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflowY = "hidden";
+    const t = setTimeout(() => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflowY = "";
+    }, 5600);
     return () => {
+      clearTimeout(t);
       document.body.style.overflow = "";
       document.documentElement.style.overflowY = "";
     };
   }, []);
-
-  // DOMContentLoaded fires when HTML is parsed (~200-300ms), NOT window.load.
-  // eye.jpg is preloaded via <link rel="preload"> (priority prop) so it's
-  // available well before the 0.3s animation delay begins.
-  useEffect(() => {
-    const trigger = () => setTimeout(() => setLoaded(true), 60);
-    if (document.readyState !== "loading") {
-      trigger();
-    } else {
-      document.addEventListener("DOMContentLoaded", trigger, { once: true });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!loaded) return;
-    const t = setTimeout(() => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflowY = "";
-    }, 5500);
-    return () => clearTimeout(t);
-  }, [loaded]);
 
   // Parallax — text moves up faster than scroll, feels like foreground layer
   const { scrollY } = useScroll();
@@ -49,7 +32,7 @@ export default function Hero() {
     <section className="relative min-h-screen flex flex-col">
 
       {/* ── Eye — parallax + slow fade-in ── */}
-      <motion.div
+      <m.div
         className="absolute right-0 top-0 h-full w-[60%] lg:w-[46%] pointer-events-none"
         style={{
           zIndex: 5,
@@ -57,7 +40,7 @@ export default function Hero() {
             "radial-gradient(ellipse 68% 60% at 52% 50%, black 8%, rgba(0,0,0,0.85) 32%, rgba(0,0,0,0.25) 58%, transparent 76%)",
         }}
         initial={{ opacity: 0 }}
-        animate={loaded ? { opacity: 1 } : {}}
+        animate={{ opacity: 1 }}
         transition={EYE_TRANSITION}
       >
         <div className="relative h-full w-full">
@@ -71,7 +54,7 @@ export default function Hero() {
             sizes="(min-width: 1024px) 46vw, 60vw"
           />
         </div>
-      </motion.div>
+      </m.div>
 
       {/* ── Right vignette ── */}
       <div
@@ -99,7 +82,7 @@ export default function Hero() {
       <div className="hero-mobile-overlay md:hidden absolute inset-0 pointer-events-none" style={{ zIndex: 10 }} />
 
       {/* ── Text content — parallax: moves up faster than scroll ── */}
-      <motion.div className="relative flex-1 flex items-center pt-20" style={{ zIndex: 20, y: textY }}>
+      <m.div className="relative flex-1 flex items-center pt-20" style={{ zIndex: 20, y: textY }}>
         <div className="max-w-6xl mx-auto px-6 lg:px-8 w-full py-16 lg:py-24">
           <div className="max-w-lg space-y-6">
 
@@ -114,12 +97,12 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-3 pt-1">
-              <a
+              <Link
                 href="/kontakt"
                 className="px-6 py-3 bg-ink text-paper font-medium text-sm hover:bg-rot transition-colors duration-200"
               >
                 Kostenloses Erstgespräch
-              </a>
+              </Link>
               <a
                 href="#leistungen"
                 className="px-6 py-3 border border-ink/25 text-ink font-medium text-sm hover:border-rot hover:text-rot transition-colors duration-200"
@@ -129,7 +112,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
     </section>
   );

@@ -127,14 +127,12 @@ const localBusinessJsonLd = {
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
-      />
+      <script type="application/ld+json">
+        {JSON.stringify(personJsonLd)}
+      </script>
+      <script type="application/ld+json">
+        {JSON.stringify(localBusinessJsonLd)}
+      </script>
       <ScrollProgress />
       <Nav />
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { FlipCard } from "@/components/ui/flip-card";
 
 function Bullet({ children }: { children: ReactNode }) {
@@ -21,11 +21,9 @@ function Sub({ children }: { children: ReactNode }) {
 }
 
 export default function Leistungen() {
-  const [isTouch, setIsTouch] = useState(false);
-
-  useEffect(() => {
-    setIsTouch(window.matchMedia("(hover: none)").matches);
-  }, []);
+  const [isTouch] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(hover: none)").matches
+  );
 
   return (
     <section id="leistungen" className="section-card">

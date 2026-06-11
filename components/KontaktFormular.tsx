@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useId } from "react";
+import Link from "next/link";
 import { sendeKontaktanfrage } from "@/app/kontakt/actions";
 
 const INTERESSEN = [
@@ -15,15 +16,17 @@ const INTERESSEN = [
 function Field({
   label,
   required,
+  htmlFor,
   children,
 }: {
   label: string;
   required?: boolean;
+  htmlFor?: string;
   children: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="font-mono text-[10px] tracking-[0.22em] uppercase text-ink/45">
+      <label htmlFor={htmlFor} className="font-mono text-[10px] tracking-[0.22em] uppercase text-ink/45">
         {label}
         {required && <span className="text-rot ml-1">*</span>}
       </label>
@@ -36,6 +39,7 @@ const inputCls =
   "w-full bg-transparent border border-ink/15 px-4 py-3 text-[14px] font-sans text-ink placeholder:text-ink/25 focus:outline-none focus:border-rot transition-colors duration-150";
 
 export default function KontaktFormular() {
+  const uid = useId();
   const [status, setStatus] = useState<"idle" | "erfolg" | "fehler">("idle");
   const [fehlerText, setFehlerText] = useState("");
   const [isPending, startTransition] = useTransition();
@@ -142,8 +146,10 @@ export default function KontaktFormular() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <Field label="Name" required>
+                <Field label="Name" required htmlFor={`${uid}-name`}>
                   <input
+                    id={`${uid}-name`}
+                    aria-label="Ihr Name"
                     type="text"
                     name="name"
                     required
@@ -152,8 +158,10 @@ export default function KontaktFormular() {
                     className={inputCls}
                   />
                 </Field>
-                <Field label="E-Mail" required>
+                <Field label="E-Mail" required htmlFor={`${uid}-email`}>
                   <input
+                    id={`${uid}-email`}
+                    aria-label="Ihre E-Mail-Adresse"
                     type="email"
                     name="email"
                     required
@@ -164,8 +172,10 @@ export default function KontaktFormular() {
                 </Field>
               </div>
 
-              <Field label="Telefon">
+              <Field label="Telefon" htmlFor={`${uid}-telefon`}>
                 <input
+                  id={`${uid}-telefon`}
+                  aria-label="Ihre Telefonnummer"
                   type="tel"
                   name="telefon"
                   autoComplete="tel"
@@ -174,8 +184,9 @@ export default function KontaktFormular() {
                 />
               </Field>
 
-              <Field label="Interesse" required>
+              <Field label="Interesse" required htmlFor={`${uid}-interesse`}>
                 <select
+                  id={`${uid}-interesse`}
                   name="interesse"
                   required
                   defaultValue="Bitte wählen…"
@@ -187,20 +198,22 @@ export default function KontaktFormular() {
                     paddingRight: "2.5rem",
                   }}
                 >
-                  {INTERESSEN.map((i) => (
+                  {INTERESSEN.map((interesse) => (
                     <option
-                      key={i}
-                      value={i}
-                      disabled={i === "Bitte wählen…"}
+                      key={interesse}
+                      value={interesse}
+                      disabled={interesse === "Bitte wählen…"}
                     >
-                      {i}
+                      {interesse}
                     </option>
                   ))}
                 </select>
               </Field>
 
-              <Field label="Nachricht" required>
+              <Field label="Nachricht" required htmlFor={`${uid}-nachricht`}>
                 <textarea
+                  id={`${uid}-nachricht`}
+                  aria-label="Ihre Nachricht"
                   name="nachricht"
                   required
                   rows={5}
@@ -219,9 +232,9 @@ export default function KontaktFormular() {
                 />
                 <span className="text-[12px] font-sans text-ink/40 leading-relaxed group-hover:text-ink/60 transition-colors">
                   Ich habe die{" "}
-                  <a href="/datenschutz" className="underline underline-offset-2 hover:text-rot transition-colors">
+                  <Link href="/datenschutz" className="underline underline-offset-2 hover:text-rot transition-colors">
                     Datenschutzerklärung
-                  </a>{" "}
+                  </Link>{" "}
                   gelesen und bin mit der Verarbeitung meiner Daten zur
                   Bearbeitung meiner Anfrage einverstanden.{" "}
                   <span className="text-rot">*</span>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
@@ -128,12 +129,12 @@ export default function KonzeptPage() {
                   <p className="font-display text-3xl lg:text-4xl tracking-wide text-paper uppercase leading-none">
                     Nehmen Sie Kontakt auf.
                   </p>
-                  <a
+                  <Link
                     href="/kontakt"
                     className="shrink-0 px-8 py-4 bg-rot text-paper font-medium text-sm hover:bg-paper hover:text-ink transition-colors duration-200 tracking-wide"
                   >
                     Kostenloses Erstgespräch
-                  </a>
+                  </Link>
                 </div>
               </div>
             </section>

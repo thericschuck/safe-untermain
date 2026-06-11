@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
@@ -90,10 +91,9 @@ const personJsonLd = {
 export default function UeberMichPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-      />
+      <script type="application/ld+json">
+        {JSON.stringify(personJsonLd)}
+      </script>
       <ScrollProgress />
       <Nav />
 
@@ -219,12 +219,12 @@ export default function UeberMichPage() {
                 </div>
 
                 <div className="mt-16 flex justify-center">
-                  <a
+                  <Link
                     href="/kontakt"
                     className="px-12 py-5 bg-rot text-paper font-sans text-base tracking-wide hover:bg-paper hover:text-ink transition-colors duration-200"
                   >
                     Kostenloses Erstgespräch anfragen
-                  </a>
+                  </Link>
                 </div>
               </div>
             </section>
