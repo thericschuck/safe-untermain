@@ -28,28 +28,22 @@ html {
 body {
   overflow-x: hidden;
   max-width: 100%;
-}
-
-body {
-  background-image: url('/concrete.jpg');
-  background-image: image-set(
-    url('/concrete.webp') type('image/webp'),
-    url('/concrete.jpg') type('image/jpeg')
-  );
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   color: #151412;
   font-family: var(--font-ibm-plex), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* iOS/mobile: fixed background causes repaints — use scroll instead */
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-  }
+/* Page background — positioned as a fixed DOM element in layout.tsx so the browser
+   can composite it independently without repainting on every scroll frame */
+.bg-concrete {
+  background-image: url('/concrete.jpg');
+  background-image: image-set(
+    url('/concrete.webp') type('image/webp'),
+    url('/concrete.jpg') type('image/jpeg')
+  );
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Individual section backgrounds — layout handled by wrapper in page.tsx */
@@ -59,6 +53,26 @@ body {
 
 .section-dark {
   background: #151412;
+}
+
+/* Scroll progress bar — pure CSS, no JS scroll listener, runs on compositor thread.
+   Falls back to hidden bar on browsers without animation-timeline support (~7% global). */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-rot);
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  z-index: 50;
+  animation: scroll-progress linear;
+  animation-timeline: scroll();
+}
+
+@keyframes scroll-progress {
+  to { transform: scaleX(1); }
 }
 
 /* Hero: mobile-only stronger paper gradient for text readability over eye image.

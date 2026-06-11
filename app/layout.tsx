@@ -51,6 +51,9 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${ibmPlexSans.variable} antialiased`}
     >
       <body className="overflow-x-hidden">
+        {/* Fixed background via DOM element — avoids background-attachment:fixed which
+            forces CPU paint on every scroll frame and blocks GPU compositing */}
+        <div className="fixed inset-0 -z-10 bg-concrete" aria-hidden="true" />
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
