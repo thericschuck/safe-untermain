@@ -127,11 +127,6 @@ export default function Hero() {
                 Leistungen ansehen →
               </a>
             </div>
-
-            <p className="font-mono text-xs text-muted/60 pt-2 tracking-wider">
-              49° 46′ N / 9° 8′ O
-            </p>
-
           </div>
         </div>
       </motion.div>

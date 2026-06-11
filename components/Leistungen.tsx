@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { FlipCard } from "@/components/ui/flip-card";
 
 function Bullet({ children }: { children: ReactNode }) {
@@ -21,6 +21,12 @@ function Sub({ children }: { children: ReactNode }) {
 }
 
 export default function Leistungen() {
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(hover: none)").matches);
+  }, []);
+
   return (
     <section id="leistungen" className="section-card">
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
@@ -39,6 +45,8 @@ export default function Leistungen() {
           {/* ── Anti-Aggressionstraining ── */}
           <FlipCard
             id="anti-aggressionstraining"
+            isTouch={isTouch}
+            priority
             title="Anti-Aggressionstraining"
             category="Impulse steuern"
             src="/anti_agression.jpg"
@@ -99,6 +107,7 @@ export default function Leistungen() {
           {/* ── Deeskalationstraining ── */}
           <FlipCard
             id="deeskalationstraining"
+            isTouch={isTouch}
             title="Deeskalationstraining"
             category="Konflikte entschärfen"
             src="/Deeskalation.jpg"
@@ -147,6 +156,7 @@ export default function Leistungen() {
           {/* ── Gewaltprävention ── */}
           <FlipCard
             id="gewaltpravention"
+            isTouch={isTouch}
             title="Gewaltprävention"
             category="Risiken vermeiden"
             src="/gewaltprävention.jpg"
@@ -198,6 +208,7 @@ export default function Leistungen() {
           {/* ── Selbstbehauptung & Selbstverteidigung ── */}
           <FlipCard
             id="selbstbehauptung"
+            isTouch={isTouch}
             title="Selbstbehauptung & Selbstverteidigung"
             category="Grenzen setzen"
             src="/selbstbehauptung.jpg"

@@ -14,6 +14,8 @@ interface FlipCardProps {
   children?: React.ReactNode;
   className?: string;
   objectPosition?: string;
+  isTouch?: boolean;
+  priority?: boolean;
 }
 
 export function FlipCard({
@@ -25,9 +27,10 @@ export function FlipCard({
   children,
   className,
   objectPosition = "center",
+  isTouch = false,
+  priority = false,
 }: FlipCardProps) {
   const [active, setActive] = React.useState(false);
-  const [isTouch, setIsTouch] = React.useState(false);
   const modalRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -68,11 +71,6 @@ export function FlipCard({
     window.addEventListener("hashchange", checkHash);
     return () => window.removeEventListener("hashchange", checkHash);
   }, [id]);
-
-  // Detect touch-only devices (no hover capability) — used to skip 3D flip on mobile
-  React.useEffect(() => {
-    setIsTouch(window.matchMedia("(hover: none)").matches);
-  }, []);
 
   React.useEffect(() => {
     if (active) {
@@ -181,6 +179,7 @@ export function FlipCard({
             style={{ objectPosition }}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             quality={60}
+            priority={priority}
           />
           <div className="absolute inset-0 bg-linear-to-t from-ink/90 via-ink/45 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-end p-5">
@@ -222,6 +221,7 @@ export function FlipCard({
                 style={{ objectPosition }}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 quality={60}
+                priority={priority}
               />
               <div className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-5">
