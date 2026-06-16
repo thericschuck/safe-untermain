@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { m, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { blurWarm } from "@/lib/placeholder";
 
 const EYE_TRANSITION = { duration: 5.0, delay: 0.3, ease: "easeOut" } as const;
 
@@ -52,6 +53,8 @@ export default function Hero() {
             priority
             quality={75}
             sizes="(min-width: 1024px) 46vw, 60vw"
+            placeholder="blur"
+            blurDataURL={blurWarm}
           />
         </div>
       </m.div>

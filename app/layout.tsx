@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, IBM_Plex_Sans } from "next/font/google";
 import Image from "next/image";
+import { blurWarm } from "@/lib/placeholder";
 import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 
@@ -64,6 +65,8 @@ export default function RootLayout({
             fill
             quality={50}
             priority
+            placeholder="blur"
+            blurDataURL={blurWarm}
             className="object-cover object-center"
             sizes="100vw"
           />

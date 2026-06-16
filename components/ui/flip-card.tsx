@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { blurDark } from "@/lib/placeholder";
 
 interface FlipCardProps {
   id?: string;
@@ -125,6 +126,8 @@ export function FlipCard({
                     className="object-cover"
                     style={{ objectPosition }}
                     sizes="(max-width: 768px) 100vw, 672px"
+                    placeholder="blur"
+                    blurDataURL={blurDark}
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-paper/50 to-transparent" />
                   <button
@@ -191,6 +194,8 @@ export function FlipCard({
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             quality={60}
             priority={priority}
+            placeholder="blur"
+            blurDataURL={blurDark}
           />
           <div className="absolute inset-0 bg-linear-to-t from-ink/90 via-ink/45 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-end p-5">
@@ -235,6 +240,8 @@ export function FlipCard({
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 quality={60}
                 priority={priority}
+                placeholder="blur"
+                blurDataURL={blurDark}
               />
               <div className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-5">
