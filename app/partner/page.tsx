@@ -64,15 +64,6 @@ const PARTNER = [
     href: "https://www.the-base-x.at/",
     foto: "/basex.jpg",
   },
-  {
-    name: "CyberSecBw.de",
-    kategorie: "IT-Sicherheit",
-    organisation: "Cybersecurity & Datenschutz",
-    beschreibung:
-      "IT-Sicherheit, Datenschutz und Cybersecurity-Beratung. Gemeinsam schaffen wir sichere digitale und physische Umgebungen.",
-    href: "https://www.cybersecbw.de/",
-    foto: "/cybersecbw.jpg",
-  },
 ];
 
 function PartnerKarte({

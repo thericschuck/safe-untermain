@@ -33,19 +33,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Page background — positioned as a fixed DOM element in layout.tsx so the browser
-   can composite it independently without repainting on every scroll frame */
-.bg-concrete {
-  background-image: url('/concrete.jpg');
-  background-image: image-set(
-    url('/concrete.webp') type('image/webp'),
-    url('/concrete.jpg') type('image/jpeg')
-  );
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
 /* Individual section backgrounds — layout handled by wrapper in page.tsx */
 .section-card {
   background: rgba(242, 237, 232, 0.97);

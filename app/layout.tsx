@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, IBM_Plex_Sans } from "next/font/google";
+import Image from "next/image";
 import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 
@@ -7,6 +8,7 @@ const bebasNeue = Bebas_Neue({
   variable: "--font-bebas",
   subsets: ["latin"],
   weight: "400",
+  display: "swap",
 });
 
 const ibmPlexSans = IBM_Plex_Sans({
@@ -14,6 +16,7 @@ const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   style: ["normal", "italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -52,8 +55,19 @@ export default function RootLayout({
     >
       <body className="overflow-x-hidden">
         {/* Fixed background via DOM element — avoids background-attachment:fixed which
-            forces CPU paint on every scroll frame and blocks GPU compositing */}
-        <div className="fixed inset-0 -z-10 bg-concrete" aria-hidden="true" />
+            forces CPU paint on every scroll frame and blocks GPU compositing.
+            Routed through next/image so browsers receive AVIF instead of the raw 4.7 MB JPEG. */}
+        <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+          <Image
+            src="/concrete.jpg"
+            alt=""
+            fill
+            quality={50}
+            priority
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+        </div>
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
