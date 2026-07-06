@@ -37,10 +37,8 @@ body {
    can composite it independently without repainting on every scroll frame */
 .bg-concrete {
   background-image: url('/concrete.jpg');
-  background-image: image-set(
-    url('/concrete.webp') type('image/webp'),
-    url('/concrete.jpg') type('image/jpeg')
-  );
+  background-image: image-set(url('/concrete.webp') type('image/webp'),
+      url('/concrete.jpg') type('image/jpeg'));
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -72,19 +70,38 @@ body {
 }
 
 @keyframes scroll-progress {
-  to { transform: scaleX(1); }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 /* Hero: mobile-only stronger paper gradient for text readability over eye image.
    Defined here (not inline JS) to protect the stop percentages from JS formatters. */
 .hero-mobile-overlay {
-  background: linear-gradient(
-    to right,
-    rgba(242, 237, 232, 0.97) 0%,
-    rgba(242, 237, 232, 0.88) 38%,
-    rgba(242, 237, 232, 0.45) 62%,
-    transparent 82%
-  );
+  background: linear-gradient(to right,
+      rgba(242, 237, 232, 0.97) 0%,
+      rgba(242, 237, 232, 0.88) 38%,
+      rgba(242, 237, 232, 0.45) 62%,
+      transparent 82%);
   mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);
+}
+
+/* Hero crosshair — pupil position + arm geometry, consumed everywhere via var() */
+:root {
+  --ch-x: 85%;
+  --ch-y: 51%;
+  --ch-gap: 68px;
+  --ch-w: 30px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --ch-x: 80.4%;
+  }
+}
+
+@keyframes ch-fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

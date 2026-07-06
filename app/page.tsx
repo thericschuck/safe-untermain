@@ -142,8 +142,8 @@ export default function Home() {
         {/* Gap — concrete shows between hero and sections */}
         <div className="h-16 lg:h-20" aria-hidden="true" />
 
-        {/* Sections — overflow-x-hidden clips horizontal animation overshoot without affecting vertical scroll */}
-        <div className="mx-3 md:mx-5 lg:mx-9 overflow-x-hidden">
+        {/* Sections — z=13 stacks above the hero's bottom arm (z=12) to hide it behind section backgrounds */}
+        <div className="mx-3 md:mx-5 lg:mx-9 overflow-x-hidden" style={{ position: "relative", zIndex: 13 }}>
           <Leistungen />
           <UeberSven />
           <Philosophie />

@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Partner",
   description:
-    "Kooperationen und Partner von SAFE Aggressionsmanagement — CyberSecBW, Gewaltprävention Hannover, Passion MMA und weitere Sicherheitsexperten.",
+    "Kooperationen und Partner von SAFE Aggressionsmanagement — Gewaltprävention Hannover, Passion MMA und weitere Sicherheitsexperten.",
   alternates: { canonical: "/partner" },
   openGraph: {
     url: "https://safe-untermain.de/partner",
@@ -63,15 +63,6 @@ const PARTNER = [
       "Innovatives Trainingszentrum für Fitness und Gesundheit — ganzheitlich, modern und konsequent auf den Menschen ausgerichtet.",
     href: "https://www.the-base-x.at/",
     foto: "/basex.jpg",
-  },
-  {
-    name: "CyberSecBw.de",
-    kategorie: "IT-Sicherheit",
-    organisation: "Cybersecurity & Datenschutz",
-    beschreibung:
-      "IT-Sicherheit, Datenschutz und Cybersecurity-Beratung. Gemeinsam schaffen wir sichere digitale und physische Umgebungen.",
-    href: "https://www.cybersecbw.de/",
-    foto: "/cybersecbw.jpg",
   },
 ];
 

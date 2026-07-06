@@ -7,6 +7,11 @@ import Link from "next/link";
 
 const EYE_TRANSITION = { duration: 5.0, delay: 0.3, ease: "easeOut" } as const;
 
+// Biometric scan sequence — starts after eye is fully visible (~5.3s)
+const IRIS_DELAY = 5.5;   // blue tint fades in
+const CROSSHAIR_DELAY = 5.8;  // crosshair fades in as iris turns blue, stays permanently
+// CH_GAP / CH_W moved to CSS variables --ch-gap / --ch-w in globals.css
+
 export default function Hero() {
   // Lock scroll on mount; release after eye animation completes (~5.3s = delay 0.3 + duration 5.0)
   useEffect(() => {
@@ -53,7 +58,75 @@ export default function Hero() {
             quality={75}
             sizes="(min-width: 1024px) 46vw, 60vw"
           />
+
+          {/* ── Blue iris tint — biometric activation after eye fades in ── */}
+          <m.div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 44% 34% at 52% 50%, rgba(40,130,255,0.52) 0%, rgba(20,80,220,0.22) 5%, transparent 100%)",
+              mixBlendMode: "screen",
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: IRIS_DELAY, duration: 0.9, ease: "easeOut" }}
+          />
+
         </div>
+      </m.div>
+
+      {/* ── Crosshair: 4 arms meeting at pupil — no overlap, no opacity compounding ── */}
+      <m.div
+        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 12, pointerEvents: "none" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: CROSSHAIR_DELAY, duration: 0.8, ease: "easeOut" }}
+      >
+        {/* Left arm — bright at outer edge, fades toward pupil */}
+        <div style={{
+          position: "absolute",
+          left: 0,
+          right: "calc(100% - var(--ch-x) + var(--ch-gap))",
+          height: "var(--ch-w)",
+          top: "var(--ch-y)",
+          transform: "translateY(-50%)",
+          background: "linear-gradient(to right, rgba(175,228,255,0.65) 0%, rgba(140,215,255,0.50) 40%, rgba(80,190,255,0.20) 80%, transparent 100%)",
+          filter: "drop-shadow(0 0 12px rgba(100,200,255,0.55))",
+        }} />
+        {/* Right arm — fades from pupil, bright at outer edge */}
+        <div style={{
+          position: "absolute",
+          left: "calc(var(--ch-x) + var(--ch-gap))",
+          right: 0,
+          height: "var(--ch-w)",
+          top: "var(--ch-y)",
+          transform: "translateY(-50%)",
+          background: "linear-gradient(to right, transparent 0%, rgba(80,190,255,0.20) 20%, rgba(140,215,255,0.50) 60%, rgba(175,228,255,0.65) 100%)",
+          filter: "drop-shadow(0 0 12px rgba(100,200,255,0.55))",
+        }} />
+        {/* Top arm — bright at outer edge, fades toward pupil */}
+        <div style={{
+          position: "absolute",
+          top: 0,
+          bottom: "calc(100% - var(--ch-y) + var(--ch-gap))",
+          width: "var(--ch-w)",
+          left: "var(--ch-x)",
+          transform: "translateX(-50%)",
+          background: "linear-gradient(to bottom, rgba(175,228,255,0.65) 0%, rgba(140,215,255,0.50) 40%, rgba(80,190,255,0.20) 80%, transparent 100%)",
+          filter: "drop-shadow(0 0 12px rgba(100,200,255,0.55))",
+        }} />
+        {/* Bottom arm — height overflows hero section (overflow:visible); sections wrapper
+            at z=13 in page.tsx paints over it below the hero. */}
+        <div style={{
+          position: "absolute",
+          top: "calc(var(--ch-y) + var(--ch-gap))",
+          height: "300vh",
+          width: "var(--ch-w)",
+          left: "var(--ch-x)",
+          transform: "translateX(-50%)",
+          background: "linear-gradient(to bottom, transparent 0%, rgba(80,190,255,0.20) 6%, rgba(140,215,255,0.50) 12%, rgba(175,228,255,0.65) 20%, rgba(175,228,255,0.65) 100%)",
+          filter: "drop-shadow(0 0 12px rgba(100,200,255,0.55))",
+        }} />
       </m.div>
 
       {/* ── Right vignette ── */}
