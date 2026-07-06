@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { blurWarm } from "@/lib/placeholder";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
@@ -139,6 +140,8 @@ export default function UeberMichPage() {
                       className="object-cover object-top"
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       priority
+                      placeholder="blur"
+                      blurDataURL={blurWarm}
                     />
                   </div>
 

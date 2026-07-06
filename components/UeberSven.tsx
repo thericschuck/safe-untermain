@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { m } from "framer-motion";
+import { blurWarm } from "@/lib/placeholder";
 
 const KOMPETENZEN = ["Konfliktmanagement", "Deeskalation", "Gewaltprävention", "Kommunikation"];
 
@@ -26,6 +27,8 @@ export default function UeberSven() {
               fill
               className="object-cover object-top"
               sizes="(max-width: 1024px) 100vw, 50vw"
+              placeholder="blur"
+              blurDataURL={blurWarm}
             />
           </m.div>
 

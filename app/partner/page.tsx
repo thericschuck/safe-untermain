@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { blurDark } from "@/lib/placeholder";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
@@ -86,6 +87,8 @@ function PartnerKarte({
           fill
           className="object-cover"
           sizes="60vw"
+          placeholder="blur"
+          blurDataURL={blurDark}
         />
       </div>
 
@@ -97,6 +100,8 @@ function PartnerKarte({
           fill
           className="object-cover"
           sizes="100vw"
+          placeholder="blur"
+          blurDataURL={blurDark}
         />
       </div>
 
