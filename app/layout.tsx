@@ -63,7 +63,7 @@ export default function RootLayout({
             src="/concrete.jpg"
             alt=""
             fill
-            quality={50}
+            quality={90}
             priority
             placeholder="blur"
             blurDataURL={blurWarm}
