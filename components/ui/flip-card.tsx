@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
@@ -35,9 +36,12 @@ export function FlipCard({
   const [active, setActive] = React.useState(() =>
     typeof window !== "undefined" && !!id && window.location.hash === `#leistung-${id}`
   );
+  const [mounted, setMounted] = React.useState(false);
   const modalRef = React.useRef<HTMLDivElement>(null);
   const idRef = React.useRef(id);
   idRef.current = id;
+
+  React.useEffect(() => { setMounted(true); }, []);
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setActive(false); };
@@ -95,86 +99,91 @@ export function FlipCard({
     };
   }, [active]);
 
-  return (
-    <>
-      {/* ── Full expanded modal ── */}
-      <AnimatePresence>
-        {active && (
-          <>
+  // Portal modal — renders directly on <body> to escape all parent stacking contexts
+  const modal = (
+    <AnimatePresence>
+      {active && (
+        <>
+          <m.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 bg-ink/80 z-200"
+          />
+          <div className="fixed inset-0 z-200 grid place-items-center p-4 sm:p-8">
             <m.div
-              key="backdrop"
+              ref={modalRef}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-ink/75 backdrop-blur-sm z-50"
-            />
-            <div className="fixed inset-0 z-50 grid place-items-center p-4 sm:p-8">
-              <m.div
-                ref={modalRef}
-                initial={{ opacity: 0, scale: 0.96, y: 16 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.96, y: 16 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden bg-paper shadow-[0_24px_80px_rgba(0,0,0,0.5)]"
-              >
-                {/* Modal image */}
-                <div className="relative h-56 sm:h-72 shrink-0">
-                  <Image
-                    src={src}
-                    alt={title}
-                    fill
-                    className="object-cover"
-                    style={{ objectPosition }}
-                    sizes="(max-width: 768px) 100vw, 672px"
-                    placeholder="blur"
-                    blurDataURL={blurDark}
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-paper/50 to-transparent" />
-                  <button
-                    type="button"
-                    aria-label="Schließen"
-                    onClick={() => setActive(false)}
-                    className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-ink/80 backdrop-blur-sm text-paper hover:bg-rot transition-colors duration-200"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-                      <path d="M1 1l12 12M13 1L1 13" />
-                    </svg>
-                  </button>
-                </div>
+              transition={{ duration: 0.18 }}
+              className="w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden bg-paper shadow-[0_24px_80px_rgba(0,0,0,0.5)]"
+            >
+              {/* Modal image */}
+              <div className="relative h-56 sm:h-72 shrink-0">
+                <Image
+                  src={src}
+                  alt={title}
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition }}
+                  sizes="(max-width: 768px) 100vw, 672px"
+                  placeholder="blur"
+                  blurDataURL={blurDark}
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-paper/50 to-transparent" />
+                <button
+                  type="button"
+                  aria-label="Schließen"
+                  onClick={() => setActive(false)}
+                  className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-ink/80 backdrop-blur-sm text-paper hover:bg-rot transition-colors duration-200"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                    <path d="M1 1l12 12M13 1L1 13" />
+                  </svg>
+                </button>
+              </div>
 
-                {/* Modal content */}
-                <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain scrollbar-none">
-                  <div className="px-7 sm:px-9 pt-7 pb-2">
-                    <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-rot mb-2">
-                      {category}
-                    </p>
-                    <h3 className="font-display text-2xl sm:text-4xl tracking-wide text-ink uppercase leading-none wrap-break-word">
-                      {title}
-                    </h3>
-                    <div className="mt-4 mb-6 h-px w-12 bg-rot" />
-                  </div>
-                  <div className="px-7 sm:px-9 pb-8 text-[15px] font-sans text-ink/65 leading-relaxed flex flex-col gap-4">
-                    {children}
-                  </div>
-                  {/* Contact CTA */}
-                  <div className="px-7 sm:px-9 pb-9 pt-5 border-t border-ink/8">
-                    <Link
-                      href="/kontakt"
-                      onClick={() => setActive(false)}
-                      className="inline-flex items-center gap-3 px-6 py-3.5 bg-ink text-paper text-[13px] font-sans tracking-wide hover:bg-rot transition-colors duration-200"
-                    >
-                      Kostenloses Erstgespräch anfragen
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </Link>
-                  </div>
+              {/* Modal content */}
+              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain scrollbar-none">
+                <div className="px-7 sm:px-9 pt-7 pb-2">
+                  <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-rot mb-2">
+                    {category}
+                  </p>
+                  <h3 className="font-display text-2xl sm:text-4xl tracking-wide text-ink uppercase leading-none wrap-break-word">
+                    {title}
+                  </h3>
+                  <div className="mt-4 mb-6 h-px w-12 bg-rot" />
                 </div>
-              </m.div>
-            </div>
-          </>
-        )}
-      </AnimatePresence>
+                <div className="px-7 sm:px-9 pb-8 text-[15px] font-sans text-ink/65 leading-relaxed flex flex-col gap-4">
+                  {children}
+                </div>
+                {/* Contact CTA */}
+                <div className="px-7 sm:px-9 pb-9 pt-5 border-t border-ink/8">
+                  <Link
+                    href="/kontakt"
+                    onClick={() => setActive(false)}
+                    className="inline-flex items-center gap-3 px-6 py-3.5 bg-ink text-paper text-[13px] font-sans tracking-wide hover:bg-rot transition-colors duration-200"
+                  >
+                    Kostenloses Erstgespräch anfragen
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </m.div>
+          </div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+
+  return (
+    <>
+      {mounted && createPortal(modal, document.body)}
 
       {/* ── Card: flat on touch devices, 3D flip on pointer devices ── */}
       {isTouch ? (
@@ -226,8 +235,8 @@ export function FlipCard({
           onClick={() => setActive(true)}
         >
           <div
-            className="relative w-full h-full transform-3d transition-[transform] duration-500 group-hover:transform-[rotateY(180deg)]"
-            style={{ transitionTimingFunction: "cubic-bezier(0.2, 0.6, 0.3, 1)" }}
+            className="relative w-full h-full transform-3d transition-[transform] duration-400 group-hover:transform-[rotateY(180deg)]"
+            style={{ transitionTimingFunction: "cubic-bezier(0.2, 0.6, 0.3, 1)", willChange: "transform" }}
           >
             {/* ── Front ── */}
             <div className="absolute inset-0 backface-hidden overflow-hidden">
@@ -235,7 +244,7 @@ export function FlipCard({
                 src={src}
                 alt={title}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-cover"
                 style={{ objectPosition }}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 quality={60}

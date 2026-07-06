@@ -46,7 +46,7 @@ body {
 
 /* Individual section backgrounds — layout handled by wrapper in page.tsx */
 .section-card {
-  background: rgba(242, 237, 232, 0.97);
+  background: #F2EDE8;
 }
 
 .section-dark {
