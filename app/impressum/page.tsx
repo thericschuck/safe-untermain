@@ -74,8 +74,8 @@ export default function ImpressumPage() {
                   </p>
                   <p>
                     E-Mail:{" "}
-                    <a href="mailto:safe@sven-zoeller.de" className="hover:text-rot transition-colors">
-                      safe@sven-zoeller.de
+                    <a href="mailto:info@safe-untermain.de" className="hover:text-rot transition-colors">
+                      info@safe-untermain.de
                     </a>
                   </p>
                 </Section>

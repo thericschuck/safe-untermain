@@ -31,7 +31,7 @@ const personJsonLd = {
   jobTitle: "Sicherheitstrainer & Personalcoach",
   description:
     "Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
-  email: "mailto:safe@sven-zoeller.de",
+  email: "mailto:info@safe-untermain.de",
   telephone: "+4915119608040",
   address: {
     "@type": "PostalAddress",
@@ -61,7 +61,7 @@ const localBusinessJsonLd = {
   description:
     "Anti-Aggression, Deeskalation und Gewaltprävention — praxisnah, direkt, wirksam.",
   telephone: "+4915119608040",
-  email: "safe@sven-zoeller.de",
+  email: "info@safe-untermain.de",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Buchenweg 9",

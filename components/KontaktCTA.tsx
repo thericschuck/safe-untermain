@@ -34,10 +34,10 @@ export default function KontaktCTA() {
             </a>
             <span className="hidden sm:inline w-px h-4 bg-ink/15" />
             <a
-              href="mailto:safe@sven-zoeller.de"
+              href="mailto:info@safe-untermain.de"
               className="font-mono text-sm text-muted hover:text-rot transition-colors duration-200"
             >
-              safe@sven-zoeller.de
+              info@safe-untermain.de
             </a>
           </div>
         </div>

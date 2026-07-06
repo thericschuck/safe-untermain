@@ -67,10 +67,10 @@ export default function Footer() {
             <ul className="space-y-2.5 text-[13px] font-sans">
               <li>
                 <a
-                  href="mailto:safe@sven-zoeller.de"
+                  href="mailto:info@safe-untermain.de"
                   className="text-paper/45 hover:text-paper transition-colors duration-150"
                 >
-                  safe@sven-zoeller.de
+                  info@safe-untermain.de
                 </a>
               </li>
               <li>
