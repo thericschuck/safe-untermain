@@ -33,9 +33,7 @@ export function FlipCard({
   isTouch = false,
   priority = false,
 }: FlipCardProps) {
-  const [active, setActive] = React.useState(() =>
-    typeof window !== "undefined" && !!id && window.location.hash === `#leistung-${id}`
-  );
+  const [active, setActive] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
   const modalRef = React.useRef<HTMLDivElement>(null);
   const idRef = React.useRef(id);
@@ -67,22 +65,13 @@ export function FlipCard({
     return () => window.removeEventListener("open-leistung", handler);
   }, [id]);
 
-  // Open via URL hash change (initial value already set by the lazy useState initializer above).
-  // On mount: just clear the hash from the URL if the card opened that way.
+  // On mount: check sessionStorage for a pending open (written by Nav when navigating from a subpage).
   React.useEffect(() => {
-    if (idRef.current && window.location.hash === `#leistung-${idRef.current}`) {
-      history.replaceState(null, "", window.location.pathname + window.location.search);
+    const pending = sessionStorage.getItem("pending-leistung");
+    if (pending === idRef.current) {
+      sessionStorage.removeItem("pending-leistung");
+      setActive(true);
     }
-    const onHashChange = () => {
-      if (!idRef.current) return;
-      const hashId = `#leistung-${idRef.current}`;
-      if (window.location.hash === hashId) {
-        setActive(true);
-        history.replaceState(null, "", window.location.pathname + window.location.search);
-      }
-    };
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
   React.useEffect(() => {

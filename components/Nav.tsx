@@ -2,13 +2,16 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 
 const leistungenItems = [
-  { label: "Anti-Aggressionstraining",        href: "/#leistung-anti-aggressionstraining", id: "anti-aggressionstraining" },
-  { label: "Deeskalationstraining",            href: "/#leistung-deeskalationstraining",    id: "deeskalationstraining" },
-  { label: "Gewaltprävention",                 href: "/#leistung-gewaltpravention",         id: "gewaltpravention" },
-  { label: "Selbstbehauptung & Selbstverteidigung", href: "/#leistung-selbstbehauptung",   id: "selbstbehauptung" },
+  { label: "Anti-Aggressionstraining",             id: "anti-aggressionstraining" },
+  { label: "Deeskalationstraining",                id: "deeskalationstraining" },
+  { label: "Gewaltprävention",                     id: "gewaltpravention" },
+  { label: "Selbstbehauptung & Selbstverteidigung", id: "selbstbehauptung" },
 ];
+
+const LEISTUNG_KEY = "pending-leistung";
 
 const mainLinks = [
   { label: "Home",          href: "/" },
@@ -53,11 +56,27 @@ function HoverLink({
 }
 
 export default function Nav() {
+  const router = useRouter();
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [leistungenOpen, setLeistungenOpen] = useState(false);
   const [mobileLeistungenOpen, setMobileLeistungenOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function openLeistung(id: string) {
+    setLeistungenOpen(false);
+    setMenuOpen(false);
+    setMobileLeistungenOpen(false);
+    if (pathname === "/") {
+      // Already on homepage — dispatch directly, no navigation needed
+      window.dispatchEvent(new CustomEvent("open-leistung", { detail: { id } }));
+    } else {
+      // Store ID so the homepage FlipCard picks it up on mount
+      sessionStorage.setItem(LEISTUNG_KEY, id);
+      router.push("/");
+    }
+  }
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 60);
@@ -136,18 +155,15 @@ export default function Nav() {
               >
                 <div className="h-px bg-rot/70 w-full" />
                 {leistungenItems.map((item) => (
-                  <Link
+                  <button
                     key={item.label}
-                    href={item.href}
-                    onClick={() => {
-                      setLeistungenOpen(false);
-                      window.dispatchEvent(new CustomEvent("open-leistung", { detail: { id: item.id } }));
-                    }}
-                    className="flex items-center gap-3.5 px-5 py-3.5 text-[13px] font-sans tracking-wide text-paper/60 hover:text-paper hover:bg-paper/5 transition-all duration-150 border-b border-paper/6 last:border-0 group/item"
+                    type="button"
+                    onClick={() => openLeistung(item.id)}
+                    className="w-full flex items-center gap-3.5 px-5 py-3.5 text-[13px] font-sans tracking-wide text-paper/60 hover:text-paper hover:bg-paper/5 transition-all duration-150 border-b border-paper/6 last:border-0 group/item text-left"
                   >
                     <span className="w-1.25 h-1.25 shrink-0 rotate-45 bg-rot/35 group-hover/item:bg-rot transition-colors duration-150" />
                     {item.label}
-                  </Link>
+                  </button>
                 ))}
               </div>
             )}
@@ -220,15 +236,11 @@ export default function Nav() {
               {mobileLeistungenOpen && (
                 <div className="pb-3 pl-4 flex flex-col">
                   {leistungenItems.map((item) => (
-                    <Link key={item.label} href={item.href}
-                      onClick={() => {
-                        setMenuOpen(false);
-                        setMobileLeistungenOpen(false);
-                        window.dispatchEvent(new CustomEvent("open-leistung", { detail: { id: item.id } }));
-                      }}
-                      className="text-[13px] font-sans text-paper/70 hover:text-rot py-2 transition-colors">
+                    <button key={item.label} type="button"
+                      onClick={() => openLeistung(item.id)}
+                      className="text-left text-[13px] font-sans text-paper/70 hover:text-rot py-2 transition-colors">
                       {item.label}
-                    </Link>
+                    </button>
                   ))}
                 </div>
               )}
