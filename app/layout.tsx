@@ -32,11 +32,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "de_DE",
     siteName: "SAFE Aggressionsmanagement — Sven Zöller",
-    images: [{ url: "/sven.png", alt: "Sven Zöller — Sicherheitstrainer" }],
+    // PNG, not WebP: link unfurlers (WhatsApp, LinkedIn, Twitter) still handle WebP unreliably
+    images: [{ url: "/sven-og.png", alt: "Sven Zöller — Sicherheitstrainer" }],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/sven.png"],
+    images: ["/sven-og.png"],
   },
   robots: {
     index: true,
@@ -55,16 +56,24 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${ibmPlexSans.variable} antialiased`}
     >
       <body className="overflow-x-hidden">
+        {/* FadeImage reveals each image once decoded, which needs JS. Without it they
+            would stay at opacity 0 forever, so unhide them wholesale. */}
+        <noscript>
+          <style>{`[data-fade-image]{opacity:1!important}`}</style>
+        </noscript>
+
         {/* Fixed background via DOM element — avoids background-attachment:fixed which
             forces CPU paint on every scroll frame and blocks GPU compositing.
-            Routed through next/image so browsers receive AVIF instead of the raw 4.7 MB JPEG. */}
+            Routed through next/image so browsers receive AVIF instead of the raw WebP master.
+            Not wrapped in FadeImage: this is the LCP element on every route, so it must paint
+            as early as possible rather than wait out a crossfade. */}
         <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
           <Image
-            src="/concrete.jpg"
+            src="/concrete.webp"
             alt=""
             fill
-            quality={90}
-            priority
+            quality={75}
+            preload
             placeholder="blur"
             blurDataURL={blurWarm}
             className="object-cover object-center"

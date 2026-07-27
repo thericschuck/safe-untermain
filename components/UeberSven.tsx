@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { m } from "framer-motion";
-import { blurWarm } from "@/lib/placeholder";
+import { FadeImage } from "@/components/ui/FadeImage";
 
 const KOMPETENZEN = ["Konfliktmanagement", "Deeskalation", "Gewaltprävention", "Kommunikation"];
 
@@ -21,14 +20,14 @@ export default function UeberSven() {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Image
-              src="/sven.png"
+            <FadeImage
+              src="/sven.webp"
               alt="Sven Zöller"
               fill
               className="object-cover object-top"
               sizes="(max-width: 1024px) 100vw, 50vw"
-              placeholder="blur"
-              blurDataURL={blurWarm}
+              loading="lazy"
+              tone="warm"
             />
           </m.div>
 

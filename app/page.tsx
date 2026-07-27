@@ -27,7 +27,7 @@ const personJsonLd = {
   "@type": "Person",
   name: "Sven Zöller",
   url: "https://safe-untermain.de",
-  image: "https://safe-untermain.de/sven.png",
+  image: "https://safe-untermain.de/sven-og.png",
   jobTitle: "Sicherheitstrainer & Personalcoach",
   description:
     "Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
@@ -57,7 +57,7 @@ const localBusinessJsonLd = {
   "@id": "https://safe-untermain.de/#business",
   name: "SAFE Aggressionsmanagement — Sven Zöller",
   url: "https://safe-untermain.de",
-  image: "https://safe-untermain.de/sven.png",
+  image: "https://safe-untermain.de/sven-og.png",
   description:
     "Anti-Aggression, Deeskalation und Gewaltprävention — praxisnah, direkt, wirksam.",
   telephone: "+4915119608040",

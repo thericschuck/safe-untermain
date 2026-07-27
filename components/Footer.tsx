@@ -8,7 +8,10 @@ export default function Footer() {
       <div className="overflow-hidden select-none pointer-events-none">
         <span
           className="font-display block text-center uppercase leading-none text-transparent bg-clip-text bg-fixed bg-cover bg-center text-[clamp(5.5rem,22vw,22rem)] tracking-[0.06em] pt-[clamp(1.5rem,4vw,4rem)] pb-[clamp(0.5rem,2vw,2rem)]"
-          style={{ backgroundImage: "image-set(url('/concrete.webp') type('image/webp'), url('/concrete.jpg') type('image/jpeg'))" }}
+          /* A CSS background bypasses next/image, so this points at a small dedicated
+             texture rather than the 2560px master — it is clipped to the glyphs, where
+             the extra resolution is invisible. */
+          style={{ backgroundImage: "url('/concrete-text.webp')" }}
         >
           SAFE
         </span>

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "Über mich — Sven Zöller | safe-untermain.de",
     description:
       "Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
-    images: [{ url: "/sven.png", alt: "Sven Zöller — Sicherheitstrainer" }],
+    images: [{ url: "/sven-og.png", alt: "Sven Zöller — Sicherheitstrainer" }],
   },
 };
 
@@ -42,7 +42,7 @@ const personJsonLd = {
   "@type": "Person",
   name: "Sven Zöller",
   url: "https://safe-untermain.de",
-  image: "https://safe-untermain.de/sven.png",
+  image: "https://safe-untermain.de/sven-og.png",
   jobTitle: "Sicherheitstrainer & Personalcoach",
   description:
     "Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
@@ -134,12 +134,15 @@ export default function UeberMichPage() {
                   {/* Foto */}
                   <div className="aspect-4/5 relative overflow-hidden">
                     <Image
-                      src="/sven.png"
+                      src="/sven.webp"
                       alt="Sven Zöller"
                       fill
                       className="object-cover object-top"
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      priority
+                      /* Hero above is only 40vh, so this is partly above the fold —
+                         load it eagerly and skip the fade so it can serve as LCP. */
+                      loading="eager"
+                      fetchPriority="high"
                       placeholder="blur"
                       blurDataURL={blurWarm}
                     />

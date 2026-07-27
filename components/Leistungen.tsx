@@ -44,10 +44,9 @@ export default function Leistungen() {
           <FlipCard
             id="anti-aggressionstraining"
             isTouch={isTouch}
-            priority
             title="Anti-Aggressionstraining"
             category="Impulse steuern"
-            src="/anti_agression.jpg"
+            src="/anti_agression.webp"
             objectPosition="center"
             excerpt="Eigene Impulse frühzeitig erkennen, körperliche Warnsignale deuten und regulieren — bevor Situationen eskalieren. Für Fachkräfte, Sicherheitsdienste und soziale Berufe."
           >
@@ -108,7 +107,7 @@ export default function Leistungen() {
             isTouch={isTouch}
             title="Deeskalationstraining"
             category="Konflikte entschärfen"
-            src="/Deeskalation.jpg"
+            src="/Deeskalation.webp"
             objectPosition="50% 30%"
             excerpt="Deeskalation beginnt Sekunden vor dem Konflikt: durch Körpersprache, Stimme und Distanz. Verbale und nonverbale Techniken für Hochdrucksituationen."
           >
@@ -157,7 +156,7 @@ export default function Leistungen() {
             isTouch={isTouch}
             title="Gewaltprävention"
             category="Risiken vermeiden"
-            src="/gewaltprävention.jpg"
+            src="/gewaltpraevention.webp"
             objectPosition="center 40%"
             excerpt="Gefahren früh erkennen, gar nicht erst in sie geraten. Situationsanalyse, Risikobewusstsein und rechtliche Grundlagen der Notwehr im Alltag."
           >
@@ -209,7 +208,7 @@ export default function Leistungen() {
             isTouch={isTouch}
             title="Selbstbehauptung & Selbstverteidigung"
             category="Grenzen setzen"
-            src="/selbstbehauptung.jpg"
+            src="/selbstbehauptung.webp"
             objectPosition="center 35%"
             excerpt="Mentale Stärke verbunden mit den physischen Grundlagen aus Krav Maga. Einfache, stresserprobte Techniken für Erwachsene aller Fitnessstufen."
           >

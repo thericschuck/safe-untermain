@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { blurDark } from "@/lib/placeholder";
+import { FadeImage } from "@/components/ui/FadeImage";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
@@ -27,7 +26,7 @@ const PARTNER = [
     beschreibung:
       "Training und Beratung für Aggressionsmanagement — praxisnah, nachhaltig und individuell zugeschnitten.",
     href: "https://safe-aggressionsmanagement.de/",
-    foto: "/anti_agression.jpg",
+    foto: "/anti_agression.webp",
   },
   {
     name: "Gewaltprävention Hannover",
@@ -36,7 +35,7 @@ const PARTNER = [
     beschreibung:
       "Gewaltprävention und Selbstbehauptung. Tobias Dreger setzt sich aktiv für mehr Sicherheit und Prävention in der Region Hannover ein.",
     href: "https://xn--gewaltprvention-hannover-xbc.de/",
-    foto: "/gewaltpräventionHanover.jpg",
+    foto: "/gewaltpraevention-hannover.webp",
   },
   {
     name: "Passion MMA",
@@ -63,7 +62,7 @@ const PARTNER = [
     beschreibung:
       "Innovatives Trainingszentrum für Fitness und Gesundheit — ganzheitlich, modern und konsequent auf den Menschen ausgerichtet.",
     href: "https://www.the-base-x.at/",
-    foto: "/basex.jpg",
+    foto: "/basex.webp",
   },
 ];
 
@@ -81,27 +80,25 @@ function PartnerKarte({
         className={`hidden lg:block absolute inset-y-0 ${reversed ? "right-0" : "left-0"} w-[60%] overflow-hidden`}
         style={{ minHeight: "22rem" }}
       >
-        <Image
+        <FadeImage
           src={partner.foto}
           alt={partner.name}
           fill
           className="object-cover"
           sizes="60vw"
-          placeholder="blur"
-          blurDataURL={blurDark}
+          loading="lazy"
         />
       </div>
 
       {/* Mobile Foto */}
       <div className="lg:hidden aspect-4/3 relative overflow-hidden">
-        <Image
+        <FadeImage
           src={partner.foto}
           alt={partner.name}
           fill
           className="object-cover"
           sizes="100vw"
-          placeholder="blur"
-          blurDataURL={blurDark}
+          loading="lazy"
         />
       </div>
 

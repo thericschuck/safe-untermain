@@ -33,16 +33,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Page background — positioned as a fixed DOM element in layout.tsx so the browser
-   can composite it independently without repainting on every scroll frame */
-.bg-concrete {
-  background-image: url('/concrete.jpg');
-  background-image: image-set(url('/concrete.webp') type('image/webp'),
-      url('/concrete.jpg') type('image/jpeg'));
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+/* The page background lives in layout.tsx as a fixed <Image>, so the browser can
+   composite it without repainting on every scroll frame — and so it goes through the
+   image optimizer. The old .bg-concrete helper class it replaced is gone; nothing
+   referenced it, and keeping it risked pulling in the unoptimized master. */
 
 /* Individual section backgrounds — layout handled by wrapper in page.tsx */
 .section-card {

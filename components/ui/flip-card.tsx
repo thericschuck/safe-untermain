@@ -2,11 +2,10 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { blurDark } from "@/lib/placeholder";
+import { FadeImage } from "@/components/ui/FadeImage";
 
 interface FlipCardProps {
   id?: string;
@@ -18,7 +17,6 @@ interface FlipCardProps {
   className?: string;
   objectPosition?: string;
   isTouch?: boolean;
-  priority?: boolean;
 }
 
 export function FlipCard({
@@ -31,7 +29,6 @@ export function FlipCard({
   className,
   objectPosition = "center",
   isTouch = false,
-  priority = false,
 }: FlipCardProps) {
   const [active, setActive] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
@@ -112,15 +109,14 @@ export function FlipCard({
             >
               {/* Modal image */}
               <div className="relative h-56 sm:h-72 shrink-0">
-                <Image
+                <FadeImage
                   src={src}
                   alt={title}
                   fill
                   className="object-cover"
                   style={{ objectPosition }}
                   sizes="(max-width: 768px) 100vw, 672px"
-                  placeholder="blur"
-                  blurDataURL={blurDark}
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-paper/50 to-transparent" />
                 <button
@@ -183,7 +179,7 @@ export function FlipCard({
           className={cn("block w-full h-96 lg:h-105 relative overflow-hidden appearance-none p-0 border-0", className)}
           onClick={() => setActive(true)}
         >
-          <Image
+          <FadeImage
             src={src}
             alt={title}
             fill
@@ -191,9 +187,7 @@ export function FlipCard({
             style={{ objectPosition }}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
             quality={60}
-            priority={priority}
-            placeholder="blur"
-            blurDataURL={blurDark}
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-linear-to-t from-ink/90 via-ink/45 to-transparent" />
           <div className="absolute inset-0 flex flex-col justify-end p-5">
@@ -229,7 +223,7 @@ export function FlipCard({
           >
             {/* ── Front ── */}
             <div className="absolute inset-0 backface-hidden overflow-hidden">
-              <Image
+              <FadeImage
                 src={src}
                 alt={title}
                 fill
@@ -237,9 +231,7 @@ export function FlipCard({
                 style={{ objectPosition }}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 quality={60}
-                priority={priority}
-                placeholder="blur"
-                blurDataURL={blurDark}
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-5">

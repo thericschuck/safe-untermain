@@ -25,7 +25,7 @@ export default function Philosophie() {
 
             <footer className="mt-8 flex items-center gap-3">
               <Avatar className="size-10 border border-paper/15 shrink-0">
-                <AvatarImage src="/sven-klein.jpg" alt="Sven Zöller" />
+                <AvatarImage src="/sven-klein.webp" alt="Sven Zöller" />
                 <AvatarFallback className="bg-paper/10 text-paper font-display text-[11px] tracking-wider">
                   SZ
                 </AvatarFallback>

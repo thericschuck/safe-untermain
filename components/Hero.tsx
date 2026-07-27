@@ -51,11 +51,15 @@ export default function Hero() {
       >
         <div className="relative h-full w-full">
           <Image
-            src="/eye.jpg"
+            src="/eye.webp"
             alt=""
             fill
             className="object-cover object-[44%_48%]"
-            priority
+            /* Above the fold, so eager — React 19 turns that into a preload link on its
+               own. No fetchPriority="high" though: the concrete background is the LCP
+               candidate and shouldn't share bandwidth, and the eye doesn't start fading
+               in until 0.3s over a 5s curve, so it has plenty of runway. */
+            loading="eager"
             quality={75}
             sizes="(min-width: 1024px) 46vw, 60vw"
             placeholder="blur"
