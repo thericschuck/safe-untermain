@@ -17,6 +17,8 @@ interface FlipCardProps {
   className?: string;
   objectPosition?: string;
   isTouch?: boolean;
+  /** Detailseite der Leistung — verlinkt aus dem Modal heraus. */
+  href?: string;
 }
 
 export function FlipCard({
@@ -29,6 +31,7 @@ export function FlipCard({
   className,
   objectPosition = "center",
   isTouch = false,
+  href,
 }: FlipCardProps) {
   const [active, setActive] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
@@ -145,12 +148,21 @@ export function FlipCard({
                 <div className="px-7 sm:px-9 pb-8 text-[15px] font-sans text-ink/65 leading-relaxed flex flex-col gap-4">
                   {children}
                 </div>
-                {/* Contact CTA */}
-                <div className="px-7 sm:px-9 pb-9 pt-5 border-t border-ink/8">
+                {/* CTAs */}
+                <div className="px-7 sm:px-9 pb-9 pt-5 border-t border-ink/8 flex flex-wrap items-center gap-x-6 gap-y-3">
+                  {href && (
+                    <Link
+                      href={href}
+                      onClick={() => setActive(false)}
+                      className="font-mono text-[11px] tracking-[0.18em] uppercase text-ink/60 hover:text-rot transition-colors duration-200 underline decoration-ink/20 underline-offset-4 order-2"
+                    >
+                      Zur Detailseite
+                    </Link>
+                  )}
                   <Link
                     href="/kontakt"
                     onClick={() => setActive(false)}
-                    className="inline-flex items-center gap-3 px-6 py-3.5 bg-ink text-paper text-[13px] font-sans tracking-wide hover:bg-rot transition-colors duration-200"
+                    className="inline-flex items-center gap-3 px-6 py-3.5 bg-ink text-paper text-[13px] font-sans tracking-wide hover:bg-rot transition-colors duration-200 order-1"
                   >
                     Kostenloses Erstgespräch anfragen
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">

@@ -1,22 +1,35 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { FadeImage } from "@/components/ui/FadeImage";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, pageMetadata, webPageJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+const PATH = "/partner";
+const TITEL = "Partner & Kooperationen — Gewaltprävention und Kampfsport";
+const BESCHREIBUNG =
+  "Das Netzwerk hinter SAFE Aggressionsmanagement: Gewaltprävention Hannover, Passion MMA, The Base X und weitere Partner aus Sicherheit und Kampfsport.";
+
+export const metadata = pageMetadata({
+  path: PATH,
   title: "Partner",
-  description:
-    "Kooperationen und Partner von SAFE Aggressionsmanagement — Gewaltprävention Hannover, Passion MMA und weitere Sicherheitsexperten.",
-  alternates: { canonical: "/partner" },
-  openGraph: {
-    url: "https://safe-untermain.de/partner",
-    title: "Partner — Sven Zöller | safe-untermain.de",
-    description:
-      "Kooperationen und Partner von SAFE Aggressionsmanagement.",
-  },
-};
+  ogTitle: `${TITEL} | Sven Zöller`,
+  description: BESCHREIBUNG,
+  keywords: [
+    "Sicherheitspartner Kooperation",
+    "Kampfsport Partner",
+    "Gewaltprävention Netzwerk",
+    "Passion MMA",
+    "Krav Maga Partner",
+    "Selbstverteidigung Netzwerk",
+  ],
+});
+
+const breadcrumbJsonLdData = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Partner", path: "/partner" },
+]);
 
 const PARTNER = [
   {
@@ -45,6 +58,9 @@ const PARTNER = [
       "Kampfsport und Selbstverteidigungstraining auf höchstem Niveau — für alle Altersgruppen und Leistungsstufen.",
     href: "https://passionmma.de/",
     foto: "/passion-stockstadt.webp",
+    // Photo is a wide room shot — bias down so the crop keeps the training action
+    // instead of the empty ceiling above it.
+    objectPosition: "center 68%",
   },
   {
     name: "Passion MMA Rodgau",
@@ -54,6 +70,7 @@ const PARTNER = [
       "Professionelles MMA-Training in Rodgau. Technik, Kondition und Selbstdisziplin als Grundlage für echte Stärke.",
     href: "https://passionmma-rodgau.de/",
     foto: "/passion-rodgau.webp",
+    objectPosition: "center 70%",
   },
   {
     name: "The Base X",
@@ -64,6 +81,18 @@ const PARTNER = [
     href: "https://www.the-base-x.at/",
     foto: "/basex.webp",
   },
+  {
+    name: "Schuck Webdesign",
+    kategorie: "IT & Digitalisierung",
+    organisation: "IT-Partner",
+    beschreibung:
+      "IT-Partner für Website, Digitalisierung und technische Umsetzung — von der Webpräsenz bis zur laufenden Betreuung.",
+    href: "https://schuck-webdesign.de/",
+    foto: "/schuck-webdesign.webp",
+    // It's a logo, not a photo — object-cover would crop the brackets off. Show it
+    // whole, centered on its own dark background instead.
+    logo: true,
+  },
 ];
 
 function PartnerKarte({
@@ -73,30 +102,56 @@ function PartnerKarte({
   partner: (typeof PARTNER)[0];
   reversed: boolean;
 }) {
+  const isLogo = "logo" in partner && partner.logo;
+  const objectPosition =
+    ("objectPosition" in partner && partner.objectPosition) || "center";
+
   return (
-    <div className="relative">
-      {/* Foto — absolut positioniert, 60 % Breite */}
+    // lg:min-h only for isLogo, matching the Foto's own min-height below: the Foto is
+    // `absolute`, so it doesn't otherwise contribute to this wrapper's height — without
+    // it, a Karte shorter than 22rem (e.g. Schuck Webdesign's single short paragraph) left
+    // the wrapper shorter than the Foto, and the flat bg-ink logo box spilled out past its
+    // bottom edge into the light section below. Scoped to isLogo only: for photo cards the
+    // Foto is a real photo (not a flat color), so it overflowing the Karte's height is the
+    // intended overlap look, not a bug — forcing it here for every card just padded all six
+    // wrappers with ~60px of dead space none of them needed.
+    <div className={`relative ${isLogo ? "lg:min-h-88" : ""}`}>
+      {/* Foto — absolut positioniert, 60 % Breite. Die Karte überlappt bewusst 15 % davon
+          (60 % + 55 % > 100 %) — bei einem Trainingsfoto unsichtbar, bei einem mittig
+          zentrierten Logo verdeckt die opake Karte sonst dessen linke Hälfte. Deshalb wird
+          das Logo zur freien (nicht überlappten) Seite hin ausgerichtet statt zentriert.
+
+          Nur EIN display-Utility pro Breakpoint: ein nacktes `flex` neben `lg:block` verliert
+          gegen `lg:block` (Tailwind ordnet Varianten nach den Basis-Utilities ein), das
+          `display` blieb dadurch "block" und items-center/justify-* liefen ins Leere — das
+          Logo hing einfach linksbündig im Padding, unabhängig davon, was hier stand. */}
       <div
-        className={`hidden lg:block absolute inset-y-0 ${reversed ? "right-0" : "left-0"} w-[60%] overflow-hidden`}
+        className={`hidden ${isLogo ? "lg:flex items-center" : "lg:block"} absolute inset-y-0 ${reversed ? "right-0" : "left-0"} w-[60%] overflow-hidden ${isLogo ? `bg-ink p-12 ${reversed ? "justify-end" : "justify-start"}` : ""}`}
         style={{ minHeight: "22rem" }}
       >
         <FadeImage
           src={partner.foto}
           alt={partner.name}
-          fill
-          className="object-cover"
+          fill={!isLogo}
+          width={isLogo ? 440 : undefined}
+          height={isLogo ? 200 : undefined}
+          className={isLogo ? "object-contain w-full h-auto max-w-xs" : "object-cover"}
+          style={isLogo ? undefined : { objectPosition }}
           sizes="60vw"
           loading="lazy"
         />
       </div>
 
       {/* Mobile Foto */}
-      <div className="lg:hidden aspect-4/3 relative overflow-hidden">
+      <div className={`lg:hidden aspect-4/3 relative overflow-hidden ${isLogo ? "bg-ink flex items-center justify-center p-10" : ""}`}>
         <FadeImage
           src={partner.foto}
           alt={partner.name}
-          fill
-          className="object-cover"
+          fill={!isLogo}
+          width={isLogo ? 320 : undefined}
+          height={isLogo ? 145 : undefined}
+          className={isLogo ? "object-contain w-full h-auto max-w-56" : "object-cover"}
+          style={isLogo ? undefined : { objectPosition }}
           sizes="100vw"
           loading="lazy"
         />
@@ -139,6 +194,10 @@ function PartnerKarte({
 export default function PartnerPage() {
   return (
     <>
+      <JsonLd
+        data={webPageJsonLd({ path: PATH, name: TITEL, description: BESCHREIBUNG })}
+      />
+      <JsonLd data={breadcrumbJsonLdData} />
       <ScrollProgress />
       <Nav />
 

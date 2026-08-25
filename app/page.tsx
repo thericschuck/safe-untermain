@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -7,146 +6,103 @@ import UeberSven from "@/components/UeberSven";
 import Philosophie from "@/components/Philosophie";
 import KontaktCTA from "@/components/KontaktCTA";
 import Footer from "@/components/Footer";
+import FAQ from "@/components/FAQ";
+import { JsonLd } from "@/components/JsonLd";
+import { faqJsonLd, pageMetadata, webPageJsonLd } from "@/lib/seo";
 
 // Below-the-fold: separate JS chunk — HTML is SSR'd for crawling,
 // client JS loads after Hero is rendered, reducing initial Long Tasks
 const Leistungen = dynamic(() => import("@/components/Leistungen"), { ssr: true });
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-  openGraph: {
-    url: "https://safe-untermain.de/",
-    title: "Sven Zöller — Sicherheitstrainer | safe-untermain.de",
-    description:
-      "Anti-Aggression, Deeskalation und Gewaltprävention — praxisnah, direkt, wirksam. Zertifizierter Sicherheitstrainer aus Obernburg am Main.",
-  },
-};
+const TITEL = "Sicherheitstrainer Obernburg & Aschaffenburg — Sven Zöller";
+const BESCHREIBUNG =
+  "Anti-Aggressionstraining, Deeskalation und Gewaltprävention am bayerischen Untermain — praxisnah, direkt, wirksam. Jetzt kostenloses Erstgespräch sichern.";
 
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Sven Zöller",
-  url: "https://safe-untermain.de",
-  image: "https://safe-untermain.de/sven-og.png",
-  jobTitle: "Sicherheitstrainer & Personalcoach",
-  description:
-    "Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
-  email: "mailto:info@safe-untermain.de",
-  telephone: "+4915119608040",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Buchenweg 9",
-    addressLocality: "Obernburg",
-    postalCode: "63785",
-    addressCountry: "DE",
-  },
-  knowsAbout: [
-    "Aggressionsmanagement",
-    "Deeskalation",
-    "Gewaltprävention",
-    "Krav Maga",
-    "Anti-Aggressionstraining",
-    "Kommunikationscoaching",
-    "Mediation",
+export const metadata = pageMetadata({
+  path: "/",
+  // absolute: der Titel trägt "Sven Zöller" schon selbst — durch das
+  // "%s"-Template des Root-Layouts stünde der Name zweimal im <title>.
+  title: { absolute: TITEL },
+  ogTitle: TITEL,
+  description: BESCHREIBUNG,
+  keywords: [
+    "Sicherheitstrainer Obernburg",
+    "Anti-Aggressionstraining Obernburg",
+    "Deeskalationstraining Aschaffenburg",
+    "Gewaltprävention Unternehmen",
+    "Selbstverteidigungskurs Untermain",
+    "Krav Maga RSC",
+    "SAFE Aggressionsmanagement",
+    "Konflikttraining Bayern",
   ],
-};
+});
 
-const localBusinessJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": "https://safe-untermain.de/#business",
-  name: "SAFE Aggressionsmanagement — Sven Zöller",
-  url: "https://safe-untermain.de",
-  image: "https://safe-untermain.de/sven-og.png",
-  description:
-    "Anti-Aggression, Deeskalation und Gewaltprävention — praxisnah, direkt, wirksam.",
-  telephone: "+4915119608040",
-  email: "info@safe-untermain.de",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Buchenweg 9",
-    addressLocality: "Obernburg",
-    postalCode: "63785",
-    addressCountry: "DE",
+/**
+ * Startseiten-FAQ: deckt die Fragen ab, mit denen Interessenten tatsächlich
+ * suchen ("was kostet", "wie lange", "für wen") und die Google für
+ * FAQ-Rich-Results und AI-Overviews auswertet.
+ */
+const FAQ_ITEMS = [
+  {
+    frage: "Für wen sind die Trainings von SAFE Aggressionsmanagement geeignet?",
+    antwort:
+      "Für Unternehmen, Behörden, Kliniken, Pflegeeinrichtungen, Schulen und Vereine ebenso wie für Privatpersonen. Berufsgruppen mit Publikumsverkehr buchen meist Deeskalationstrainings, Schulen Gewaltpräventions- und Anti-Mobbing-Projekte, Privatpersonen Anti-Aggressionstraining oder Selbstbehauptung. Jedes Format wird auf die Teilnehmer zugeschnitten.",
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 49.8326,
-    longitude: 9.1448,
+  {
+    frage: "In welcher Region bieten Sie Sicherheitstrainings an?",
+    antwort:
+      "Schwerpunkt ist der bayerische Untermain: Obernburg am Main, Aschaffenburg, Miltenberg, Erlenbach, Klingenberg, Elsenfeld und Großwallstadt. Trainings im Rhein-Main-Gebiet, im Odenwald sowie in Bayern, Hessen und Baden-Württemberg sind nach Absprache möglich — Inhouse-Schulungen finden bei Ihnen vor Ort statt.",
   },
-  areaServed: [
-    { "@type": "State", name: "Bayern" },
-    { "@type": "State", name: "Hessen" },
-    { "@type": "State", name: "Baden-Württemberg" },
-  ],
-  priceRange: "$$",
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Trainingsangebote SAFE Aggressionsmanagement",
-    itemListElement: [
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Anti-Aggressionstraining",
-          description:
-            "Impulse steuern — Warnsignale erkennen und regulieren, bevor Situationen eskalieren.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Deeskalationstraining",
-          description:
-            "Verbale und nonverbale Deeskalationstechniken für Hochdrucksituationen im öffentlichen Dienst.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Gewaltprävention",
-          description:
-            "Gefahren früh erkennen, Risikobewusstsein schärfen, rechtliche Grundlagen der Notwehr.",
-        },
-      },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Selbstbehauptung & Selbstverteidigung",
-          description:
-            "Mentale Stärke und Krav Maga Grundlagen. Einfache, stresserprobte Techniken für alle Fitnessstufen.",
-        },
-      },
-    ],
+  {
+    frage: "Was kostet ein Training?",
+    antwort:
+      "Die Kosten hängen von Format, Teilnehmerzahl und Dauer ab — ein Einzelsetting wird anders kalkuliert als ein Inhouse-Workshop für eine ganze Abteilung. Das Erstgespräch ist kostenlos und unverbindlich; darin erhalten Sie ein konkretes Angebot, bevor Sie sich festlegen.",
   },
-};
+  {
+    frage: "Wie läuft das kostenlose Erstgespräch ab?",
+    antwort:
+      "Im Erstgespräch klären wir Anlass, Ziel und Rahmen: Worum geht es konkret, wer nimmt teil, gibt es Auflagen oder betriebliche Vorgaben? Daraus entsteht ein Vorschlag für Format und Umfang. Das Gespräch ist unverbindlich und kann telefonisch, per Video oder vor Ort stattfinden.",
+  },
+  {
+    frage: "Welche Qualifikationen bringt Sven Zöller mit?",
+    antwort:
+      "Über zwanzig Jahre Erfahrung, davon über 20 Jahre aktiver Dienst beim Technischen Hilfswerk. Zertifizierter Krav-Maga-RSC-Trainer (Real Selfdefence Concept), Anti-Aggressionstrainer — als AAT beim AJSD Niedersachsen gelistet —, ausgebildeter Peer für psychosoziale Unterstützung, SbE (Stressbearbeitung nach belastenden Ereignissen) sowie Kommunikationscoach und zertifizierter Mediator.",
+  },
+  {
+    frage: "Finden die Trainings bei Ihnen oder bei uns statt?",
+    antwort:
+      "Firmen- und Schulschulungen finden in der Regel bei Ihnen vor Ort statt. Das ist inhaltlich der bessere Weg: Geübt wird in genau der Umgebung, in der die Situationen auftreten. Einzeltrainings lassen sich flexibel vereinbaren.",
+  },
+  {
+    frage: "Wird ein Anti-Aggressionstraining bei behördlichen Auflagen anerkannt?",
+    antwort:
+      "Das SAFE Anti-Aggressionstraining ist unter anderem als AAT beim AJSD Niedersachsen gelistet. Ob Ihre konkrete Auflage damit erfüllt ist, entscheidet die anordnende Stelle — Gericht, Jugendamt oder Bewährungshilfe. Bringen Sie den Bescheid zum Erstgespräch mit, dann klären wir das vorab.",
+  },
+];
 
 export default function Home() {
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify(personJsonLd)}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify(localBusinessJsonLd)}
-      </script>
+      <JsonLd data={webPageJsonLd({ path: "/", name: TITEL, description: BESCHREIBUNG })} />
+      <JsonLd data={faqJsonLd(FAQ_ITEMS)} />
+
       <ScrollProgress />
       <Nav />
 
       <main>
         <Hero />
 
-        {/* Gap — concrete shows between hero and sections */}
-        <div className="h-16 lg:h-20" aria-hidden="true" />
+        {/* Gap — concrete shows between hero and sections. None on mobile: the
+            letterbox hero ends full-bleed in solid ink, so the concrete sliver
+            just reads as a rendering glitch there. */}
+        <div className="h-0 md:h-16 lg:h-20" aria-hidden="true" />
 
         {/* Sections — z=13 stacks above the hero's bottom arm (z=12) to hide it behind section backgrounds */}
         <div className="mx-3 md:mx-5 lg:mx-9 overflow-x-hidden" style={{ position: "relative", zIndex: 13 }}>
           <Leistungen />
           <UeberSven />
           <Philosophie />
+          <FAQ items={FAQ_ITEMS} kicker="Häufige Fragen" titel="Gut zu wissen" />
           <KontaktCTA />
         </div>
       </main>

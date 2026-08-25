@@ -1,24 +1,42 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { blurWarm } from "@/lib/placeholder";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, pageMetadata, PERSON_ID, SITE_URL } from "@/lib/seo";
 
-export const metadata: Metadata = {
+const PATH = "/ueber";
+const TITEL = "Über mich — Sicherheitstrainer & Mediator Sven Zöller";
+const BESCHREIBUNG =
+  "Sven Zöller: über 20 Jahre THW, zertifizierter Anti-Aggressions-, Deeskalations- und Krav-Maga-Trainer, Mediator und Coach aus Obernburg am Main.";
+
+export const metadata = pageMetadata({
+  path: PATH,
   title: "Über mich",
-  description:
-    "Sven Zöller — Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
-  alternates: { canonical: "/ueber" },
-  openGraph: {
-    url: "https://safe-untermain.de/ueber",
-    title: "Über mich — Sven Zöller | safe-untermain.de",
-    description:
-      "Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
-    images: [{ url: "/sven-og.png", alt: "Sven Zöller — Sicherheitstrainer" }],
+  ogTitle: `${TITEL} | safe-untermain.de`,
+  description: BESCHREIBUNG,
+  keywords: [
+    "Sven Zöller",
+    "Sicherheitstrainer Obernburg",
+    "Deeskalationstrainer",
+    "Anti-Aggressions-Trainer",
+    "Mediator Aschaffenburg",
+    "Kommunikationscoach",
+    "Krav Maga Trainer",
+    "THW Erfahrung",
+  ],
+  image: {
+    url: "/sven.webp",
+    alt: "Sven Zöller — Sicherheitstrainer und Mediator aus Obernburg am Main",
   },
-};
+});
+
+const breadcrumbJsonLdData = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Über mich", path: "/ueber" },
+]);
 
 const KOMPETENZEN = [
   "Konfliktmanagement",
@@ -37,64 +55,28 @@ const CREDENTIALS = [
   { label: "Mediator",      desc: "Kommunikationscoach und zertifizierter Mediator" },
 ];
 
-const personJsonLd = {
+/**
+ * Kein zweiter Person-Knoten: Person, LocalBusiness und WebSite liegen
+ * vollständig im Root-Layout. Hier wird nur die Seite als Profilseite
+ * ausgezeichnet und per @id auf die bestehende Entität gezeigt.
+ */
+const profilePageJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Sven Zöller",
-  url: "https://safe-untermain.de",
-  image: "https://safe-untermain.de/sven-og.png",
-  jobTitle: "Sicherheitstrainer & Personalcoach",
-  description:
-    "Zertifizierter Deeskalations-, Antigewalt- und Anti-Aggressions-Trainer, Kommunikationscoach und Mediator mit über zwanzig Jahren Erfahrung.",
-  email: "mailto:info@safe-untermain.de",
-  telephone: "+4915119608040",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Buchenweg 9",
-    addressLocality: "Obernburg",
-    postalCode: "63785",
-    addressCountry: "DE",
-  },
-  hasCredential: [
-    {
-      "@type": "EducationalOccupationalCredential",
-      name: "Krav Maga RSC Trainer",
-      description: "Zertifizierter Trainer — Real Selfdefence Concept",
-    },
-    {
-      "@type": "EducationalOccupationalCredential",
-      name: "Anti-Aggressionstraining (AAT)",
-      description: "Gelistet beim AJSD Niedersachsen",
-    },
-    {
-      "@type": "EducationalOccupationalCredential",
-      name: "Peer — Psychosoziale Unterstützung",
-      description: "Ausgebildeter Peer für psychosoziale Unterstützung",
-    },
-    {
-      "@type": "EducationalOccupationalCredential",
-      name: "SbE — Stressbearbeitung nach belastenden Ereignissen",
-      description: "Zertifizierte Weiterbildung SbE",
-    },
-    {
-      "@type": "EducationalOccupationalCredential",
-      name: "Mediator",
-      description: "Zertifizierter Mediator und Kommunikationscoach",
-    },
-  ],
-  memberOf: {
-    "@type": "Organization",
-    name: "Technisches Hilfswerk (THW)",
-    description: "Über 20 Jahre aktiver Dienst",
-  },
+  "@type": "ProfilePage",
+  "@id": `${SITE_URL}${PATH}#webpage`,
+  url: `${SITE_URL}${PATH}`,
+  name: TITEL,
+  description: BESCHREIBUNG,
+  inLanguage: "de-DE",
+  mainEntity: { "@id": PERSON_ID },
+  primaryImageOfPage: `${SITE_URL}/sven.webp`,
 };
 
 export default function UeberMichPage() {
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify(personJsonLd)}
-      </script>
+      <JsonLd data={profilePageJsonLd} />
+      <JsonLd data={breadcrumbJsonLdData} />
       <ScrollProgress />
       <Nav />
 

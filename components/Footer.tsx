@@ -5,16 +5,31 @@ export default function Footer() {
     <footer className="bg-ink">
 
       {/* ── Knockout SAFE ── */}
-      <div className="overflow-hidden select-none pointer-events-none">
-        <span
-          className="font-display block text-center uppercase leading-none text-transparent bg-clip-text bg-fixed bg-cover bg-center text-[clamp(5.5rem,22vw,22rem)] tracking-[0.06em] pt-[clamp(1.5rem,4vw,4rem)] pb-[clamp(0.5rem,2vw,2rem)]"
-          /* A CSS background bypasses next/image, so this points at a small dedicated
-             texture rather than the 2560px master — it is clipped to the glyphs, where
-             the extra resolution is invisible. */
-          style={{ backgroundImage: "url('/concrete-text.webp')" }}
-        >
-          SAFE
-        </span>
+      <div className="overflow-hidden select-none pointer-events-none flex justify-center pt-[clamp(1.5rem,4vw,4rem)] pb-[clamp(0.5rem,2vw,2rem)]">
+        <div
+          role="img"
+          aria-label="SAFE"
+          style={{
+            // Same visual footprint as the old font-size clamp, just applied to the logo's
+            // own box — height drives the clamp, width follows the SVG's intrinsic ratio.
+            height: "clamp(5.5rem, 22vw, 22rem)",
+            width: "calc(clamp(5.5rem, 22vw, 22rem) * (1255 / 650))",
+            // A CSS background bypasses next/image, so this points at a small dedicated
+            // texture rather than the 2560px master — it is masked to the logo shape, where
+            // the extra resolution is invisible.
+            backgroundImage: "url('/concrete-text.webp')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            maskImage: "url('/logo.svg')",
+            WebkitMaskImage: "url('/logo.svg')",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+          }}
+        />
       </div>
 
       {/* ── Thin separator ── */}
@@ -31,7 +46,7 @@ export default function Footer() {
             <p className="text-[13px] font-sans text-paper/40 leading-relaxed">
               Sicherheit beginnt im Kopf.<br />
               Sven Zöller — Sicherheitstrainer,<br />
-              THW &amp; Krav Maga.
+              Krav Maga.
             </p>
             <p className="font-mono text-[11px] text-muted/50 mt-4 tracking-wider">
               49° 46′ N / 9° 8′ O
@@ -43,12 +58,16 @@ export default function Footer() {
             <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot mb-5">
               Navigation
             </p>
+            {/* Absolute Pfade, keine nackten Hashes: `#ueber` löst auf /konzept
+                zu /konzept#ueber auf — ein Anker, den es dort nicht gibt. Auf
+                allen Unterseiten liefen diese vier Links damit ins Leere. */}
             <ul className="space-y-2.5">
               {[
-                { label: "Über mich", href: "#ueber" },
-                { label: "Leistungen", href: "#leistungen" },
-                { label: "Konzept", href: "#philosophie" },
-                { label: "Kontakt", href: "#kontakt" },
+                { label: "Über mich",  href: "/ueber" },
+                { label: "Leistungen", href: "/leistungen" },
+                { label: "Konzept",    href: "/konzept" },
+                { label: "Partner",    href: "/partner" },
+                { label: "Kontakt",    href: "/kontakt" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <Link

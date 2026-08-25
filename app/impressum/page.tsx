@@ -5,7 +5,8 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Impressum",
-  description: "Impressum und Anbieterkennzeichnung gemäß § 5 TMG.",
+  description:
+    "Impressum und Anbieterkennzeichnung gemäß § 5 DDG für safe-untermain.de — SAFE Aggressionsmanagement, Sven Zöller, Buchenweg 9, 63785 Obernburg am Main.",
   alternates: { canonical: "/impressum" },
   robots: { index: false, follow: false },
 };
@@ -56,7 +57,7 @@ export default function ImpressumPage() {
               <div className="max-w-3xl mx-auto px-6 lg:px-8 py-20 lg:py-28">
 
                 <p className="font-mono text-[11px] tracking-[0.22em] uppercase text-rot mb-10">
-                  Angaben gemäß § 5 TMG
+                  Angaben gemäß § 5 DDG
                 </p>
 
                 <Section title="Betreiber">
@@ -87,6 +88,13 @@ export default function ImpressumPage() {
 
                 <Section title="Berufsbezeichnung">
                   <p>Personal Trainer</p>
+                </Section>
+
+                <Section title="Redaktionell verantwortlich">
+                  <p>Verantwortlich nach § 18 Abs. 2 MStV:</p>
+                  <p>Sven Zöller</p>
+                  <p>Buchenweg 9</p>
+                  <p>63785 Obernburg</p>
                 </Section>
 
                 <Section title="Streitschlichtung">

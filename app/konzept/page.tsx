@@ -1,21 +1,36 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, pageMetadata, webPageJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+const PATH = "/konzept";
+const TITEL = "SAFE Aggressionsmanagement — Konzept für Prävention & Deeskalation";
+const BESCHREIBUNG =
+  "SAFE Aggressionsmanagement: ganzheitliches Konzept aus Prävention, Deeskalation und mentaler Stärke — für Unternehmen, Behörden, Schulen und Privatpersonen.";
+
+export const metadata = pageMetadata({
+  path: PATH,
   title: "Konzept",
-  description:
-    "Das SAFE Aggressionsmanagement — ein ganzheitliches Konzept aus Prävention, Deeskalation und mentaler Stärke. Maßgeschneidert für Unternehmen, Schulen und Einzelpersonen.",
-  alternates: { canonical: "/konzept" },
-  openGraph: {
-    url: "https://safe-untermain.de/konzept",
-    title: "Konzept — Sven Zöller | safe-untermain.de",
-    description:
-      "Das SAFE Aggressionsmanagement — ein ganzheitliches Konzept aus Prävention, Deeskalation und mentaler Stärke.",
-  },
-};
+  ogTitle: `${TITEL} | Sven Zöller`,
+  description: BESCHREIBUNG,
+  keywords: [
+    "SAFE Aggressionsmanagement",
+    "Konfliktmanagement Training",
+    "Deeskalationskonzept",
+    "Gewaltprävention Konzept",
+    "Mitarbeiterschulung Aggression",
+    "Konflikttraining Unternehmen",
+    "Aggressionsmanagement Bayern",
+    "Konfliktbewältigung Seminar",
+  ],
+});
+
+const breadcrumbJsonLdData = breadcrumbJsonLd([
+  { name: "Home", path: "/" },
+  { name: "Konzept", path: "/konzept" },
+]);
 
 const VORTEILE = [
   {
@@ -39,6 +54,10 @@ const VORTEILE = [
 export default function KonzeptPage() {
   return (
     <>
+      <JsonLd
+        data={webPageJsonLd({ path: PATH, name: TITEL, description: BESCHREIBUNG })}
+      />
+      <JsonLd data={breadcrumbJsonLdData} />
       <ScrollProgress />
       <Nav />
 

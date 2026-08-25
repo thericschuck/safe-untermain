@@ -1,29 +1,19 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import { FlipCard } from "@/components/ui/flip-card";
-
-function Bullet({ children }: { children: ReactNode }) {
-  return (
-    <li className="flex items-start gap-2.5">
-      <span className="mt-[0.45em] w-1 h-1 rotate-45 bg-rot shrink-0 inline-block" />
-      <span>{children}</span>
-    </li>
-  );
-}
-
-function Sub({ children }: { children: ReactNode }) {
-  return (
-    <p className="font-display text-base tracking-[0.14em] text-ink uppercase mt-1">
-      {children}
-    </p>
-  );
-}
+import { LeistungBlocks } from "@/components/LeistungBlocks";
+import { LEISTUNGEN } from "@/lib/leistungen";
 
 export default function Leistungen() {
-  const [isTouch] = useState(() =>
-    typeof window !== "undefined" && window.matchMedia("(hover: none)").matches
-  );
+  // Starts false to match the server render, then syncs to the real value after
+  // mount — reading matchMedia during the initial render would mismatch SSR HTML.
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(hover: none)").matches);
+  }, []);
 
   return (
     <section id="leistungen" className="section-card">
@@ -39,226 +29,57 @@ export default function Leistungen() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
-
-          {/* ── Anti-Aggressionstraining ── */}
-          <FlipCard
-            id="anti-aggressionstraining"
-            isTouch={isTouch}
-            title="Anti-Aggressionstraining"
-            category="Impulse steuern"
-            src="/anti_agression.webp"
-            objectPosition="center"
-            excerpt="Eigene Impulse frühzeitig erkennen, körperliche Warnsignale deuten und regulieren — bevor Situationen eskalieren. Für Fachkräfte, Sicherheitsdienste und soziale Berufe."
-          >
-            <p>
-              Gewalt und Aggression sind häufige Probleme in unserer Gesellschaft. Unkontrollierte
-              Aggressionsausbrüche können Beziehungen zerstören, zu Isolation und rechtlichen
-              Konsequenzen führen.
-            </p>
-            <p>
-              Aggressives Verhalten ist oft die Folge tieferliegender Probleme. Durch offene und
-              ehrliche Kommunikation helfe ich meinen Teilnehmern, die Ursachen von Konflikten
-              anzusprechen und gemeinsam nach Lösungen zu suchen — alte Verhaltensmuster zu
-              durchbrechen, neue konstruktive Handlungsweisen zu erproben.
-            </p>
-            <p>
-              In meinem <strong className="text-ink/80 font-medium">SAFE Aggressionsmanagement
-              Anti-Aggressionstraining (AAT)</strong> — u.a. gelistet als AAT beim AJSD Niedersachsen —
-              vermittle ich Techniken zur Erkennung und Steuerung von Aggressionen. Die Teilnehmer
-              lernen, Auslöser besser zu verstehen, Emotionen zu regulieren und Konflikte
-              gewaltfrei auszutragen.
-            </p>
-
-            <Sub>Vorteile</Sub>
-            <ul className="space-y-1.5">
-              {[
-                "Verbesserung sozialer Beziehungen",
-                "Reduzierung von Stress",
-                "Steigerung des Selbstvertrauens",
-                "Verbesserung der Lebensqualität",
-                "Prävention von Straftaten / Förderung der Resozialisierung",
-                "Entwicklung positiver Perspektiven",
-              ].map((v) => <Bullet key={v}>{v}</Bullet>)}
-            </ul>
-
-            <Sub>Für wen ist das Training geeignet?</Sub>
-            <ul className="space-y-1.5">
-              {[
-                "Personen mit behördlichen Auflagen (Gericht, Jugendamt, MPU etc.)",
-                "Menschen, die freiwillig an sich arbeiten wollen",
-                "AAT als präventive Maßnahme",
-              ].map((v) => <Bullet key={v}>{v}</Bullet>)}
-            </ul>
-
-            <Sub>Mein Angebot</Sub>
-            <ul className="space-y-1.5">
-              {[
-                "Individuelle Beratung und maßgeschneiderter Trainingsplan im Einzelsetting",
-                "Flexible Termine, die sich in den Alltag integrieren lassen",
-                "Diskretion und Vertraulichkeit",
-                "Langjährige Erfahrung mit Menschen unterschiedlicher Hintergründe",
-              ].map((v) => <Bullet key={v}>{v}</Bullet>)}
-            </ul>
-          </FlipCard>
-
-          {/* ── Deeskalationstraining ── */}
-          <FlipCard
-            id="deeskalationstraining"
-            isTouch={isTouch}
-            title="Deeskalationstraining"
-            category="Konflikte entschärfen"
-            src="/Deeskalation.webp"
-            objectPosition="50% 30%"
-            excerpt="Deeskalation beginnt Sekunden vor dem Konflikt: durch Körpersprache, Stimme und Distanz. Verbale und nonverbale Techniken für Hochdrucksituationen."
-          >
-            <p>
-              Verbale Angriffe bis zu tätlichen Übergriffen im öffentlichen Dienst nehmen mehr und
-              mehr zu. Es gibt kaum eine Berufsgruppe, die nicht von Beleidigungen und Angriffen
-              betroffen ist — selbst Feuerwehrmänner und Rettungssanitäter werden immer häufiger
-              angegriffen.
-            </p>
-            <p>
-              In meinem <strong className="text-ink/80 font-medium">SAFE Aggressionsmanagement
-              Deeskalationstraining</strong> lernen die Teilnehmer, das Anbahnen schwieriger
-              Situationen frühzeitig zu erkennen und die Ursachen von Gewalt zu verstehen.
-            </p>
-            <p>
-              Das Training ist so aufgebaut, dass Sie lernen, Ihren Kunden, Patienten oder Klienten
-              in ihrer Aggression abzuholen und durch gezielte Deeskalationskommunikation stufenweise
-              zu deeskalieren.
-            </p>
-
-            <Sub>Was Sie lernen</Sub>
-            <ul className="space-y-1.5">
-              {[
-                "Frühzeitig Aggressionen wahrnehmen und kontrollieren",
-                "Bedeutung von Körpersprache und Mimik in der Kommunikation",
-                "Eigensicherung und präventives Notfallmanagement",
-                "Verbale und nonverbale Deeskalationstechniken",
-                "Maßnahmen zur persönlichen Sicherheit",
-              ].map((v) => <Bullet key={v}>{v}</Bullet>)}
-            </ul>
-
-            <p>
-              Das SAFE Aggressionsmanagement Deeskalationstraining für Unternehmen ist die Lösung zur
-              Gewährleistung eines sicheren Arbeitsplatzes und damit zur Erfüllung der Fürsorgepflicht
-              gegenüber Ihren Mitarbeitern.
-            </p>
-            <p>
-              Die Workshops werden individuell auf die Bedürfnisse des jeweiligen Unternehmens
-              konzipiert.
-            </p>
-          </FlipCard>
-
-          {/* ── Gewaltprävention ── */}
-          <FlipCard
-            id="gewaltpravention"
-            isTouch={isTouch}
-            title="Gewaltprävention"
-            category="Risiken vermeiden"
-            src="/gewaltpraevention.webp"
-            objectPosition="center 40%"
-            excerpt="Gefahren früh erkennen, gar nicht erst in sie geraten. Situationsanalyse, Risikobewusstsein und rechtliche Grundlagen der Notwehr im Alltag."
-          >
-            <p>
-              Die Ursachen für aggressives Verhalten, besonders im Kindes- und Jugendalter, sind
-              vielfältig. Elterliches Erziehungsverhalten, Umweltfaktoren und individuelle
-              Eigenschaften spielen eine entscheidende Rolle.
-            </p>
-            <p>
-              In meinen <strong className="text-ink/80 font-medium">SAFE Aggressionsmanagement-
-              Gewaltpräventionstrainings</strong> vermittle ich Kindern und Jugendlichen ein
-              nachhaltiges Bewusstsein für eigene und fremde Aggressionen — und wie man sie
-              erkennt, kontrolliert und konstruktiv kanalisiert.
-            </p>
-
-            <Sub>Zentrale Ziele</Sub>
-            <ul className="space-y-1.5">
-              {[
-                "Verbesserung der Selbst- und Fremdwahrnehmung",
-                "Steigerung der Kommunikationsfähigkeit",
-                "Gewaltfreies Streiten lernen",
-                "Stärkung der Persönlichkeit und sozialen Kompetenz",
-                "Förderung mentaler Widerstandskraft",
-              ].map((v) => <Bullet key={v}>{v}</Bullet>)}
-            </ul>
-
-            <Sub>SAFE Anti-Mobbing Konzept</Sub>
-            <p>
-              Im Rahmen des Schulunterrichts, an Projekttagen oder in AGs arbeite ich mit Schülern
-              und Lehrkräften zusammen, um ein wirksames Anti-Mobbing-Konzept zu entwickeln. Ich
-              helfe Kindern und Jugendlichen, eine Sensibilität für Täter und Opfer zu entwickeln
-              und gebe ihnen Werkzeuge an die Hand, um Mobbing zu erkennen und aktiv dagegen
-              vorzugehen.
-            </p>
-
-            <Sub>Beispiele</Sub>
-            <ul className="space-y-1.5">
-              {[
-                "Anti-Mobbing-Workshops in Schulen (ab Sekundarstufe)",
-                "Workshops für (potenzielle) Gewalttäter",
-                "Projekte für Schulklassen und AGs",
-              ].map((v) => <Bullet key={v}>{v}</Bullet>)}
-            </ul>
-          </FlipCard>
-
-          {/* ── Selbstbehauptung & Selbstverteidigung ── */}
-          <FlipCard
-            id="selbstbehauptung"
-            isTouch={isTouch}
-            title="Selbstbehauptung & Selbstverteidigung"
-            category="Grenzen setzen"
-            src="/selbstbehauptung.webp"
-            objectPosition="center 35%"
-            excerpt="Mentale Stärke verbunden mit den physischen Grundlagen aus Krav Maga. Einfache, stresserprobte Techniken für Erwachsene aller Fitnessstufen."
-          >
-            <p>
-              Die Welt um uns herum wird in manchen Bereichen unsicherer. Deshalb biete ich
-              Selbstverteidigungs- und Selbstbehauptungs-Workshops an, die darauf abzielen, Menschen
-              in ihrer Sicherheit und Selbstbestimmung zu stärken.
-            </p>
-
-            <Sub>Warum immer mehr Menschen diese Kurse wählen</Sub>
-            <ul className="space-y-1.5">
-              {[
-                "Zunehmende Unsicherheit in öffentlichen Räumen",
-                "Empowerment — ein Gefühl von Sicherheit und Eigenmacht",
-                "Verbesserung von Fitness und Stressabbau",
-                "Stärkung des Selbstvertrauens",
-              ].map((v) => <Bullet key={v}>{v}</Bullet>)}
-            </ul>
-
-            <p>
-              Mein Konzept basiert auf <strong className="text-ink/80 font-medium">Krav Maga RSC
-              (Real Selfdefence Concept)</strong> — einer realistischen, straßenbezogenen Form der
-              Selbstverteidigung, die schnelle, intuitive und wirksame Reaktionen ermöglicht.
-            </p>
-
-            <Sub>Was die Workshops beinhalten</Sub>
-            <ul className="space-y-1.5">
-              {[
-                "Effektive Selbstverteidigungstechniken für verschiedene Angriffssituationen",
-                "Gefahrenabschätzung — gefährliche Situationen früh erkennen und vermeiden",
-                "Stärkung von Selbstbewusstsein und persönlicher Ausstrahlung",
-                "Verbesserung von Fitness und Koordination",
-                "Disziplin, Fokus und Selbstkontrolle",
-              ].map((v) => <Bullet key={v}>{v}</Bullet>)}
-            </ul>
-
-            <Sub>Zielgruppen</Sub>
-            <ul className="space-y-1.5">
-              {["Jugendliche", "Frauen", "Männer", "Spezielle Berufsgruppen", "Einzel- und Gruppentrainings"].map(
-                (v) => <Bullet key={v}>{v}</Bullet>
-              )}
-            </ul>
-
-            <p>
-              Jeder Workshop wird individuell auf die Bedürfnisse der Teilnehmer angepasst —
-              von reiner Selbstverteidigung bis zu Fitness mit Selbstverteidigungs-Elementen.
-            </p>
-          </FlipCard>
-
+          {LEISTUNGEN.map((l) => (
+            <FlipCard
+              key={l.slug}
+              id={l.slug}
+              isTouch={isTouch}
+              title={l.title}
+              category={l.category}
+              src={l.src}
+              objectPosition={l.objectPosition}
+              excerpt={l.excerpt}
+              href={`/leistungen/${l.slug}`}
+            >
+              <LeistungBlocks blocks={l.blocks} />
+            </FlipCard>
+          ))}
         </div>
+
+        {/* Crawlbare Textlinks auf die Detailseiten. Die Karten selbst sind
+            <button>-Elemente, die ein Modal öffnen — deren Inhalt steht in
+            keinem ausgelieferten HTML und ist für Crawler kein Pfad. Diese
+            Zeile ist die einzige Verbindung von der Startseite zu den
+            Leistungsseiten und trägt deren Link-Equity. */}
+        <nav
+          aria-label="Alle Leistungen im Detail"
+          className="mt-10 pt-8 border-t border-ink/10"
+        >
+          <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-rot mb-4">
+            Alle Trainings im Detail
+          </p>
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            {LEISTUNGEN.map((l) => (
+              <li key={l.slug}>
+                <Link
+                  href={`/leistungen/${l.slug}`}
+                  className="text-[14px] font-sans text-ink/60 hover:text-rot transition-colors duration-150 underline decoration-ink/20 underline-offset-4 hover:decoration-rot"
+                >
+                  {l.title}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="/leistungen"
+                className="font-mono text-[11px] tracking-[0.18em] uppercase text-ink hover:text-rot transition-colors duration-150"
+              >
+                Übersicht →
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
       </div>
     </section>
   );

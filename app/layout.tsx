@@ -1,8 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, IBM_Plex_Sans } from "next/font/google";
 import Image from "next/image";
 import { blurWarm } from "@/lib/placeholder";
 import { MotionProvider } from "@/components/MotionProvider";
+import { JsonLd } from "@/components/JsonLd";
+import {
+  pageOpenGraph,
+  pageTwitter,
+  siteGraphJsonLd,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/seo";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -20,29 +28,66 @@ const ibmPlexSans = IBM_Plex_Sans({
   display: "swap",
 });
 
+const ROOT_TITLE = "Sicherheitstrainer Obernburg & Aschaffenburg — Sven Zöller";
+const ROOT_DESCRIPTION =
+  "Anti-Aggressionstraining, Deeskalation und Gewaltprävention am bayerischen Untermain — praxisnah, direkt, wirksam. Jetzt kostenloses Erstgespräch sichern.";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://safe-untermain.de"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sven Zöller — Sicherheitstrainer | safe-untermain.de",
+    default: ROOT_TITLE,
     template: "%s — Sven Zöller | safe-untermain.de",
   },
-  description:
-    "Anti-Aggression, Deeskalation und Gewaltprävention — praxisnah, direkt, wirksam. Zertifizierter Sicherheitstrainer mit 20+ Jahren THW-Erfahrung und Krav Maga Zertifizierung.",
-  openGraph: {
-    type: "website",
-    locale: "de_DE",
-    siteName: "SAFE Aggressionsmanagement — Sven Zöller",
-    // PNG, not WebP: link unfurlers (WhatsApp, LinkedIn, Twitter) still handle WebP unreliably
-    images: [{ url: "/sven-og.png", alt: "Sven Zöller — Sicherheitstrainer" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    images: ["/sven-og.png"],
-  },
+  description: ROOT_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: "Sven Zöller", url: SITE_URL }],
+  creator: "Sven Zöller",
+  publisher: SITE_NAME,
+  category: "Sicherheitstraining",
+  // Safari linkt Ziffernfolgen sonst eigenmächtig als Telefonnummern — u.a. die
+  // Koordinaten im Footer und PLZ im Impressum.
+  formatDetection: { telephone: false, address: false, email: false },
+  alternates: { canonical: "/" },
+  keywords: [
+    "Anti-Aggressionstraining",
+    "Deeskalationstraining",
+    "Gewaltprävention",
+    "Sicherheitstrainer Obernburg",
+    "Sicherheitstrainer Aschaffenburg",
+    "Aggressionsmanagement",
+    "Selbstbehauptungstraining",
+    "Selbstverteidigungskurs",
+    "Krav Maga RSC",
+    "Konflikttraining Unternehmen",
+    "Sicherheitstraining Bayern",
+    "Sicherheitstraining Hessen",
+    "Bayerischer Untermain",
+  ],
+  // PNG, not WebP: link unfurlers (WhatsApp, LinkedIn, Twitter) still handle WebP unreliably
+  openGraph: pageOpenGraph({
+    path: "/",
+    title: ROOT_TITLE,
+    description: ROOT_DESCRIPTION,
+  }),
+  twitter: pageTwitter({ title: ROOT_TITLE, description: ROOT_DESCRIPTION }),
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
+  // Bestätigungs-Token aus der Google Search Console hier eintragen, sobald
+  // die Property angelegt ist (Alternative: DNS-TXT-Record).
+  // verification: { google: "<token>" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#151412",
 };
 
 export default function RootLayout({
@@ -56,6 +101,12 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${ibmPlexSans.variable} antialiased`}
     >
       <body className="overflow-x-hidden">
+        {/* Sitewide-Entitätengraph: Person, LocalBusiness und WebSite genau
+            einmal ausgeliefert. Seiten referenzieren die Knoten per @id, statt
+            sie zu duplizieren — konkurrierende Definitionen derselben Entität
+            lassen Google raten, welche gilt. */}
+        <JsonLd data={siteGraphJsonLd} />
+
         {/* FadeImage reveals each image once decoded, which needs JS. Without it they
             would stay at opacity 0 forever, so unhide them wholesale. */}
         <noscript>

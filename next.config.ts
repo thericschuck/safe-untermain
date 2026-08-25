@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Allows loading the dev server's JS from the LAN IP (e.g. testing on a phone).
+  // Without this, Next.js blocks cross-origin _next/* requests in dev, so the page
+  // never hydrates on other devices — it looks static and nothing is clickable.
+  allowedDevOrigins: ["192.168.2.100"],
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [50, 60, 75],

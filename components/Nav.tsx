@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 
 const leistungenItems = [
@@ -95,7 +96,7 @@ export default function Nav() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-        scrolled
+        scrolled || menuOpen
           ? "bg-ink/95 backdrop-blur-md shadow-[0_1px_0_rgba(255,255,255,0.05)]"
           : "bg-linear-to-b from-ink/60 to-transparent"
       }`}
@@ -103,7 +104,7 @@ export default function Nav() {
       {/* ── Metallic crosshatch — fades in on scroll ── */}
       <div
         className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
-          scrolled ? "opacity-100" : "opacity-0"
+          scrolled || menuOpen ? "opacity-100" : "opacity-0"
         }`}
         style={{ backgroundImage: CROSSHATCH }}
       />
@@ -112,9 +113,9 @@ export default function Nav() {
 
         {/* ── Logo ── */}
         <Link href="/" className="shrink-0 leading-none">
-          <span className="font-display text-2xl lg:text-3xl tracking-[0.32em] text-paper uppercase">
-            SAFE
-          </span>
+          {/* width/height set the intrinsic 1255:650 aspect ratio; className drives the
+              actual rendered size. Next treats .svg src as unoptimized automatically. */}
+          <Image src="/logo.svg" alt="SAFE Aggressionsmanagement — Sven Zöller" width={1255} height={650} className="h-7 lg:h-8 w-auto" loading="eager" />
         </Link>
 
         {/* ── Desktop nav ── */}
@@ -133,7 +134,7 @@ export default function Nav() {
             onMouseLeave={scheduleClose}
           >
             {/* Click navigates to the section; hover opens dropdown */}
-            <Link href="/#leistungen" className="relative inline-block group">
+            <Link href="/leistungen" className="relative inline-block group">
               <span className="relative z-10 flex items-center gap-1.5 font-display text-[19px] tracking-[0.14em] uppercase text-paper group-hover:text-paper transition-colors duration-300 py-2 px-4">
                 Leistungen
                 <svg
@@ -202,7 +203,7 @@ export default function Nav() {
 
       {/* ── Mobile menu ── */}
       {menuOpen && (
-        <div className="lg:hidden bg-ink/98 backdrop-blur-md border-t border-paper/8">
+        <div className="lg:hidden bg-ink/98 backdrop-blur-md border-t border-paper/8 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain">
           <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col">
             {mainLinks.slice(0, 3).map((l) => (
               <Link key={l.label} href={l.href} onClick={() => setMenuOpen(false)}
@@ -215,7 +216,7 @@ export default function Nav() {
             <div className="border-b border-paper/8">
               <div className="flex items-center">
                 <Link
-                  href="/#leistungen"
+                  href="/leistungen"
                   onClick={() => setMenuOpen(false)}
                   className="font-display text-base tracking-[0.16em] uppercase text-paper hover:text-rot py-4 flex-1 transition-colors"
                 >

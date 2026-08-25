@@ -83,13 +83,11 @@ function benachrichtigung({ name, email, telefon, interesse, nachricht }: Kontak
     ["Telefon", telefon || "–"],
   ] as const;
 
-  const emailLink = `<a href="mailto:${esc(email)}" style="color:#C0512C;text-decoration:none;">${esc(email)}</a>`;
-
   const tabellenzeilen = felder
     .map(([label, value]) => `
       <tr>
         <td style="padding:11px 0;border-bottom:1px solid #2a2826;font-family:monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#555;width:90px;vertical-align:top;">${label}</td>
-        <td style="padding:11px 0;border-bottom:1px solid #2a2826;font-size:14px;color:#F2EDE8;">${label === "E-Mail" ? emailLink : esc(value)}</td>
+        <td style="padding:11px 0;border-bottom:1px solid #2a2826;font-size:14px;color:#F2EDE8;">${esc(value)}</td>
       </tr>`)
     .join("");
 
@@ -163,12 +161,18 @@ export async function POST(req: Request) {
     rateLimitMap.set(ip, Date.now());
 
     await Promise.all([
+      // "noreply@" is a known spam-filter signal for recipients we don't control, so this one
+      // — going to whichever inbox the lead used — stays on kontakt@ to avoid that red flag.
       resend.emails.send({
-        from: "SAFE Aggressionsmanagement <noreply@safe-untermain.de>",
+        from: "SAFE Aggressionsmanagement <kontakt@safe-untermain.de>",
         to: email,
+        replyTo: "info@safe-untermain.de",
         subject: "Ihre Anfrage ist eingegangen — SAFE Aggressionsmanagement",
         html: bestaetigung({ name, interesse, nachricht }),
       }),
+      // This one always lands in info@safe-untermain.de, a mailbox we do control — a Sieve
+      // rule there whitelists mail from @safe-untermain.de regardless of sender name, so
+      // "noreply@" is safe here and keeps the original sender identity.
       resend.emails.send({
         from: "Kontaktformular <noreply@safe-untermain.de>",
         to: "info@safe-untermain.de",

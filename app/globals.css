@@ -69,18 +69,6 @@ body {
   }
 }
 
-/* Hero: mobile-only stronger paper gradient for text readability over eye image.
-   Defined here (not inline JS) to protect the stop percentages from JS formatters. */
-.hero-mobile-overlay {
-  background: linear-gradient(to right,
-      rgba(242, 237, 232, 0.97) 0%,
-      rgba(242, 237, 232, 0.88) 38%,
-      rgba(242, 237, 232, 0.45) 62%,
-      transparent 82%);
-  mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);
-}
-
 /* Hero crosshair — pupil position + arm geometry, consumed everywhere via var() */
 :root {
   --ch-x: 85%;

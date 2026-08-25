@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(nslookup -type=MX safe-untermain.de)",
+      "Bash(nslookup -type=TXT safe-untermain.de)",
+      "Bash(nslookup -type=TXT safe-untermain.de 8.8.8.8)",
+      "Bash(nslookup -type=TXT _dmarc.safe-untermain.de 8.8.8.8)",
+      "Bash(tasklist //FI \"IMAGENAME eq node.exe\" //FO CSV)",
+      "Bash(netstat -ano)",
+      "Bash(awk '{print $2}')",
+      "Bash(read p *)",
+      "Bash(tasklist //FI 'PID eq __TRACKED_VAR__' //FO CSV)",
+      "PowerShell(Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue | Where-Object { $_.LocalPort -ge 3000 -and $_.LocalPort -le 3200 } | Select-Object LocalPort, OwningProcess | ForEach-Object { $_.LocalPort; \\(Get-Process -Id $_.OwningProcess -ErrorAction SilentlyContinue\\).ProcessName })",
+      "PowerShell(Get-CimInstance Win32_Process -Filter \"Name='node.exe'\")",
+      "PowerShell(Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue | Where-Object { $_.LocalPort -in 3000,3001 } | Select-Object LocalPort, OwningProcess)"
+    ]
+  }
+}
